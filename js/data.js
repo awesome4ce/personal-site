@@ -29,6 +29,7 @@ window.SITE = {
   /* ---------------- WORK ---------------- */
   education: {
     school: "Stanford University",
+    logo: "stanford.edu",
     degree: "B.S. Data Science, Concentration in Quantitative Finance",
     dates: "Expected Jun. 2029",
     details: [
@@ -40,6 +41,7 @@ window.SITE = {
   experience: [
     {
       company: "JLL",
+      logo: "jll.com", // company website, used to show its logo
       role: "Incoming Capital Markets Summer Analyst",
       location: "San Francisco, CA",
       dates: "Jun. – Aug. 2027",
@@ -47,6 +49,7 @@ window.SITE = {
     },
     {
       company: "ACORE Capital",
+      logo: "acorecapital.com", // company website, used to show its logo
       role: "Summer Analyst",
       location: "Los Angeles, CA",
       dates: "Jun. – Aug. 2026",
@@ -59,6 +62,7 @@ window.SITE = {
     },
     {
       company: "Bregal Sagemount",
+      logo: "sagemount.com", // company website, used to show its logo
       role: "Spring Analyst",
       location: "Palo Alto, CA",
       dates: "Apr. – May 2026",
@@ -69,6 +73,7 @@ window.SITE = {
     },
     {
       company: "NAIOP Silicon Valley University Challenge",
+      logo: "naiop.org", // company website, used to show its logo
       role: "Student Developer",
       location: "Palo Alto, CA",
       dates: "Dec. 2025 – Mar. 2026",
@@ -79,6 +84,7 @@ window.SITE = {
     },
     {
       company: "Los Angeles Rams",
+      logo: "therams.com", // company website, used to show its logo
       role: "Summer Data Analyst",
       location: "Los Angeles, CA",
       dates: "Jul. – Aug. 2024",
@@ -86,6 +92,7 @@ window.SITE = {
     },
     {
       company: "Cimulate (acquired by Salesforce, 2026)",
+      logo: "cimulate.ai", // company website, used to show its logo
       role: "AI Engineering Intern",
       location: "Los Angeles, CA",
       dates: "Jun. – Jul. 2024",

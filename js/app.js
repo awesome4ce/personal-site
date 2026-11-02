@@ -42,6 +42,10 @@
     });
     return `<div class="gallery ${cls}">${colsHtml.map((c) => `<div class="gcol">${c.join("")}</div>`).join("")}</div>`;
   };
+  // company logo from its website's icon; falls back to an initials badge if it can't load
+  const initials = (name) => name.replace(/\(.*?\)/g, "").split(/\s+/).filter((w) => /^[A-Z]/.test(w)).slice(0, 2).map((w) => w[0]).join("");
+  const logo = (name, domain, size = "") => `<span class="logo ${size}" data-i="${esc(initials(name))}">${domain
+    ? `<img src="https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=128" alt="" loading="lazy" onerror="this.remove()">` : ""}</span>`;
   const header = (title, sub, aside = "") => {
     const t = TABS.find((x) => x.label.startsWith(title.split(" ")[0]));
     return `<div class="page-head">${t ? `<span class="page-suit ${isRed(t.suit) ? "red" : ""}">${t.suit}</span>` : ""}<div><h1 class="page-title">${esc(title)}</h1><p class="page-sub">${esc(sub)}</p>${aside ? `<p class="aside">${esc(aside)}</p>` : ""}</div></div>`;
@@ -81,7 +85,7 @@
           <p class="eyebrow">${suit("♥")}Experience</p>
           <ul class="exp-list">
             ${S.experience.slice(0, 4).map((e) => `
-              <li><div><h4>${esc(e.company)}</h4><div class="role">${esc(e.role)}</div></div><div class="when">${esc(e.dates)}</div></li>`).join("")}
+              <li>${logo(e.company, e.logo, "sm")}<div class="exp-main"><h4>${esc(e.company)}</h4><div class="role">${esc(e.role)}</div></div><div class="when">${esc(e.dates)}</div></li>`).join("")}
           </ul>
           <a class="more" href="#work">Full experience →</a>
         </div>
@@ -94,8 +98,7 @@
           <li>
             <div class="when">${esc(e.dates)}<br>${esc(e.location)}</div>
             <div>
-              <h3>${esc(e.company)}</h3>
-              <p class="role">${esc(e.role)}</p>
+              <div class="co">${logo(e.company, e.logo)}<div><h3>${esc(e.company)}</h3><p class="role">${esc(e.role)}</p></div></div>
               ${e.bullets.length ? `<ul>${e.bullets.map((b) => `<li>${esc(b)}</li>`).join("")}</ul>` : ""}
             </div>
           </li>`).join("")}
@@ -104,7 +107,7 @@
       <section class="grid-2">
         <div class="card">
           <p class="eyebrow">${suit("♦")}Education</p>
-          <h3>${esc(S.education.school)}</h3>
+          <div class="co">${logo(S.education.school, S.education.logo)}<h3>${esc(S.education.school)}</h3></div>
           <p class="role">${esc(S.education.degree)}</p>
           <p class="meta">${esc(S.education.dates)}</p>
           <ul>${S.education.details.map((d) => `<li>${esc(d)}</li>`).join("")}</ul>
@@ -154,14 +157,17 @@
       const list = [...S.eats].sort((a, b) => b.score - a.score);
       const tone = (s) => (s >= 8.5 ? "hi" : s >= 7 ? "mid" : "lo");
       return `
-      ${header("Eats", "Almost 200 places logged on Beli. Here are my top 12. Big sushi guy.", "AI can do a lot of things. It can't eat, and it definitely doesn't have my palate.")}
-      <div class="pills" style="margin:0 0 40px"><a class="pill" href="${esc(S.beli)}" target="_blank" rel="noopener">follow me on beli ↗</a></div>
+      ${header("Eats", "Almost 200 places logged on Beli. Here are my top 12. Big sushi guy.", "AI can do a lot. It can't taste.")}
+      <div class="pills" style="margin:0 0 40px"><a class="pill" href="${esc(S.beli)}" target="_blank" rel="noopener">follow me on beli ↗</a><button class="pill" id="rain">🍣 make it rain</button></div>
       <ol class="beli">
         ${list.map((e, i) => `
           <li>
             <span class="rank">${i + 1}</span>
             <div><h4>${esc(e.name)}</h4><p class="meta">${esc(e.cuisine)} · ${esc(e.city)}</p>${e.order ? `<p class="order">Order: ${esc(e.order)}</p>` : ""}</div>
-            <span class="score ${tone(e.score)}">${Number(e.score).toFixed(1)}</span>
+            <span class="score ${tone(e.score)}" style="--p:${Math.max(0, Math.min(1, e.score / 10))}">
+              <svg viewBox="0 0 54 54" aria-hidden="true"><circle class="trk" cx="27" cy="27" r="24"/><circle class="arc" cx="27" cy="27" r="24"/></svg>
+              <b>${Number(e.score).toFixed(1)}</b>
+            </span>
           </li>`).join("")}
       </ol>
 `;
@@ -201,7 +207,32 @@
     },
   };
 
+  // 🍣 a short burst of falling sushi (Eats page)
+  const SUSHI = ["🍣", "🍣", "🍣", "🍙", "🍤", "🍱", "🥢", "🐟"];
+  function sushiRain(n = 34) {
+    if (reduceMotion) return;
+    const box = document.createElement("div");
+    box.className = "sushi-rain";
+    for (let i = 0; i < n; i++) {
+      const el = document.createElement("span");
+      el.textContent = SUSHI[(Math.random() * SUSHI.length) | 0];
+      el.style.left = `${Math.random() * 100}vw`;
+      el.style.fontSize = `${22 + Math.random() * 26}px`;
+      el.style.animationDuration = `${2.4 + Math.random() * 1.8}s`;
+      el.style.animationDelay = `${Math.random() * 1.4}s`;
+      el.style.setProperty("--spin", `${(Math.random() * 2 - 1) * 540}deg`);
+      el.style.setProperty("--drift", `${(Math.random() * 2 - 1) * 60}px`);
+      box.appendChild(el);
+    }
+    document.body.appendChild(box);
+    setTimeout(() => box.remove(), 5000);
+  }
+
   const after = {
+    eats: () => {
+      setTimeout(() => sushiRain(), 250);
+      $("#rain").addEventListener("click", () => sushiRain());
+    },
     reads: () => {
       const card = $("#qcard");
       const btn = $("#deal");
