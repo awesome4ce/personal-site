@@ -179,7 +179,7 @@
             <div class="qcard-front"><span class="ix" id="q-ix">A<br>♠</span><blockquote id="q-text"></blockquote><cite id="q-by"></cite></div>
           </div></div>
         </div>
-        <div class="deal-copy"><p>Can't decide? Let the shoe pick one.</p><button class="pill solid" id="deal">Deal a quote</button></div>
+        <div class="deal-copy"><p>One card from the shoe. Your move.</p><button class="pill solid deal-btn" id="deal">Flip it over</button></div>
       </div>
       <ul class="quotes">
         ${S.quotes.map((q) => `<li class="quote"><figure><blockquote>“${esc(q.text)}”</blockquote>${q.author ? `<figcaption>— ${esc(q.author)}</figcaption>` : ""}${q.note ? `<p class="qnote">${esc(q.note)}</p>` : ""}</figure></li>`).join("")}
@@ -204,9 +204,10 @@
   const after = {
     reads: () => {
       const card = $("#qcard");
+      const btn = $("#deal");
       const ranks = ["A", "K", "Q", "J", "10", "9"];
-      let last = -1, first = true;
-      let busy = false;
+      let last = -1, first = true, busy = false, faceUp = false;
+      // deal a new card out of the shoe, face DOWN
       const deal = () => {
         if (busy) return; busy = true;
         let i; do { i = (Math.random() * S.quotes.length) | 0; } while (S.quotes.length > 1 && i === last);
@@ -218,18 +219,27 @@
           ix.className = "ix" + (isRed(s) ? " red" : "");
           $("#q-text").textContent = `“${S.quotes[i].text}”`;
           $("#q-by").textContent = S.quotes[i].author ? `— ${S.quotes[i].author}` : "";
-          card.className = "qcard";            // reset: face down, back in the shoe
+          card.className = "qcard";
           void card.offsetWidth;
-          card.classList.add("dealing");       // slide out of the shoe + pop
-          setTimeout(() => card.classList.add("flipped"), 750);   // reveal
-          setTimeout(() => (busy = false), 1350);
+          card.classList.add("dealing");
+          faceUp = false;
+          btn.textContent = "Flip it over";
+          setTimeout(() => (busy = false), 750);
         };
         if (first) { first = false; go(); return; }
-        card.classList.add("toss");            // old card leaves first
+        card.classList.add("toss");
         setTimeout(go, 280);
       };
-      $("#deal").addEventListener("click", deal);
-      card.addEventListener("click", deal);
+      // reveal the card that's on the table
+      const flip = () => {
+        if (busy || faceUp) return;
+        card.classList.add("flipped");
+        faceUp = true;
+        btn.textContent = "Deal another";
+      };
+      const next = () => (faceUp ? deal() : flip());
+      btn.addEventListener("click", next);
+      card.addEventListener("click", next);
       setTimeout(deal, 300);
 
       $("#filters").addEventListener("click", (e) => {
