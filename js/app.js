@@ -49,24 +49,27 @@
     ? `<img src="https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=128" alt="" loading="lazy" onerror="this.remove()">` : ""}</span>`;
   // Home background: running averages of noisy bets converging on their expected value (law of large numbers)
   function evBackground() {
-    let seed = 7;
+    // +EV bankroll paths: each bet is noisy, but the expected value (dashed line) trends up.
+    let seed = 11;
     const rand = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
-    const W = 1600, H = 420, mid = H * 0.52, n = 260, paths = [];
-    for (let k = 0; k < 13; k++) {
-      let sum = 0, d = "";
-      const j0 = 2;                                                 // skip the very first (spikiest) bets
-      for (let j = 1; j <= n; j++) {
-        const draw = (rand() + rand() + rand() - 1.5) * 2.2;      // noisy outcome, mean 0 (= EV)
-        sum += draw;
-        if (j < j0) continue;
-        const x = Math.pow((j - j0) / (n - j0), 0.8) * W;
-        const y = mid - (sum / j) * 115;
-        d += `${j === j0 ? "M" : "L"}${x.toFixed(1)},${Math.max(10, Math.min(H - 10, y)).toFixed(1)}`;
+    const W = 1600, H = 420, n = 200;
+    const y0 = H * 0.80, y1 = H * 0.22;                       // EV line: bottom-left -> top-right
+    const evY = (x) => y0 + (y1 - y0) * (x / W);
+    const paths = [];
+    for (let k = 0; k < 6; k++) {
+      let dev = 0, d = "";
+      for (let j = 0; j <= n; j++) {
+        if (j) dev += (rand() + rand() + rand() - 1.5) * 6.5;  // luck: random swings around EV
+        const x = (j / n) * W;
+        const y = evY(x) - dev;
+        d += `${j ? "L" : "M"}${x.toFixed(1)},${Math.max(6, Math.min(H - 6, y)).toFixed(1)}`;
       }
-      paths.push(`<path class="${k === 4 ? "hot" : ""}" d="${d}" pathLength="1" style="animation-delay:${(k * 0.12).toFixed(2)}s"/>`);
+      paths.push(`<path class="${k === 2 ? "hot" : ""}" d="${d}" pathLength="1" style="animation-delay:${(k * 0.18).toFixed(2)}s"/>`);
     }
+    // where the EV line meets each screen edge (as a fraction of the graphic's height) for the caption
+    evBackground.edges = { left: y0 / H, right: y1 / H };
     return `<svg class="ev-bg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">
-      <line class="ev-line" x1="0" y1="${mid}" x2="${W}" y2="${mid}"/>
+      <line class="ev-line" x1="0" y1="${y0}" x2="${W}" y2="${y1}"/>
       ${paths.join("")}
     </svg>`;
   }
@@ -81,7 +84,7 @@
     home: () => `
       <div class="hero-wrap" id="hero-wrap">
       ${evBackground()}
-      <div class="ev-tip" aria-hidden="true"><i>EV</i> · volume negates luck</div>
+      <div class="ev-tip" aria-hidden="true" style="--yl:${evBackground.edges.left};--yr:${evBackground.edges.right}"><span class="ev-dash"></span><i>EV</i> · volume negates luck</div>
       <section class="table">
 
         <div class="table-text">
