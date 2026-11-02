@@ -146,19 +146,17 @@
       const list = [...S.eats].sort((a, b) => b.score - a.score);
       const tone = (s) => (s >= 8.5 ? "hi" : s >= 7 ? "mid" : "lo");
       return `
-      ${header("Eats", "Where I actually go. Ranked, Beli-style.")}
+      ${header("Eats", "Over 200 places logged on Beli. Here are my top 12. Big sushi guy.")}
       <div class="pills" style="margin:-24px 0 40px"><a class="pill" href="${esc(S.beli)}" target="_blank" rel="noopener">follow me on beli ↗</a></div>
       <ol class="beli">
         ${list.map((e, i) => `
           <li>
             <span class="rank">${i + 1}</span>
-            <div><h4>${esc(e.name)}</h4><p class="meta">${e.price ? esc(e.price) + " · " : ""}${esc(e.cuisine)} · ${esc(e.city)}</p>${e.order ? `<p class="order">Order: ${esc(e.order)}</p>` : ""}</div>
+            <div><h4>${esc(e.name)}</h4><p class="meta">${esc(e.cuisine)} · ${esc(e.city)}</p>${e.order ? `<p class="order">Order: ${esc(e.order)}</p>` : ""}</div>
             <span class="score ${tone(e.score)}">${Number(e.score).toFixed(1)}</span>
           </li>`).join("")}
       </ol>
-      <hr class="rule">
-      <h2 class="sec-title">${suit("♦")}From the app</h2>
-      <div class="tiles screens">${S.beliScreens.map((s, i) => tile(s, `screenshot ${i + 1}`)).join("")}</div>`;
+`;
     },
 
     reads: () => {
@@ -176,7 +174,7 @@
         <div class="deal-copy"><p>Can't decide? Let the shoe pick one.</p><button class="pill solid" id="deal">Deal a quote</button></div>
       </div>
       <ul class="quotes">
-        ${S.quotes.map((q) => `<li class="quote"><figure><blockquote>“${esc(q.text)}”</blockquote><figcaption>— ${esc(q.author)}</figcaption></figure></li>`).join("")}
+        ${S.quotes.map((q) => `<li class="quote"><figure><blockquote>“${esc(q.text)}”</blockquote>${q.author ? `<figcaption>— ${esc(q.author)}</figcaption>` : ""}</figure></li>`).join("")}
       </ul>
       <hr class="rule">
       <h2 class="sec-title">${suit("♣")}Reads</h2>
@@ -211,7 +209,7 @@
           ix.innerHTML = `${ranks[(Math.random() * ranks.length) | 0]}<br>${s}`;
           ix.className = "ix" + (isRed(s) ? " red" : "");
           $("#q-text").textContent = `“${S.quotes[i].text}”`;
-          $("#q-by").textContent = `— ${S.quotes[i].author}`;
+          $("#q-by").textContent = S.quotes[i].author ? `— ${S.quotes[i].author}` : "";
           card.className = "qcard";            // reset: face down, back in the shoe
           void card.offsetWidth;
           card.classList.add("dealing");       // slide out of the shoe + pop

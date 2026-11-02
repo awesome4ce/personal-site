@@ -8,18 +8,17 @@
 window.SITE = {
   name: "Ethan Seung",
   eyebrow: "Stanford · Data Science · Quant Finance",
-  headshot: "", // e.g. "photos/headshot.jpg"  // PLACEHOLDER
+  headshot: "photos/headshot.jpg",
   email: "eseung@stanford.edu",
   linkedin: "https://www.linkedin.com/in/ethan-seung",
   resume: "assets/resume.pdf",
-  beli: "https://beliapp.com/", // PLACEHOLDER — your Beli profile link
+  beli: "https://beliapp.co/app/ethanseung",
 
   /* ---------------- ABOUT ---------------- */
   intro: [
-    // PLACEHOLDER — rewrite in your own voice
     // Wrap words in **double asterisks** to bold them.
-    "I study data science and quantitative finance at **Stanford**. Most of my work so far has been in **real estate credit and capital markets**: underwriting loans, modeling cash flows, and building tools that make diligence faster.",
-    "Outside of that I'm usually **on a bike** (Stanford Cycling), on a mountain when there's snow, or at a poker table.",
+    "I'm a **problem-solving junkie**. It started with hunting for edges in **chess and poker**: spotting where information is asymmetric or missing, and figuring out how to use it. I love any excuse to **flex some creativity**.",
+    "When I'm not doing that, I'm usually **on a bike**, chasing powder, or on a volleyball court.",
   ],
   now: [
     "Incoming Capital Markets Summer Analyst at JLL (SF, summer 2027)",
@@ -176,23 +175,23 @@ window.SITE = {
   // score is out of 10 like Beli. Sorted automatically, highest first.
   eats: [
     // From my Beli "Been" list. Add `order: "..."` to any spot to show what to get.
-    { name: "J'ai la patate", city: "Hokkaido, Japan", cuisine: "French, Japanese", price: "¥¥¥¥", score: 10.0 },
-    { name: "The Brothers Sushi", city: "Santa Monica, CA", cuisine: "Sushi", price: "$$$$", score: 10.0 },
-    { name: "SANGHYUN", city: "Seoul, South Korea", cuisine: "Omakase", price: "₩₩₩₩", score: 9.9 },
-    { name: "Kuni Sushi", city: "Sapporo, Japan", cuisine: "Omakase", price: "¥¥¥", score: 9.9 },
-    { name: "Ristorante L'Escale", city: "Tremezzina, Italy", cuisine: "Italian, Wine Bar", price: "€€€€", score: 9.9 },
-    { name: "Farmshop", city: "Brentwood, CA", cuisine: "American", price: "$$$", score: 9.8 },
-    { name: "Matu Kai", city: "Brentwood, CA", cuisine: "Steakhouse", price: "$$$$", score: 9.8 },
-    { name: "Robin", city: "Menlo Park, CA", cuisine: "Omakase", price: "$$$$", score: 9.8 },
-    { name: "Nozawa Bar", city: "Beverly Hills, CA", cuisine: "Omakase", price: "$$$$", score: 9.8 },
-    { name: "yeobo, darling", city: "Menlo Park, CA", cuisine: "Korean, Taiwanese", price: "$$$$", score: 9.7 },
-    { name: "The Mulberry", city: "Sawtelle, LA", cuisine: "Korean", price: "$$$$", score: 9.7 },
-    { name: "White House Tavern", city: "Aspen, CO", cuisine: "Burgers, Sandwiches", price: "$$", score: 9.7 },
+    { name: "J'ai la patate", city: "Hokkaido, Japan", cuisine: "French, Japanese", score: 10.0 },
+    { name: "The Brothers Sushi", city: "Santa Monica, CA", cuisine: "Sushi", score: 10.0 },
+    { name: "SANGHYUN", city: "Seoul, South Korea", cuisine: "Omakase", score: 9.9 },
+    { name: "Kuni Sushi", city: "Sapporo, Japan", cuisine: "Omakase", score: 9.9 },
+    { name: "Ristorante L'Escale", city: "Tremezzina, Italy", cuisine: "Italian, Wine Bar", score: 9.9 },
+    { name: "Farmshop", city: "Brentwood, CA", cuisine: "American", score: 9.8 },
+    { name: "Matu Kai", city: "Brentwood, CA", cuisine: "Steakhouse", score: 9.8 },
+    { name: "Robin", city: "Menlo Park, CA", cuisine: "Omakase", score: 9.8 },
+    { name: "Nozawa Bar", city: "Beverly Hills, CA", cuisine: "Omakase", score: 9.8 },
+    { name: "yeobo, darling", city: "Menlo Park, CA", cuisine: "Korean, Taiwanese", score: 9.7 },
+    { name: "The Mulberry", city: "Sawtelle, LA", cuisine: "Korean", score: 9.7 },
+    { name: "White House Tavern", city: "Aspen, CO", cuisine: "Burgers, Sandwiches", score: 9.7 },
   ],
-  beliScreens: ["photos/beli-1.jpg", "photos/beli-2.jpg", "photos/beli-3.jpg"],
 
   /* ---------------- QUOTES ---------------- */
   quotes: [
+    { text: "Life is a train that stops for no one.", author: "" },
     // PLACEHOLDER — swap in your own favorites
     { text: "Risk comes from not knowing what you're doing.", author: "Warren Buffett" },
     { text: "All models are wrong, but some are useful.", author: "George Box" },
