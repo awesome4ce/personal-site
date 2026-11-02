@@ -183,14 +183,32 @@ window.SITE = {
   ],
 
   /* ---------------- QUOTES ---------------- */
+  // `note` is my one-line take (optional). Leave author "" if unknown.
   quotes: [
-    { text: "Life is a train that stops for no one.", author: "" },
-    // PLACEHOLDER — swap in your own favorites
-    { text: "Risk comes from not knowing what you're doing.", author: "Warren Buffett" },
-    { text: "All models are wrong, but some are useful.", author: "George Box" },
-    { text: "In the short run, the market is a voting machine but in the long run, it is a weighing machine.", author: "Benjamin Graham" },
-    { text: "It never gets easier, you just go faster.", author: "Greg LeMond" },
-    { text: "Luck is what happens when preparation meets opportunity.", author: "Seneca (attributed)" },
+    { text: "Life is a train that stops for no one.", author: "",
+      note: "Hit home when I lost my home in the Palisades fire and still had to finish school, move, and get through college interviews. The world doesn't pause, so you don't either." },
+    { text: "It always seems impossible until it's done.", author: "Nelson Mandela",
+      note: "Every long ride, every hard semester. True every time." },
+    { text: "I trained four years to run nine seconds.", author: "Usain Bolt",
+      note: "The result is the small, visible part. The reps nobody sees are the real work." },
+    { text: "Don't practice until you get it right. Practice until you can't get it wrong.", author: "",
+      note: "" },
+    { text: "There is no tomorrow!", author: "Apollo Creed, Rocky III",
+      note: "" },
+    { text: "Stay gold, Ponyboy.", author: "Johnny Cade, The Outsiders",
+      note: "" },
+    { text: "Go be a fucking dawg.", author: "",
+      note: "" },
+    { text: "Risk comes from not knowing what you're doing.", author: "Warren Buffett",
+      note: "Poker taught me this one: risk isn't the bet, it's betting without an edge." },
+    { text: "The biggest risk is not taking any risk.", author: "Mark Zuckerberg",
+      note: "" },
+    { text: "You miss 100% of the shots you don't take.", author: "Wayne Gretzky",
+      note: "" },
+    { text: "Fortune favors the bold.", author: "Virgil",
+      note: "" },
+    { text: "It never gets easier, you just go faster.", author: "Greg LeMond",
+      note: "Mile 120 of a century says hi." },
   ],
 
   /* ---------------- READS ---------------- */

@@ -170,7 +170,7 @@
     reads: () => {
       const tags = [...new Set(S.reads.flatMap((r) => [r.type === "book" ? "books" : "articles", ...r.tags]))];
       return `
-      ${header("Quotes & Reads", "Lines I keep coming back to, and things worth your time.")}
+      ${header("Quotes & Reads", "Keep moving when life won't wait, put in the reps nobody sees, and take the good bets. Plus a few reads worth your time.")}
       <div class="deal-area">
         <div class="deal-stage">
           <div class="shoe" aria-hidden="true"><span class="shoe-cards"></span><span class="shoe-mouth"></span></div>
@@ -182,7 +182,7 @@
         <div class="deal-copy"><p>Can't decide? Let the shoe pick one.</p><button class="pill solid" id="deal">Deal a quote</button></div>
       </div>
       <ul class="quotes">
-        ${S.quotes.map((q) => `<li class="quote"><figure><blockquote>“${esc(q.text)}”</blockquote>${q.author ? `<figcaption>— ${esc(q.author)}</figcaption>` : ""}</figure></li>`).join("")}
+        ${S.quotes.map((q) => `<li class="quote"><figure><blockquote>“${esc(q.text)}”</blockquote>${q.author ? `<figcaption>— ${esc(q.author)}</figcaption>` : ""}${q.note ? `<p class="qnote">${esc(q.note)}</p>` : ""}</figure></li>`).join("")}
       </ul>
       <hr class="rule">
       <h2 class="sec-title">${suit("♣")}Reads</h2>
