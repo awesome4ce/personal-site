@@ -169,7 +169,7 @@ window.SITE = {
     { place: "Yosemite", region: "Horsetail Fall", img: "photos/yosemite-firefall.jpg" },
     { place: "Bürgenstock", region: "Switzerland", img: "photos/swiss-lake.jpg" },
     { place: "Jungfrau", region: "Switzerland", img: "photos/swiss-lake-reflection.jpg" },
-    { place: "San Gregorio State Beach", region: "", img: "photos/coast-sea-cave.jpg" },
+    { place: "Half Moon Bay", region: "", img: "photos/coast-sea-cave.jpg" },
     { place: "Wengen", region: "Switzerland", img: "photos/swiss-hillside.jpg" },
   ],
 
