@@ -344,3 +344,4 @@ figcaption span { color: var(--muted); margin-left: 6px; }
 .beli.top li.extra { display: none; }
 .beli.top.open li.extra { display: grid; }
 .see-more { margin-top: 20px; }
+.rule.rule-lg { margin: 64px 0 44px; }

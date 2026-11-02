@@ -209,7 +209,7 @@
       <ol class="beli top" id="beli-top">${list.map((e, i) => row(e, i + 1, i >= 6 ? "extra" : "")).join("")}</ol>
       ${list.length > 6 ? `<button class="pill see-more" id="see-more">See all ${list.length} ↓</button>` : ""}
       ${S.eatsWorst?.length ? `
-      <hr class="rule">
+      <hr class="rule rule-lg">
       <h2 class="sec-title">${suit("♣")}And the ones I'd skip<span>bottom of my list</span></h2>
       <ol class="beli worst">${[...S.eatsWorst].sort((a, b) => a.rank - b.rank).map((e) => row(e, e.rank)).join("")}</ol>` : ""}`;
     },
