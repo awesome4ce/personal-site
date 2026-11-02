@@ -151,14 +151,7 @@ window.SITE = {
       { img: "photos/vb-team-ucsb.jpg", caption: "Tournament at UCSB (red jersey)" },
     ],
   },
-  hobbies: [
-    {
-      title: "Chess",
-      sub: "Always down for a game",
-      icon: "♞",
-      text: "Rating, favorite opening, or your chess.com / lichess link.", // PLACEHOLDER
-    },
-  ],
+  hobbies: [],
   travel: [
     // Captions are guesses from the photos. Fix any that are off.
     { place: "Switzerland", region: "Lake day", img: "photos/swiss-lake.jpg" },

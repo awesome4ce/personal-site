@@ -30,7 +30,18 @@
       <polygon points="0,${h} ${line} ${w},${h}" class="elev-fill"/><polyline points="${line}" class="elev-line"/></svg>`;
   }
   // natural-aspect photo for masonry galleries (click to enlarge)
-  const photo = (p) => `<figure>${p.img ? `<div class="tile nat"><img src="${esc(p.img)}" alt="${esc(p.caption || "")}" loading="lazy"></div>` : `<div class="tile ph"><span>add photo</span></div>`}${p.caption ? `<figcaption>${esc(p.caption)}${p.sub ? `<span>${esc(p.sub)}</span>` : ""}</figcaption>` : ""}</figure>`;
+  const photo = (p) => `<figure>${p.img ? `<div class="tile nat" style="aspect-ratio:${ratio(p.img)}"><img src="${esc(p.img)}" alt="${esc(p.caption || "")}" loading="lazy"></div>` : `<div class="tile ph"><span>add photo</span></div>`}${p.caption ? `<figcaption>${esc(p.caption)}${p.sub ? `<span>${esc(p.sub)}</span>` : ""}</figcaption>` : ""}</figure>`;
+  const ratio = (src) => (window.PHOTO_SIZES || {})[src] || 0.75;
+  const gallery = (items, cls = "", cols = 3) => {
+    const colsHtml = Array.from({ length: cols }, () => []);
+    const heights = Array(cols).fill(0);
+    items.forEach((p) => {
+      const c = heights.indexOf(Math.min(...heights));
+      colsHtml[c].push(photo(p));
+      heights[c] += 1 / ratio(p.img) + 0.12;   // + caption allowance
+    });
+    return `<div class="gallery ${cls}">${colsHtml.map((c) => `<div class="gcol">${c.join("")}</div>`).join("")}</div>`;
+  };
   const header = (title, sub) => {
     const t = TABS.find((x) => x.label.startsWith(title.split(" ")[0]));
     return `<div class="page-head">${t ? `<span class="page-suit ${isRed(t.suit) ? "red" : ""}">${t.suit}</span>` : ""}<div><h1 class="page-title">${esc(title)}</h1><p class="page-sub">${esc(sub)}</p></div></div>`;
@@ -120,33 +131,30 @@
             <div class="ride-photos">${r.photos.map((p, i) => tile(p, `${r.name} route`)).join("")}</div>
           </article>`).join("")}
       </div>
-      ${S.bikePhotos?.length ? `<div class="gallery bikes">${S.bikePhotos.map(photo).join("")}</div>` : ""}
+      ${S.bikePhotos?.length ? gallery(S.bikePhotos, "bikes") : ""}
       <hr class="rule">
       <h2 class="sec-title">${suit("♦")}Skiing<span>${esc(S.ski.sub)}</span></h2>
       <p class="lead-line">${esc(S.ski.text)}</p>
-      <div class="gallery">${S.ski.photos.map(photo).join("")}</div>
+      ${gallery(S.ski.photos)}
       <hr class="rule">
       <h2 class="sec-title">${suit("♥")}Volleyball<span>${esc(S.volleyball.sub)}</span></h2>
       <p class="lead-line">${esc(S.volleyball.text)}</p>
-      <div class="gallery">${S.volleyball.photos.map(photo).join("")}</div>
-      <hr class="rule">
-      <div class="grid-2">
-        ${S.hobbies.map((h, i) => `
-          <article class="card">
-            <p class="eyebrow">${suit(h.icon || ["♥", "♣"][i % 2])}${esc(h.sub)}</p>
-            <h3>${esc(h.title)}</h3>
-            <p>${esc(h.text)}</p>
-          </article>`).join("")}
-      </div>
+      ${gallery(S.volleyball.photos)}
+      ${S.hobbies.length ? `<hr class="rule"><div class="grid-2">${S.hobbies.map((h, i) => `
+        <article class="card">
+          <p class="eyebrow">${suit(h.icon || ["♥", "♣"][i % 2])}${esc(h.sub)}</p>
+          <h3>${esc(h.title)}</h3>
+          <p>${esc(h.text)}</p>
+        </article>`).join("")}</div>` : ""}
       <hr class="rule">
       <h2 class="sec-title">${suit("♣")}Places</h2>
-      <div class="gallery">${S.travel.map((t) => photo({ img: t.img, caption: t.place, sub: t.region })).join("")}</div>`,
+      ${gallery(S.travel.map((t) => ({ img: t.img, caption: t.place, sub: t.region })))}`,
 
     eats: () => {
       const list = [...S.eats].sort((a, b) => b.score - a.score);
       const tone = (s) => (s >= 8.5 ? "hi" : s >= 7 ? "mid" : "lo");
       return `
-      ${header("Eats", "Over 200 places logged on Beli. Here are my top 12. Big sushi guy.")}
+      ${header("Eats", "Almost 200 places logged on Beli. Here are my top 12. Big sushi guy.")}
       <div class="pills" style="margin:-24px 0 40px"><a class="pill" href="${esc(S.beli)}" target="_blank" rel="noopener">follow me on beli ↗</a></div>
       <ol class="beli">
         ${list.map((e, i) => `

@@ -5,7 +5,7 @@ A plain HTML, CSS and JS site with no build step.
 ## Editing content
 **Everything lives in `js/data.js`.** Search for `PLACEHOLDER` to find what still needs filling in.
 
-- **Photos:** put them in `photos/` and reference them like `"photos/century-1.jpg"`. An empty `""` shows a styled placeholder tile.
+- **Photos:** put them in `photos/`, then run `python3 tools/photo-sizes.py` (keeps galleries from jumping around while photos load), and reference them like `"photos/century-1.jpg"`. An empty `""` shows a styled placeholder tile.
 - **Headshot:** `headshot: "photos/headshot.jpg"`
 - **Rides:** `miles`, `elevation`, and `profile` (a rough list of elevation numbers that draws the little climb line).
 - **Eats:** Beli scores out of 10. The list sorts itself. Screenshots go in `beliScreens`.
