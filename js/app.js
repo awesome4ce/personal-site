@@ -298,17 +298,12 @@
     });
   }
 
-  // Quote "shoe": a shuffled deck of every quote. Deal through all of them before any repeats,
-  // then reshuffle (never starting the new deck with the quote you just saw).
-  let quoteDeck = [], lastQuote = -1;
-  function nextQuote() {
-    if (!quoteDeck.length) {
-      quoteDeck = S.quotes.map((_, i) => i);
-      for (let i = quoteDeck.length - 1; i > 0; i--) { const j = (Math.random() * (i + 1)) | 0; [quoteDeck[i], quoteDeck[j]] = [quoteDeck[j], quoteDeck[i]]; }
-      if (quoteDeck.length > 1 && quoteDeck[quoteDeck.length - 1] === lastQuote) quoteDeck.unshift(quoteDeck.pop());
-    }
-    return (lastQuote = quoteDeck.pop());
-  }
+  // Quote "shoe": shuffle all the quotes once per visit, then loop through that same order forever.
+  // Every quote comes up once per lap, and the same card can never be dealt twice in a row.
+  const quoteOrder = S.quotes.map((_, i) => i);
+  for (let i = quoteOrder.length - 1; i > 0; i--) { const j = (Math.random() * (i + 1)) | 0; [quoteOrder[i], quoteOrder[j]] = [quoteOrder[j], quoteOrder[i]]; }
+  let quotePos = 0;
+  const nextQuote = () => quoteOrder[quotePos++ % quoteOrder.length];
 
   const after = {
     eats: () => {
