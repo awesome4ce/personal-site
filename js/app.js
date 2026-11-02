@@ -193,8 +193,8 @@
     eats: () => {
       const list = [...S.eats].sort((a, b) => b.score - a.score);
       const tone = (s) => (s >= 7 ? "hi" : s >= 3.5 ? "mid" : "lo");   // Beli-style colors
-      const row = (e, rank) => `
-          <li>
+      const row = (e, rank, cls = "") => `
+          <li class="${cls}">
             <span class="rank">${rank}</span>
             <div><h4>${esc(e.name)}</h4><p class="meta">${esc(e.cuisine)} · ${esc(e.city)}</p>${e.order ? `<p class="order">Order: ${esc(e.order)}</p>` : ""}</div>
             <span class="score ${tone(e.score)}" style="--p:${Math.max(0, Math.min(1, e.score / 10))}">
@@ -203,9 +203,11 @@
             </span>
           </li>`;
       return `
-      ${header("Eats", "Almost 200 places logged on Beli. Here are my top 12. Big sushi guy.", "AI can do a lot. It can't taste.")}
+      ${header("Eats", "Almost 200 places logged on Beli: the best of them, and a few I'd skip. Big sushi guy.", "AI can do a lot. It can't taste.")}
       <div class="pills" style="margin:0 0 40px"><a class="pill" href="${esc(S.beli)}" target="_blank" rel="noopener">follow me on beli ↗</a><button class="pill" id="rain">🍣 make it rain</button></div>
-      <ol class="beli">${list.map((e, i) => row(e, i + 1)).join("")}</ol>
+      <h2 class="sec-title">${suit("♥")}Top of my list</h2>
+      <ol class="beli top" id="beli-top">${list.map((e, i) => row(e, i + 1, i >= 6 ? "extra" : "")).join("")}</ol>
+      ${list.length > 6 ? `<button class="pill see-more" id="see-more">See all ${list.length} ↓</button>` : ""}
       ${S.eatsWorst?.length ? `
       <hr class="rule">
       <h2 class="sec-title">${suit("♣")}And the ones I'd skip<span>bottom of my list</span></h2>
@@ -299,6 +301,12 @@
   const after = {
     eats: () => {
       $("#rain").addEventListener("click", () => sushiRain());
+      const more = $("#see-more");
+      if (more) more.addEventListener("click", () => {
+        const ol = $("#beli-top"), open = ol.classList.toggle("open");
+        more.textContent = open ? "Show top 6 ↑" : `See all ${ol.children.length} ↓`;
+        if (!open) ol.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
     },
     reads: () => {
       const card = $("#qcard");

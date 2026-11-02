@@ -341,3 +341,6 @@ figcaption span { color: var(--muted); margin-left: 6px; }
 .hero-wrap[data-side="left"] .ev-tip { right: auto; left: calc((100% - 100vw) / 2 + 16px); top: calc(-40px + var(--yl) * (100% + 80px) - 40px); }
 .hero-wrap.ev-focus .ev-tip { opacity: 1; transform: none; }
 .beli.worst .rank { color: var(--red); opacity: .7; }
+.beli.top li.extra { display: none; }
+.beli.top.open li.extra { display: grid; }
+.see-more { margin-top: 20px; }
