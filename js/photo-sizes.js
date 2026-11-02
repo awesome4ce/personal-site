@@ -1,4 +1,5 @@
 window.PHOTO_SIZES = {
+ "photos/baby.jpg": 0.7135,
  "photos/bike-group-ride.jpg": 0.75,
  "photos/bike-red-jersey.jpg": 0.75,
  "photos/bike-sunset.jpg": 0.5622,
