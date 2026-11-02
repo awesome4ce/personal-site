@@ -108,7 +108,7 @@
 
     play: () => `
       ${header("Play", "Mostly bikes. Some snow, some sand, some hardwood.")}
-      <p class="eyebrow">${suit("♠")}Two favorite centuries</p>
+      <h2 class="sec-title">${suit("♠")}Cycling<span>Two favorite centuries</span></h2>
       <div class="rides">
         ${S.rides.map((r) => `
           <article class="card ride">
@@ -122,11 +122,11 @@
       </div>
       ${S.bikePhotos?.length ? `<div class="gallery bikes">${S.bikePhotos.map(photo).join("")}</div>` : ""}
       <hr class="rule">
-      <p class="eyebrow">${suit("♦")}Skiing · ${esc(S.ski.sub)}</p>
+      <h2 class="sec-title">${suit("♦")}Skiing<span>${esc(S.ski.sub)}</span></h2>
       <p class="lead-line">${esc(S.ski.text)}</p>
       <div class="gallery">${S.ski.photos.map(photo).join("")}</div>
       <hr class="rule">
-      <p class="eyebrow">${suit("♥")}Volleyball · ${esc(S.volleyball.sub)}</p>
+      <h2 class="sec-title">${suit("♥")}Volleyball<span>${esc(S.volleyball.sub)}</span></h2>
       <p class="lead-line">${esc(S.volleyball.text)}</p>
       <div class="gallery">${S.volleyball.photos.map(photo).join("")}</div>
       <hr class="rule">
@@ -139,7 +139,7 @@
           </article>`).join("")}
       </div>
       <hr class="rule">
-      <p class="eyebrow">${suit("♣")}Places</p>
+      <h2 class="sec-title">${suit("♣")}Places</h2>
       <div class="gallery">${S.travel.map((t) => photo({ img: t.img, caption: t.place, sub: t.region })).join("")}</div>`,
 
     eats: () => {
@@ -157,7 +157,7 @@
           </li>`).join("")}
       </ol>
       <hr class="rule">
-      <p class="eyebrow">${suit("♦")}From the app</p>
+      <h2 class="sec-title">${suit("♦")}From the app</h2>
       <div class="tiles screens">${S.beliScreens.map((s, i) => tile(s, `screenshot ${i + 1}`)).join("")}</div>`;
     },
 
@@ -179,7 +179,7 @@
         ${S.quotes.map((q) => `<li class="quote"><figure><blockquote>“${esc(q.text)}”</blockquote><figcaption>— ${esc(q.author)}</figcaption></figure></li>`).join("")}
       </ul>
       <hr class="rule">
-      <p class="eyebrow">${suit("♣")}Reads</p>
+      <h2 class="sec-title">${suit("♣")}Reads</h2>
       <div class="filters" id="filters"><button class="chip on" data-f="all">all</button>${tags.map((t) => `<button class="chip" data-f="${esc(t)}">${esc(t)}</button>`).join("")}</div>
       <ul class="reads" id="reads-list">
         ${S.reads.map((r) => `
@@ -243,6 +243,22 @@
   let resumeOk = !!S.resume;
   const hideResume = () => { if (!resumeOk) document.querySelectorAll(".resume-btn").forEach((b) => (b.hidden = true)); };
 
+  // fade things in as they scroll into view
+  const io = "IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches
+    ? new IntersectionObserver((entries) => {
+        entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in-view"); io.unobserve(e.target); } });
+      }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 })
+    : null;
+  function reveal(root) {
+    if (!io) return;
+    const els = root.querySelectorAll(".page-head, .table, .card, .sec-title, .lead-line, .gallery figure, .timeline > li, .beli li, .quote, .reads li, .deal-area, .tiles.screens .tile, .rule");
+    els.forEach((el, i) => {
+      el.classList.add("reveal");
+      el.style.transitionDelay = `${(i % 3) * 70}ms`;   // slight stagger
+      io.observe(el);
+    });
+  }
+
   function route() {
     const id = (location.hash || "#home").slice(1);
     const tab = views[id] ? id : "home";
@@ -253,6 +269,7 @@
     void main.offsetWidth; main.classList.add("in");
     after[tab]?.();
     hideResume();
+    reveal(main);
     window.scrollTo(0, 0);
   }
 
