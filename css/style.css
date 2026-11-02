@@ -397,3 +397,4 @@ figcaption span { color: var(--muted); margin-left: 6px; }
 .hand.used .hand-hint { opacity: 0 !important; }
 @media (hover: none) { .hand-hint { opacity: .7; } .hand.used .hand-hint { opacity: 0; } }
 .logo.pad img { inset: 15%; width: 70%; height: 70%; object-fit: contain; }
+.sub .dot { font-size: 1.6em; line-height: 0; vertical-align: -0.12em; margin: 0 2px; }

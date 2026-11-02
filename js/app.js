@@ -99,7 +99,7 @@
         <div class="table-text">
           <p class="hello">Hi, I'm</p>
           <h1>${esc(S.name)}</h1>
-          <p class="sub">${esc(S.eyebrow)}</p>
+          <p class="sub">${esc(S.eyebrow).replace(/ · /g, ' <span class="dot">·</span> ')}</p>
           ${S.intro.map((p) => `<p class="intro">${md(p)}</p>`).join("")}
           <div class="pills">
             <a class="pill solid" href="mailto:${esc(S.email)}">email</a>
