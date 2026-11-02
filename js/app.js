@@ -421,6 +421,15 @@
   if (S.resume && location.protocol !== "file:") {
     fetch(S.resume, { method: "HEAD" }).then((r) => (resumeOk = r.ok)).catch(() => (resumeOk = false)).finally(hideResume);
   }
+  // footer checkmate: play when the footer scrolls into view (replays on each page)
+  const mate = $("#mate");
+  const mateIO = "IntersectionObserver" in window
+    ? new IntersectionObserver(([e]) => { if (e.isIntersecting) { mate.classList.add("go"); mateIO.unobserve(mate); } }, { threshold: 1 })
+    : null;
+  const armMate = () => { if (!mateIO) return; mate.classList.remove("go"); void mate.offsetWidth; mateIO.unobserve(mate); mateIO.observe(mate); };
+  addEventListener("hashchange", armMate);
+  armMate();
+
   addEventListener("hashchange", route);
   route();
 })();
