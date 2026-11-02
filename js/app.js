@@ -241,18 +241,30 @@
   let resumeOk = !!S.resume;
   const hideResume = () => { if (!resumeOk) document.querySelectorAll(".resume-btn").forEach((b) => (b.hidden = true)); };
 
-  // fade things in as they scroll into view
-  const io = "IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches
+  // Fade blocks in as they scroll into view. One rule for every page:
+  // each "block" fades up once; blocks that arrive together stagger top-to-bottom, left-to-right.
+  const BLOCKS = [
+    ".page-head", ".table", ".card", ".sec-title", ".lead-line", ".pills", ".rule",
+    ".timeline > li", ".gallery figure", ".beli li", ".quote", ".reads li", ".filters", ".deal-area",
+  ].join(",");
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const io = "IntersectionObserver" in window && !reduceMotion
     ? new IntersectionObserver((entries) => {
-        entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in-view"); io.unobserve(e.target); } });
-      }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 })
+        const shown = entries.filter((e) => e.isIntersecting)
+          .sort((x, y) => (x.boundingClientRect.top - y.boundingClientRect.top) || (x.boundingClientRect.left - y.boundingClientRect.left));
+        shown.forEach((e, i) => {
+          e.target.style.transitionDelay = `${Math.min(i, 5) * 80}ms`;
+          e.target.classList.add("in-view");
+          io.unobserve(e.target);
+        });
+      }, { rootMargin: "0px 0px -6% 0px", threshold: 0.05 })
     : null;
   function reveal(root) {
     if (!io) return;
-    const els = root.querySelectorAll(".page-head, .table, .card, .sec-title, .lead-line, .gallery figure, .timeline > li, .beli li, .quote, .reads li, .deal-area, .tiles.screens .tile, .rule");
-    els.forEach((el, i) => {
+    const all = [...root.querySelectorAll(BLOCKS)];
+    // only animate outermost blocks, so nothing fades twice (e.g. a card and its contents)
+    all.filter((el) => !all.some((o) => o !== el && o.contains(el))).forEach((el) => {
       el.classList.add("reveal");
-      el.style.transitionDelay = `${(i % 3) * 70}ms`;   // slight stagger
       io.observe(el);
     });
   }
@@ -262,13 +274,11 @@
     const tab = views[id] ? id : "home";
     nav.querySelectorAll("a").forEach((a) => (a.dataset.id === tab ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current")));
     const main = $("#main");
-    main.classList.remove("in");
+    window.scrollTo({ top: 0, behavior: "instant" });   // jump, don't smooth-scroll, between pages
     main.innerHTML = views[tab]();
-    void main.offsetWidth; main.classList.add("in");
     after[tab]?.();
     hideResume();
     reveal(main);
-    window.scrollTo(0, 0);
   }
 
   // click any photo to see it big
