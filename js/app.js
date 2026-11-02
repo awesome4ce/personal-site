@@ -46,9 +46,9 @@
   // company logo from its website's icon; falls back to an initials badge if it can't load
   const initials = (name) => name.replace(/\(.*?\)/g, "").split(/\s+/).filter((w) => /^[A-Z]/.test(w)).slice(0, 2).map((w) => w[0]).join("");
   // `domain` can be a website (logo fetched from its icon) or a local file like "photos/logos/x.png"
-  const logo = (name, domain, size = "") => {
+  const logo = (name, domain, size = "", pad = false) => {
     const src = !domain ? "" : domain.includes("/") ? domain : `https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=128`;
-    return `<span class="logo ${size}" data-i="${esc(initials(name))}">${src
+    return `<span class="logo ${size} ${pad ? "pad" : ""}" data-i="${esc(initials(name))}">${src
       ? `<img src="${esc(src)}" alt="" loading="lazy" onerror="this.remove()" onload="if(this.naturalWidth<32)this.remove()">` : ""}</span>`;
   };
   // Home background: running averages of noisy bets converging on their expected value (law of large numbers)
@@ -133,7 +133,7 @@
           <p class="eyebrow">${suit("♥")}Experience</p>
           <ul class="exp-list">
             ${S.experience.slice(0, 4).map((e) => `
-              <li>${logo(e.company, e.logo, "sm")}<div class="exp-main"><h4>${esc(e.company)}</h4><div class="role">${esc(e.role)}</div></div><div class="when">${esc(e.dates)}</div></li>`).join("")}
+              <li>${logo(e.company, e.logo, "sm", e.logoPad)}<div class="exp-main"><h4>${esc(e.company)}</h4><div class="role">${esc(e.role)}</div></div><div class="when">${esc(e.dates)}</div></li>`).join("")}
           </ul>
           <a class="more" href="#work">Full experience →</a>
         </div>
@@ -146,7 +146,7 @@
           <li>
             <div class="when">${esc(e.dates)}<br>${esc(e.location)}</div>
             <div>
-              <div class="co">${logo(e.company, e.logo)}<div><h3>${esc(e.company)}</h3><p class="role">${esc(e.role)}</p></div></div>
+              <div class="co">${logo(e.company, e.logo, "", e.logoPad)}<div><h3>${esc(e.company)}</h3><p class="role">${esc(e.role)}</p></div></div>
               ${e.bullets.length ? `<ul>${e.bullets.map((b) => `<li>${esc(b)}</li>`).join("")}</ul>` : ""}
             </div>
           </li>`).join("")}

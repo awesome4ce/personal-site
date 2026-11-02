@@ -396,3 +396,4 @@ figcaption span { color: var(--muted); margin-left: 6px; }
 .hand:hover .hand-hint { opacity: .85; }
 .hand.used .hand-hint { opacity: 0 !important; }
 @media (hover: none) { .hand-hint { opacity: .7; } .hand.used .hand-hint { opacity: 0; } }
+.logo.pad img { inset: 15%; width: 70%; height: 70%; object-fit: contain; }

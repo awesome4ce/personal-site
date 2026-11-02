@@ -52,6 +52,7 @@ window.SITE = {
     {
       company: "ACORE Capital",
       logo: "acorecapital.com", // company website, used to show its logo
+      logoPad: true, // shrink the logo a bit inside its tile instead of filling it
       role: "Summer Analyst",
       location: "Los Angeles, CA",
       dates: "Jun. – Aug. 2026",
