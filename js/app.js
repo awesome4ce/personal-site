@@ -269,7 +269,7 @@
 
   // Home: hovering the margins beside the green panel brings the EV lines into focus
   if (matchMedia("(hover: hover)").matches) {
-    const nearLine = (svg, cx, cy, px = 30) => {
+    const nearLine = (svg, cx, cy, px = 22) => {
       const g = evBackground.geo, r = svg.getBoundingClientRect();
       const x = ((cx - r.left) / r.width) * g.W, sy = r.height / g.H;
       const yAt = (pts) => {                       // line's height at this x (pts are sorted by x)
@@ -281,8 +281,9 @@
         return y0 + ((y1 - y0) * (x - x0)) / (x1 - x0 || 1);
       };
       const cySvg = cy - r.top;
-      const ys = [...g.series.map(yAt), g.mid];
-      return ys.some((y) => Math.abs(y * sy - cySvg) <= px);
+      // inside the spread of lines at this x (gaps count), plus a small margin
+      const ys = [...g.series.map(yAt), g.mid].map((y) => y * sy);
+      return cySvg >= Math.min(...ys) - px && cySvg <= Math.max(...ys) + px;
     };
     document.addEventListener("mousemove", (e) => {
       const wrap = document.getElementById("hero-wrap");
