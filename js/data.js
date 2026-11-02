@@ -126,34 +126,44 @@ window.SITE = {
       photos: ["photos/ride-santa-cruz-map.jpg"],
     },
   ],
+  // Extra riding photos shown under the two centuries.
+  bikePhotos: [
+    { img: "photos/bike-sunset.jpg", caption: "Golden hour on the climb" },
+    { img: "photos/bike-selfie.jpg", caption: "Out with the crew" },
+  ],
+  ski: {
+    sub: "Stanford Ski Club",
+    text: "Tree runs, deep powder, boot-packing for the good stuff, and the occasional total whiteout on the chairlift.", // edit me
+    photos: [
+      { img: "photos/ski-powder.jpg", caption: "Powder day" },
+      { img: "photos/ski-kiss.jpg", caption: "" },
+      { img: "photos/ski-chairlift-fog.jpg", caption: "Visibility: zero" },
+      { img: "photos/ski-bootpack.jpg", caption: "Boot-packing up" },
+    ],
+  },
   hobbies: [
-    {
-      title: "Skiing",
-      sub: "Stanford Ski Club",
-      text: "Where you ski, favorite run, how many days this season.", // PLACEHOLDER
-      img: "",
-    },
     {
       title: "Volleyball",
       sub: "Varsity & Club · 2019–2025",
       text: "Position, a favorite moment, whether you still play.", // PLACEHOLDER
-      img: "",
     },
     {
       title: "Chess",
       sub: "Always down for a game",
       icon: "♞",
       text: "Rating, favorite opening, or your chess.com / lichess link.", // PLACEHOLDER
-      img: "",
     },
   ],
   travel: [
-    // Captions are guesses from the photos. Fix the place names if they're off.
+    // Captions are guesses from the photos. Fix any that are off.
     { place: "Switzerland", region: "Lake day", img: "photos/swiss-lake.jpg" },
+    { place: "Yosemite", region: "Half Dome in snow", img: "photos/yosemite-half-dome.jpg" },
     { place: "Switzerland", region: "Mountain railway", img: "photos/swiss-train.jpg" },
+    { place: "Yosemite", region: "Horsetail Fall", img: "photos/yosemite-firefall.jpg" },
     { place: "Switzerland", region: "Sunset swim", img: "photos/swiss-sunset-swim.jpg" },
+    { place: "Switzerland", region: "Alpine lake", img: "photos/swiss-lake-reflection.jpg" },
+    { place: "California coast", region: "Sea cave", img: "photos/coast-sea-cave.jpg" },
     { place: "Switzerland", region: "Hillside", img: "photos/swiss-hillside.jpg" },
-    { place: "Switzerland", region: "Garden", img: "photos/swiss-garden.jpg" },
   ],
 
   /* ---------------- EATS (Beli-style) ---------------- */

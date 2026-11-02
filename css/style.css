@@ -240,3 +240,11 @@ figcaption span { color: var(--muted); margin-left: 6px; }
 .ride-photos .tile:nth-child(2):last-child { grid-column: 1 / -1; aspect-ratio: 3 / 2; }
 .ride-photos .tile:only-child { aspect-ratio: 4 / 3; }
 .ride-photos .tile:only-child img { object-position: center; }
+
+/* masonry photo galleries: photos keep their real shape (no weird crops) */
+.gallery { columns: 3 260px; column-gap: 20px; }
+.gallery.g2 { columns: 2 260px; margin-top: 32px; }
+.gallery figure { break-inside: avoid; margin: 0 0 22px; }
+.tile.nat { aspect-ratio: auto; }
+.tile.nat img { height: auto; }
+.lead-line { max-width: 62ch; margin: -4px 0 28px; font-size: 18px; }

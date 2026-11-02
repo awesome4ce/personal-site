@@ -29,6 +29,8 @@
     return `<svg class="elev" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true">
       <polygon points="0,${h} ${line} ${w},${h}" class="elev-fill"/><polyline points="${line}" class="elev-line"/></svg>`;
   }
+  // natural-aspect photo for masonry galleries (click to enlarge)
+  const photo = (p) => `<figure>${p.img ? `<div class="tile nat"><img src="${esc(p.img)}" alt="${esc(p.caption || "")}" loading="lazy"></div>` : `<div class="tile ph"><span>add photo</span></div>`}${p.caption ? `<figcaption>${esc(p.caption)}${p.sub ? `<span>${esc(p.sub)}</span>` : ""}</figcaption>` : ""}</figure>`;
   const header = (title, sub) => {
     const t = TABS.find((x) => x.label.startsWith(title.split(" ")[0]));
     return `<div class="page-head">${t ? `<span class="page-suit ${isRed(t.suit) ? "red" : ""}">${t.suit}</span>` : ""}<div><h1 class="page-title">${esc(title)}</h1><p class="page-sub">${esc(sub)}</p></div></div>`;
@@ -115,24 +117,26 @@
             <p class="meta">${esc(r.date)} · ${esc(r.elevation)} climbing · ${esc(r.where)}</p>
             ${elevation(r.profile)}
             <p>${esc(r.note)}</p>
-            <div class="ride-photos">${r.photos.map((p, i) => tile(p, `ride photo ${i + 1}`)).join("")}</div>
+            <div class="ride-photos">${r.photos.map((p, i) => tile(p, `${r.name} route`)).join("")}</div>
           </article>`).join("")}
       </div>
+      ${S.bikePhotos?.length ? `<div class="gallery g2">${S.bikePhotos.map(photo).join("")}</div>` : ""}
       <hr class="rule">
-      <div class="hobbies">
+      <p class="eyebrow">${suit("♦")}Skiing · ${esc(S.ski.sub)}</p>
+      <p class="lead-line">${esc(S.ski.text)}</p>
+      <div class="gallery">${S.ski.photos.map(photo).join("")}</div>
+      <hr class="rule">
+      <div class="grid-2">
         ${S.hobbies.map((h, i) => `
-          <article class="hobby">
-            ${tile(h.img, h.title.toLowerCase() + " photo")}
-            <p class="eyebrow">${suit(h.icon || SUITS[(i + 1) % 4])}${esc(h.sub)}</p>
+          <article class="card">
+            <p class="eyebrow">${suit(h.icon || ["♥", "♣"][i % 2])}${esc(h.sub)}</p>
             <h3>${esc(h.title)}</h3>
             <p>${esc(h.text)}</p>
           </article>`).join("")}
       </div>
       <hr class="rule">
       <p class="eyebrow">${suit("♣")}Places</p>
-      <div class="tiles travel">
-        ${S.travel.map((t) => `<figure>${tile(t.img, t.place)}<figcaption>${esc(t.place)}<span>${esc(t.region)}</span></figcaption></figure>`).join("")}
-      </div>`,
+      <div class="gallery">${S.travel.map((t) => photo({ img: t.img, caption: t.place, sub: t.region })).join("")}</div>`,
 
     eats: () => {
       const list = [...S.eats].sort((a, b) => b.score - a.score);
