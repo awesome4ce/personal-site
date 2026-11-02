@@ -7,6 +7,7 @@
 
 window.SITE = {
   name: "Ethan Seung",
+  updated: "November 2026", // shown in the footer; bump it when you change things
   eyebrow: "Stanford · Data Science · Quant Finance",
   headshot: "photos/headshot.jpg",
   email: "eseung@stanford.edu",
@@ -173,6 +174,16 @@ window.SITE = {
 
   /* ---------------- EATS (Beli-style) ---------------- */
   // score is out of 10 like Beli. Sorted automatically, highest first.
+  // Bottom of my Beli list. `rank` is where it sits on my list.
+  eatsWorst: [
+    { rank: 128, name: "Spontini", city: "Milan, Italy", cuisine: "Pizza, Italian", score: 3.9 },
+    { rank: 129, name: "MJ Sushi", city: "Palo Alto, CA", cuisine: "Japanese, Sushi", score: 3.8 },
+    { rank: 130, name: "La Note", city: "Berkeley, CA", cuisine: "Breakfast, French", score: 3.7 },
+    { rank: 131, name: "Restaurant Hermitage", city: "Lucerne, Switzerland", cuisine: "Swiss, International", score: 3.5 },
+    { rank: 132, name: "Blue Plate Oysterette", city: "Santa Monica, CA", cuisine: "Bar, Seafood", score: 3.4 },
+    { rank: 133, name: "Osteria Il Pozzo", city: "Menaggio, Italy", cuisine: "Italian", score: 2.3 },
+    { rank: 134, name: "Lecker Asia", city: "Lauterbrunnen, Switzerland", cuisine: "Japanese", score: 1.2 },
+  ],
   eats: [
     // From my Beli "Been" list. Add `order: "..."` to any spot to show what to get.
     { name: "J'ai la patate", city: "Hokkaido, Japan", cuisine: "French, Japanese", score: 10.0 },

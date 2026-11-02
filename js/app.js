@@ -15,6 +15,7 @@
   ];
 
   $("#year").textContent = new Date().getFullYear();
+  if (S.updated) $("#updated").textContent = ` · Last updated ${S.updated}`;
 
   /* ---------- helpers ---------- */
   const tile = (src, label = "") =>
@@ -53,13 +54,13 @@
     const W = 1600, H = 420, mid = H * 0.52, n = 260, paths = [];
     for (let k = 0; k < 13; k++) {
       let sum = 0, d = "";
-      const j0 = 5;                                                 // skip the very first (spikiest) bets
+      const j0 = 2;                                                 // skip the very first (spikiest) bets
       for (let j = 1; j <= n; j++) {
         const draw = (rand() + rand() + rand() - 1.5) * 2.2;      // noisy outcome, mean 0 (= EV)
         sum += draw;
         if (j < j0) continue;
         const x = Math.pow((j - j0) / (n - j0), 0.8) * W;
-        const y = mid - (sum / j) * 80;
+        const y = mid - (sum / j) * 115;
         d += `${j === j0 ? "M" : "L"}${x.toFixed(1)},${Math.max(10, Math.min(H - 10, y)).toFixed(1)}`;
       }
       paths.push(`<path class="${k === 4 ? "hot" : ""}" d="${d}" pathLength="1" style="animation-delay:${(k * 0.12).toFixed(2)}s"/>`);
@@ -78,10 +79,11 @@
   /* ---------- views ---------- */
   const views = {
     home: () => `
-      <div class="hero-wrap">
+      <div class="hero-wrap" id="hero-wrap">
       ${evBackground()}
+      <div class="ev-tip" aria-hidden="true"><i>EV</i> · volume negates luck</div>
       <section class="table">
-        <div class="ev-key" aria-hidden="true"><span class="ev-dash"></span><i>EV</i> · volume negates luck</div>
+
         <div class="table-text">
           <p class="hello">Hi, I'm</p>
           <h1>${esc(S.name)}</h1>
@@ -182,22 +184,24 @@
 
     eats: () => {
       const list = [...S.eats].sort((a, b) => b.score - a.score);
-      const tone = (s) => (s >= 8.5 ? "hi" : s >= 7 ? "mid" : "lo");
-      return `
-      ${header("Eats", "Almost 200 places logged on Beli. Here are my top 12. Big sushi guy.", "AI can do a lot. It can't taste.")}
-      <div class="pills" style="margin:0 0 40px"><a class="pill" href="${esc(S.beli)}" target="_blank" rel="noopener">follow me on beli ↗</a><button class="pill" id="rain">🍣 make it rain</button></div>
-      <ol class="beli">
-        ${list.map((e, i) => `
+      const tone = (s) => (s >= 7 ? "hi" : s >= 3.5 ? "mid" : "lo");   // Beli-style colors
+      const row = (e, rank) => `
           <li>
-            <span class="rank">${i + 1}</span>
+            <span class="rank">${rank}</span>
             <div><h4>${esc(e.name)}</h4><p class="meta">${esc(e.cuisine)} · ${esc(e.city)}</p>${e.order ? `<p class="order">Order: ${esc(e.order)}</p>` : ""}</div>
             <span class="score ${tone(e.score)}" style="--p:${Math.max(0, Math.min(1, e.score / 10))}">
               <svg viewBox="0 0 54 54" aria-hidden="true"><circle class="trk" cx="27" cy="27" r="24"/><circle class="arc" cx="27" cy="27" r="24"/></svg>
               <b>${Number(e.score).toFixed(1)}</b>
             </span>
-          </li>`).join("")}
-      </ol>
-`;
+          </li>`;
+      return `
+      ${header("Eats", "Almost 200 places logged on Beli. Here are my top 12. Big sushi guy.", "AI can do a lot. It can't taste.")}
+      <div class="pills" style="margin:0 0 40px"><a class="pill" href="${esc(S.beli)}" target="_blank" rel="noopener">follow me on beli ↗</a><button class="pill" id="rain">🍣 make it rain</button></div>
+      <ol class="beli">${list.map((e, i) => row(e, i + 1)).join("")}</ol>
+      ${S.eatsWorst?.length ? `
+      <hr class="rule">
+      <h2 class="sec-title">${suit("♣")}And the ones I'd skip<span>bottom of my list</span></h2>
+      <ol class="beli worst">${[...S.eatsWorst].sort((a, b) => a.rank - b.rank).map((e) => row(e, e.rank)).join("")}</ol>` : ""}`;
     },
 
     reads: () => {
@@ -255,9 +259,22 @@
     setTimeout(() => box.remove(), 5000);
   }
 
+  // Home: hovering the margins beside the green panel brings the EV lines into focus
+  if (matchMedia("(hover: hover)").matches) {
+    document.addEventListener("mousemove", (e) => {
+      const wrap = document.getElementById("hero-wrap");
+      if (!wrap) return;
+      const t = wrap.querySelector(".table").getBoundingClientRect();
+      const inBand = e.clientY > t.top - 30 && e.clientY < t.bottom + 30;
+      const outside = e.clientX < t.left || e.clientX > t.right;
+      const on = inBand && outside;
+      wrap.classList.toggle("ev-focus", on);
+      if (on) wrap.dataset.side = e.clientX < t.left ? "left" : "right";
+    });
+  }
+
   const after = {
     eats: () => {
-      setTimeout(() => sushiRain(), 250);
       $("#rain").addEventListener("click", () => sushiRain());
     },
     reads: () => {
