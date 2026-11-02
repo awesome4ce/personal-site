@@ -165,7 +165,7 @@
       <div class="pills resume-btn">${resumeBtn("Download full resume")}</div>`,
 
     play: () => `
-      ${header("Play", "Mostly bikes. Some snow, some sand, some hardwood.")}
+      ${header("Play", "Mostly bikes. Some snow, some sand.", "Working hard, or hardly working?")}
       <h2 class="sec-title">${suit("♠")}Cycling<span>Two favorite centuries</span></h2>
       <div class="rides">
         ${S.rides.map((r) => `
