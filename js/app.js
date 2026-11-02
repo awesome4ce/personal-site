@@ -52,15 +52,18 @@
     // Law of large numbers: running averages of noisy bets swing wildly, then converge on the expected value.
     let seed = 7;
     const rand = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
-    const W = 1600, H = 420, mid = H * 0.52, n = 260, j0 = 2, paths = [];
+    const W = 1600, H = 420, mid = H * 0.52, n = 260, j0 = 1, paths = [];
+    const A = H * 0.47;                                        // max swing (soft-limited, so spikes never flatten)
     for (let k = 0; k < 7; k++) {
       let sum = 0, d = "";
       for (let j = 1; j <= n; j++) {
-        sum += (rand() + rand() + rand() - 1.5) * 2.2;          // one noisy outcome, mean 0 (= EV)
+        let draw = (rand() + rand() + rand() - 1.5) * 3.4;       // one noisy outcome, mean 0 (= EV)
+        if (k === 1 && j <= 3) draw = 3.2 - j * 0.4;              // one line gets a hot start, way above EV
+        sum += draw;
         if (j < j0) continue;
-        const x = Math.pow((j - j0) / (n - j0), 0.8) * W;
-        const y = mid - (sum / j) * 115;                        // running average so far
-        d += `${j === j0 ? "M" : "L"}${x.toFixed(1)},${Math.max(10, Math.min(H - 10, y)).toFixed(1)}`;
+        const x = Math.pow((j - j0) / (n - j0), 0.68) * W;       // give the wild early part more room
+        const y = mid - A * Math.tanh((sum / j) / 1.6);           // running average so far
+        d += `${j === j0 ? "M" : "L"}${x.toFixed(1)},${y.toFixed(1)}`;
       }
       paths.push(`<path class="${k === 3 ? "hot" : ""}" d="${d}" pathLength="1" style="animation-delay:${(k * 0.15).toFixed(2)}s"/>`);
     }
@@ -81,7 +84,7 @@
     home: () => `
       <div class="hero-wrap" id="hero-wrap">
       ${evBackground()}
-      <div class="ev-tip" aria-hidden="true" style="--yl:${evBackground.edges.left};--yr:${evBackground.edges.right}"><span class="ev-dash"></span><i>EV</i></div>
+      <div class="ev-tip" aria-hidden="true" style="--yl:${evBackground.edges.left};--yr:${evBackground.edges.right}"><span class="ev-dash"></span><i>LLN</i> · motto of life</div>
       <section class="table">
 
         <div class="table-text">
