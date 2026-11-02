@@ -229,9 +229,9 @@ window.SITE = {
   // type: "book" or "article". tags drive the filter buttons.
   reads: [
     // PLACEHOLDER — swap in your own
-    { title: "How to Do Great Work", author: "Paul Graham", type: "article", url: "https://paulgraham.com/greatwork.html", tags: ["career"], note: "Your one-line take." },
-    { title: "Oaktree Memos", author: "Howard Marks", type: "article", url: "https://www.oaktreecapital.com/insights", tags: ["markets"], note: "Your one-line take." },
-    { title: "Thinking in Bets", author: "Annie Duke", type: "book", url: "", tags: ["decisions", "poker"], note: "Your one-line take." },
-    { title: "Money Stuff", author: "Matt Levine", type: "article", url: "https://www.bloomberg.com/account/newsletters/money-stuff", tags: ["markets"], note: "Your one-line take." },
+    { title: "How to Do Great Work", author: "Paul Graham", type: "article", url: "https://paulgraham.com/greatwork.html", tags: ["career"], note: "Follow the thing you can't stop poking at until it turns into an edge. Basically the problem-solving-junkie manifesto." },
+    { title: "Oaktree Memos", author: "Howard Marks", type: "article", url: "https://www.oaktreecapital.com/insights", tags: ["markets"], note: "Second-level thinking is poker for markets: what does everyone else believe, and where are they wrong?" },
+    { title: "Thinking in Bets", author: "Annie Duke", type: "book", url: "", tags: ["decisions", "poker"], note: "Judge the decision, not the outcome. Every poker player learns it the hard way; Duke makes it a life rule." },
+    { title: "Money Stuff", author: "Matt Levine", type: "article", url: "https://www.bloomberg.com/account/newsletters/money-stuff", tags: ["markets"], note: "Made credit and capital markets click before I ever sat on an underwriting desk, and it's the only finance newsletter that makes me laugh." },
   ],
 };
