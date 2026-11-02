@@ -162,11 +162,11 @@ window.SITE = {
   hobbies: [],
   travel: [
     // Captions are guesses from the photos. Fix any that are off.
-    { place: "Bürgenstock", region: "Switzerland", img: "photos/swiss-lake.jpg" },
+    { place: "Lugano", region: "", img: "photos/swiss-sunset-swim.jpg" },
     { place: "Yosemite", region: "Half Dome in snow", img: "photos/yosemite-half-dome.jpg" },
     { place: "Switzerland", region: "Mountain railway", img: "photos/swiss-train.jpg" },
     { place: "Yosemite", region: "Horsetail Fall", img: "photos/yosemite-firefall.jpg" },
-    { place: "Switzerland", region: "Sunset swim", img: "photos/swiss-sunset-swim.jpg" },
+    { place: "Bürgenstock", region: "Switzerland", img: "photos/swiss-lake.jpg" },
     { place: "Jungfrau", region: "Switzerland", img: "photos/swiss-lake-reflection.jpg" },
     { place: "Half Moon Bay", region: "", img: "photos/coast-sea-cave.jpg" },
     { place: "Wengen", region: "Switzerland", img: "photos/swiss-hillside.jpg" },
