@@ -323,17 +323,19 @@ figcaption span { color: var(--muted); margin-left: 6px; }
 @media (max-width: 820px) { .table > .ev-key { right: 22px; bottom: 16px; font-size: 12px; } }
 
 /* hover the margins beside the green panel: lines come into focus + caption appears */
-.ev-bg path, .ev-line { transition: opacity .35s ease, stroke-width .35s ease; }
+.ev-bg path, .ev-line { transition: opacity .12s ease-out, stroke-width .12s ease-out; }
+.hero-wrap.ev-focus .ev-bg path, .hero-wrap.ev-focus .ev-line { transition-duration: .3s; }
 .hero-wrap.ev-focus .ev-bg path { opacity: .8; stroke-width: 1.8; }
 .hero-wrap.ev-focus .ev-bg path.hot { opacity: .95; }
 .hero-wrap.ev-focus .ev-line { opacity: .9; }
 .hero-wrap.ev-focus .table { opacity: .94; }
-.table { transition: opacity .35s ease; }
+.table { transition: opacity .12s ease-out; }
 /* caption chip: sits just above where the EV line meets the screen edge, in a contrasting color */
 .ev-tip { position: absolute; z-index: 2; pointer-events: none; display: flex; align-items: center; gap: 7px; white-space: nowrap;
   top: calc(-40px + var(--yr) * (100% + 80px) - 40px); right: calc((100% - 100vw) / 2 + 16px);
-  font: italic 500 14px var(--serif); color: var(--ink); background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px;
-  box-shadow: 0 4px 14px rgba(30,40,30,.10); opacity: 0; transform: translateY(4px); transition: opacity .3s ease, transform .3s ease; }
+  font: italic 600 15px var(--serif); color: var(--ink); background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px;
+  box-shadow: 0 4px 14px rgba(30,40,30,.10); opacity: 0; transform: translateY(4px); transition: opacity .1s ease-out, transform .1s ease-out; }
+.hero-wrap.ev-focus .ev-tip { transition-duration: .25s; }
 .ev-tip i { font-weight: 600; color: var(--red); }
 .ev-tip .ev-dash { width: 20px; border-top: 1.5px dashed var(--accent); }
 .hero-wrap[data-side="left"] .ev-tip { right: auto; left: calc((100% - 100vw) / 2 + 16px); top: calc(-40px + var(--yl) * (100% + 80px) - 40px); }
