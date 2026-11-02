@@ -118,7 +118,7 @@ window.SITE = {
       miles: 138.2,
       elevation: "4,147 ft",
       where: "A full loop of the SF Bay",
-      note: "Longest ride I've ever done: 8h20m moving at 16.6 mph, 138 W average, and my 2nd-fastest 100 miles along the way.",
+      note: "Longest ride I've ever done: 8h20m of moving time, about 5,000 calories burned, and 10 Gatorades plus 3,000 calories eaten along the way.",
       profile: [6, 10, 14, 9, 18, 26, 20, 12, 30, 22, 14, 10, 16, 24, 15, 8, 12, 18, 10, 6],
       photos: ["photos/ride-bay-loop-map.jpg"],
     },
