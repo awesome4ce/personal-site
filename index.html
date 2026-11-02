@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ethan Seung</title>
+  <meta name="description" content="Ethan Seung — Stanford Data Science & Quantitative Finance. Real estate capital markets, cycling, and a few good reads." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>♠</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <canvas id="bg" aria-hidden="true"></canvas>
+
+  <header class="hero wrap">
+    <div class="hero-text">
+      <img id="headshot" class="headshot" alt="Ethan Seung" hidden />
+      <div id="headshot-ph" class="headshot ph"><span>ES</span></div>
+      <div>
+        <h1 id="name"></h1>
+        <p id="tagline" class="tagline"></p>
+      </div>
+    </div>
+    <div class="hole-cards" aria-label="Hover to flip">
+      <div class="pcard" style="--tilt:-8deg"><div class="pcard-inner">
+        <div class="pcard-back"></div>
+        <div class="pcard-front black"><span class="ix">E<br>♠</span><span class="big">♠</span><span class="ix flip">E<br>♠</span></div>
+      </div></div>
+      <div class="pcard" style="--tilt:6deg"><div class="pcard-inner">
+        <div class="pcard-back"></div>
+        <div class="pcard-front red"><span class="ix">S<br>♥</span><span class="big">♥</span><span class="ix flip">S<br>♥</span></div>
+      </div></div>
+    </div>
+  </header>
+
+  <nav class="tabs wrap" id="tabs" role="tablist"></nav>
+
+  <main class="wrap" id="main"></main>
+
+  <footer class="wrap foot">
+    <span>© <span id="year"></span> Ethan Seung</span>
+    <span class="mono">♠ ♥ ♦ ♣</span>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/bg.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
