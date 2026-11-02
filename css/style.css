@@ -248,3 +248,7 @@ figcaption span { color: var(--muted); margin-left: 6px; }
 .tile.nat { aspect-ratio: auto; }
 .tile.nat img { height: auto; }
 .lead-line { max-width: 62ch; margin: -4px 0 28px; font-size: 18px; }
+.gallery.bikes { margin-top: 32px; }
+/* route maps keep their full shape */
+.ride-photos .tile:only-child { aspect-ratio: auto; }
+.ride-photos .tile:only-child img { height: auto; }

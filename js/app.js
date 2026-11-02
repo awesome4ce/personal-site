@@ -120,7 +120,7 @@
             <div class="ride-photos">${r.photos.map((p, i) => tile(p, `${r.name} route`)).join("")}</div>
           </article>`).join("")}
       </div>
-      ${S.bikePhotos?.length ? `<div class="gallery g2">${S.bikePhotos.map(photo).join("")}</div>` : ""}
+      ${S.bikePhotos?.length ? `<div class="gallery bikes">${S.bikePhotos.map(photo).join("")}</div>` : ""}
       <hr class="rule">
       <p class="eyebrow">${suit("♦")}Skiing · ${esc(S.ski.sub)}</p>
       <p class="lead-line">${esc(S.ski.text)}</p>

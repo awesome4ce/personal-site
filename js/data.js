@@ -129,7 +129,8 @@ window.SITE = {
   // Extra riding photos shown under the two centuries.
   bikePhotos: [
     { img: "photos/bike-sunset.jpg", caption: "Golden hour on the climb" },
-    { img: "photos/bike-selfie.jpg", caption: "Out with the crew" },
+    { img: "photos/bike-red-jersey.jpg", caption: "Spring in the hills" },
+    { img: "photos/bike-group-ride.jpg", caption: "Group ride" },
   ],
   ski: {
     sub: "Stanford Ski Club",
