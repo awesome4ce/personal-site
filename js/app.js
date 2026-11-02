@@ -353,6 +353,14 @@
         }, 260);
       };
       hand.addEventListener("click", swap);
+      // don't leave the baby photo up: swap back when the mouse leaves (or after a few seconds on touch screens)
+      const thenUp = () => hand.querySelector(".front").dataset.card === "then";
+      let backTimer;
+      hand.addEventListener("mouseleave", () => { clearTimeout(backTimer); backTimer = setTimeout(() => { if (thenUp()) swap(); }, 350); });
+      hand.addEventListener("mouseenter", () => clearTimeout(backTimer));
+      if (!matchMedia("(hover: hover)").matches) {
+        hand.addEventListener("click", () => { clearTimeout(backTimer); backTimer = setTimeout(() => { if (thenUp()) swap(); }, 4000); });
+      }
       hand.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); swap(); } });
     },
     eats: () => {
