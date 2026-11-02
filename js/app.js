@@ -54,8 +54,11 @@
     const rand = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
     const W = 1600, H = 420, mid = H * 0.52, n = 260, j0 = 1, paths = [];
     const A = H * 0.47;                                        // max swing (soft-limited, so spikes never flatten)
+    const series = [];
     for (let k = 0; k < 7; k++) {
       let sum = 0, d = "";
+      const pts = [];
+      series.push(pts);
       for (let j = 1; j <= n; j++) {
         let draw = (rand() + rand() + rand() - 1.5) * 3.4;       // one noisy outcome, mean 0 (= EV)
         if (k === 1 && j <= 3) draw = 3.2 - j * 0.4;              // one line gets a hot start, way above EV
@@ -63,11 +66,13 @@
         if (j < j0) continue;
         const x = Math.pow((j - j0) / (n - j0), 0.68) * W;       // give the wild early part more room
         const y = mid - A * Math.tanh((sum / j) / 1.6);           // running average so far
+        pts.push([x, y]);
         d += `${j === j0 ? "M" : "L"}${x.toFixed(1)},${y.toFixed(1)}`;
       }
       paths.push(`<path class="${k === 3 ? "hot" : ""}" d="${d}" pathLength="1" style="animation-delay:${(k * 0.15).toFixed(2)}s"/>`);
     }
     evBackground.edges = { left: mid / H, right: mid / H };
+    evBackground.geo = { W, H, mid, series };
     return `<svg class="ev-bg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">
       <line class="ev-line" x1="0" y1="${mid}" x2="${W}" y2="${mid}"/>
       ${paths.join("")}
@@ -264,13 +269,27 @@
 
   // Home: hovering the margins beside the green panel brings the EV lines into focus
   if (matchMedia("(hover: hover)").matches) {
+    const nearLine = (svg, cx, cy, px = 30) => {
+      const g = evBackground.geo, r = svg.getBoundingClientRect();
+      const x = ((cx - r.left) / r.width) * g.W, sy = r.height / g.H;
+      const yAt = (pts) => {                       // line's height at this x (pts are sorted by x)
+        let lo = 0, hi = pts.length - 1;
+        if (x <= pts[0][0]) return pts[0][1];
+        if (x >= pts[hi][0]) return pts[hi][1];
+        while (hi - lo > 1) { const m = (lo + hi) >> 1; (pts[m][0] < x ? (lo = m) : (hi = m)); }
+        const [x0, y0] = pts[lo], [x1, y1] = pts[hi];
+        return y0 + ((y1 - y0) * (x - x0)) / (x1 - x0 || 1);
+      };
+      const cySvg = cy - r.top;
+      const ys = [...g.series.map(yAt), g.mid];
+      return ys.some((y) => Math.abs(y * sy - cySvg) <= px);
+    };
     document.addEventListener("mousemove", (e) => {
       const wrap = document.getElementById("hero-wrap");
       if (!wrap) return;
       const t = wrap.querySelector(".table").getBoundingClientRect();
-      const inBand = e.clientY > t.top - 30 && e.clientY < t.bottom + 30;
       const outside = e.clientX < t.left || e.clientX > t.right;
-      const on = inBand && outside;
+      const on = outside && nearLine(wrap.querySelector(".ev-bg"), e.clientX, e.clientY);
       wrap.classList.toggle("ev-focus", on);
       if (on) wrap.dataset.side = e.clientX < t.left ? "left" : "right";
     });
