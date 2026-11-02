@@ -141,12 +141,17 @@ window.SITE = {
       { img: "photos/ski-bootpack.jpg", caption: "Boot-packing up" },
     ],
   },
+  volleyball: {
+    sub: "Varsity & Club · 2019–2025",
+    text: "Six years of Harvard-Westlake varsity and club volleyball, usually the one in the red jersey diving for digs. Now it's mostly beach games.", // edit me
+    photos: [
+      { img: "photos/vb-dig.jpg", caption: "Harvard-Westlake varsity" },
+      { img: "photos/vb-beach.jpg", caption: "Beach days" },
+      { img: "photos/vb-dive.jpg", caption: "" },
+      { img: "photos/vb-team-ucsb.jpg", caption: "Tournament at UCSB (red jersey)" },
+    ],
+  },
   hobbies: [
-    {
-      title: "Volleyball",
-      sub: "Varsity & Club · 2019–2025",
-      text: "Position, a favorite moment, whether you still play.", // PLACEHOLDER
-    },
     {
       title: "Chess",
       sub: "Always down for a game",

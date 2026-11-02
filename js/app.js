@@ -107,7 +107,7 @@
       <div class="pills resume-btn">${resumeBtn("Download full resume")}</div>`,
 
     play: () => `
-      ${header("Play", "Mostly bikes. Some snow, some sand.")}
+      ${header("Play", "Mostly bikes. Some snow, some sand, some hardwood.")}
       <p class="eyebrow">${suit("♠")}Two favorite centuries</p>
       <div class="rides">
         ${S.rides.map((r) => `
@@ -125,6 +125,10 @@
       <p class="eyebrow">${suit("♦")}Skiing · ${esc(S.ski.sub)}</p>
       <p class="lead-line">${esc(S.ski.text)}</p>
       <div class="gallery">${S.ski.photos.map(photo).join("")}</div>
+      <hr class="rule">
+      <p class="eyebrow">${suit("♥")}Volleyball · ${esc(S.volleyball.sub)}</p>
+      <p class="lead-line">${esc(S.volleyball.text)}</p>
+      <div class="gallery">${S.volleyball.photos.map(photo).join("")}</div>
       <hr class="rule">
       <div class="grid-2">
         ${S.hobbies.map((h, i) => `
