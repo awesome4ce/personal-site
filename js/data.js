@@ -10,6 +10,7 @@ window.SITE = {
   updated: "November 2026", // shown in the footer; bump it when you change things
   eyebrow: "Stanford · Data Science · Quant Finance",
   headshot: "photos/headshot.jpg",
+  babyPhoto: "", // e.g. "photos/baby.jpg" (shows on the S♥ card)
   email: "eseung@stanford.edu",
   linkedin: "https://www.linkedin.com/in/ethan-seung",
   resume: "assets/resume.pdf",

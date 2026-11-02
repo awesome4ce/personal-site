@@ -103,13 +103,20 @@
             ${resumeBtn("resume", "pill")}
           </div>
         </div>
-        <div class="hand" aria-label="Photo of ${esc(S.name)}">
-          <div class="pc pc-back"><span class="ix red">S<br>♥</span><span class="pip red">♥</span><span class="ix red flip">S<br>♥</span></div>
-          <div class="pc pc-photo">
+        <div class="hand ${S.babyPhoto ? "swappable" : ""}" id="hand" ${S.babyPhoto ? `role="button" tabindex="0" aria-label="Photos of ${esc(S.name)}: click to switch cards"` : `aria-label="Photo of ${esc(S.name)}"`}>
+          <div class="pc pc-photo behind" data-card="then">
+            <span class="ix red">S<br>♥</span>
+            ${S.babyPhoto ? `<img src="${esc(S.babyPhoto)}" alt="${esc(S.name)} as a baby">` : `<div class="plain-back"><span class="pip red">♥</span></div>`}
+            <span class="ix red flip">S<br>♥</span>
+            ${S.babyPhoto ? `<span class="pc-tag">then</span>` : ""}
+          </div>
+          <div class="pc pc-photo front" data-card="now">
             <span class="ix">E<br>♠</span>
             ${S.headshot ? `<img src="${esc(S.headshot)}" alt="${esc(S.name)}">` : `<div class="photo-ph">your photo here<br><small>photos/headshot.jpg</small></div>`}
             <span class="ix flip">E<br>♠</span>
+            ${S.babyPhoto ? `<span class="pc-tag">now</span>` : ""}
           </div>
+          ${S.babyPhoto ? `<span class="hand-hint">tap to switch</span>` : ""}
         </div>
       </section>
       </div>
@@ -330,6 +337,24 @@
   const nextQuote = () => quoteOrder[quotePos++ % quoteOrder.length];
 
   const after = {
+    home: () => {
+      const hand = $("#hand");
+      if (!S.babyPhoto) return;          // swap turns on once there's a baby photo
+      let busy = false;
+      const swap = () => {
+        if (busy) return; busy = true;
+        const front = hand.querySelector(".front"), back = hand.querySelector(".behind");
+        back.classList.add("pull");                       // slide the back card out to the side
+        setTimeout(() => {
+          back.classList.remove("pull", "behind"); back.classList.add("front");
+          front.classList.remove("front"); front.classList.add("behind");
+          hand.classList.add("used");
+          setTimeout(() => (busy = false), 450);
+        }, 260);
+      };
+      hand.addEventListener("click", swap);
+      hand.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); swap(); } });
+    },
     eats: () => {
       $("#rain").addEventListener("click", () => sushiRain());
       const more = $("#see-more");
