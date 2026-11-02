@@ -96,6 +96,7 @@ window.SITE = {
     {
       company: "Cimulate (acquired by Salesforce, 2026)",
       logo: "cimulate.ai", // company website, used to show its logo
+      logoPad: true,
       role: "AI Engineering Intern",
       location: "Los Angeles, CA",
       dates: "Jun. – Jul. 2024",
