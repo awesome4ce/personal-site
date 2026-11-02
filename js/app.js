@@ -46,6 +46,30 @@
   const initials = (name) => name.replace(/\(.*?\)/g, "").split(/\s+/).filter((w) => /^[A-Z]/.test(w)).slice(0, 2).map((w) => w[0]).join("");
   const logo = (name, domain, size = "") => `<span class="logo ${size}" data-i="${esc(initials(name))}">${domain
     ? `<img src="https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=128" alt="" loading="lazy" onerror="this.remove()">` : ""}</span>`;
+  // Home background: running averages of noisy bets converging on their expected value (law of large numbers)
+  function evBackground() {
+    let seed = 7;
+    const rand = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+    const W = 1000, H = 420, mid = H * 0.56, n = 220, paths = [];
+    for (let k = 0; k < 13; k++) {
+      let sum = 0, d = "";
+      const j0 = 5;                                                 // skip the very first (spikiest) bets
+      for (let j = 1; j <= n; j++) {
+        const draw = (rand() + rand() + rand() - 1.5) * 2.2;      // noisy outcome, mean 0 (= EV)
+        sum += draw;
+        if (j < j0) continue;
+        const x = Math.pow((j - j0) / (n - j0), 0.8) * W;
+        const y = mid - (sum / j) * 95;
+        d += `${j === j0 ? "M" : "L"}${x.toFixed(1)},${Math.max(10, Math.min(H - 10, y)).toFixed(1)}`;
+      }
+      paths.push(`<path class="${k === 4 ? "hot" : ""}" d="${d}" pathLength="1" style="animation-delay:${(k * 0.12).toFixed(2)}s"/>`);
+    }
+    return `<svg class="ev-bg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">
+      <line class="ev-line" x1="0" y1="${mid}" x2="${W}" y2="${mid}"/>
+      ${paths.join("")}
+      <text class="ev-label" x="${W - 14}" y="${mid - 10}" text-anchor="end">EV</text>
+    </svg>`;
+  }
   const header = (title, sub, aside = "") => {
     const t = TABS.find((x) => x.label.startsWith(title.split(" ")[0]));
     return `<div class="page-head">${t ? `<span class="page-suit ${isRed(t.suit) ? "red" : ""}">${t.suit}</span>` : ""}<div><h1 class="page-title">${esc(title)}</h1><p class="page-sub">${esc(sub)}</p>${aside ? `<p class="aside">${esc(aside)}</p>` : ""}</div></div>`;
@@ -56,6 +80,7 @@
   const views = {
     home: () => `
       <section class="table">
+        ${evBackground()}
         <div class="table-text">
           <p class="hello">Hi, I'm</p>
           <h1>${esc(S.name)}</h1>
