@@ -197,7 +197,7 @@ window.SITE = {
       note: "" },
     { text: "Stay gold, Ponyboy.", author: "Johnny Cade, The Outsiders",
       note: "" },
-    { text: "Go be a fucking dawg.", author: "",
+    { text: "Go be a fucking dawg.", author: "My dad",
       note: "" },
     { text: "Risk comes from not knowing what you're doing.", author: "Warren Buffett",
       note: "Poker taught me this one: risk isn't the bet, it's betting without an edge." },
