@@ -42,9 +42,9 @@
     });
     return `<div class="gallery ${cls}">${colsHtml.map((c) => `<div class="gcol">${c.join("")}</div>`).join("")}</div>`;
   };
-  const header = (title, sub) => {
+  const header = (title, sub, aside = "") => {
     const t = TABS.find((x) => x.label.startsWith(title.split(" ")[0]));
-    return `<div class="page-head">${t ? `<span class="page-suit ${isRed(t.suit) ? "red" : ""}">${t.suit}</span>` : ""}<div><h1 class="page-title">${esc(title)}</h1><p class="page-sub">${esc(sub)}</p></div></div>`;
+    return `<div class="page-head">${t ? `<span class="page-suit ${isRed(t.suit) ? "red" : ""}">${t.suit}</span>` : ""}<div><h1 class="page-title">${esc(title)}</h1><p class="page-sub">${esc(sub)}</p>${aside ? `<p class="aside">${esc(aside)}</p>` : ""}</div></div>`;
   };
   const resumeBtn = (label, cls = "pill solid") => `<a class="${cls} resume-btn" href="${esc(S.resume)}" target="_blank" rel="noopener">${label}</a>`;
 
@@ -154,8 +154,8 @@
       const list = [...S.eats].sort((a, b) => b.score - a.score);
       const tone = (s) => (s >= 8.5 ? "hi" : s >= 7 ? "mid" : "lo");
       return `
-      ${header("Eats", "Almost 200 places logged on Beli. Here are my top 12. Big sushi guy.")}
-      <div class="pills" style="margin:-24px 0 40px"><a class="pill" href="${esc(S.beli)}" target="_blank" rel="noopener">follow me on beli ↗</a></div>
+      ${header("Eats", "Almost 200 places logged on Beli. Here are my top 12. Big sushi guy.", "AI can do a lot of things. It can't eat, and it definitely doesn't have my palate.")}
+      <div class="pills" style="margin:0 0 40px"><a class="pill" href="${esc(S.beli)}" target="_blank" rel="noopener">follow me on beli ↗</a></div>
       <ol class="beli">
         ${list.map((e, i) => `
           <li>

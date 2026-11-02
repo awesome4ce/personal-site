@@ -269,3 +269,4 @@ figcaption span { color: var(--muted); margin-left: 6px; }
 .qnote { margin: 12px 0 0; max-width: 60ch; color: var(--body); font-size: 16px; padding-left: 14px; border-left: 2px solid var(--accent); }
 .page-sub { max-width: 62ch; }
 .deal-btn { font-size: 18px; padding: 16px 34px; min-width: 210px; justify-content: center; font-weight: 600; }
+.aside { font: italic 400 20px/1.4 var(--serif); color: var(--accent); margin: -28px 0 32px; max-width: 60ch; }
