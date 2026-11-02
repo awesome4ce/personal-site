@@ -7,7 +7,7 @@
 
 window.SITE = {
   name: "Ethan Seung",
-  tagline: "Stanford · Data Science & Quant Finance",
+  eyebrow: "Stanford · Data Science · Quant Finance",
   headshot: "", // e.g. "photos/headshot.jpg"  // PLACEHOLDER
   email: "eseung@stanford.edu",
   linkedin: "https://www.linkedin.com/in/ethan-seung",
@@ -17,8 +17,9 @@ window.SITE = {
   /* ---------------- ABOUT ---------------- */
   intro: [
     // PLACEHOLDER — rewrite in your own voice
-    "I study data science with a concentration in quantitative finance at Stanford. Most of my work so far has been in real estate credit and capital markets — underwriting loans, modeling cash flows, and building tools that make diligence faster.",
-    "Outside of that I ride a lot (Stanford Cycling), ski when there's snow, played volleyball for six years, and will happily talk pot odds with anyone.",
+    // Wrap words in **double asterisks** to bold them.
+    "I study data science and quantitative finance at **Stanford**. Most of my work so far has been in **real estate credit and capital markets**: underwriting loans, modeling cash flows, and building tools that make diligence faster.",
+    "Outside of that I'm usually **on a bike** (Stanford Cycling), on a mountain when there's snow, or at a poker table.",
   ],
   now: [
     "Incoming Capital Markets Summer Analyst at JLL (SF, summer 2027)",
@@ -136,6 +137,13 @@ window.SITE = {
       title: "Volleyball",
       sub: "Varsity & Club · 2019–2025",
       text: "Position, a favorite moment, whether you still play.", // PLACEHOLDER
+      img: "",
+    },
+    {
+      title: "Chess",
+      sub: "Always down for a game",
+      icon: "♞",
+      text: "Rating, favorite opening, or your chess.com / lichess link.", // PLACEHOLDER
       img: "",
     },
   ],

@@ -8,44 +8,32 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>♠</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <canvas id="bg" aria-hidden="true"></canvas>
-
-  <header class="hero wrap">
-    <div class="hero-text">
-      <img id="headshot" class="headshot" alt="Ethan Seung" hidden />
-      <div id="headshot-ph" class="headshot ph"><span>ES</span></div>
-      <div>
-        <h1 id="name"></h1>
-        <p id="tagline" class="tagline"></p>
-      </div>
-    </div>
-    <div class="hole-cards" aria-label="Hover to flip">
-      <div class="pcard" style="--tilt:-8deg"><div class="pcard-inner">
-        <div class="pcard-back"></div>
-        <div class="pcard-front black"><span class="ix">E<br>♠</span><span class="big">♠</span><span class="ix flip">E<br>♠</span></div>
-      </div></div>
-      <div class="pcard" style="--tilt:6deg"><div class="pcard-inner">
-        <div class="pcard-back"></div>
-        <div class="pcard-front red"><span class="ix">S<br>♥</span><span class="big">♥</span><span class="ix flip">S<br>♥</span></div>
-      </div></div>
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="#home" class="brand" aria-label="Home">
+        <span class="mini-cards" aria-hidden="true">
+          <span class="mc"><span class="mc-in"><span class="mc-back"></span><span class="mc-front">E<i>♠</i></span></span></span>
+          <span class="mc"><span class="mc-in"><span class="mc-back"></span><span class="mc-front red">S<i>♥</i></span></span></span>
+        </span>
+        <span id="brand-name">Ethan Seung</span>
+      </a>
+      <nav id="tabs" class="tabs"></nav>
     </div>
   </header>
 
-  <nav class="tabs wrap" id="tabs" role="tablist"></nav>
+  <main id="main" class="wrap"></main>
 
-  <main class="wrap" id="main"></main>
-
+  <svg class="ridge" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true"><path fill="currentColor" d="M0 120 L0 92 L90 70 L160 84 L250 40 L330 66 L410 52 L500 18 L580 58 L660 46 L740 72 L820 34 L900 60 L980 44 L1060 76 L1130 58 L1200 70 L1200 120 Z"/></svg>
   <footer class="wrap foot">
     <span>© <span id="year"></span> Ethan Seung</span>
-    <span class="mono">♠ ♥ ♦ ♣</span>
+    <span class="suits">♠ <b>♥</b> <b>♦</b> ♣</span>
   </footer>
 
   <script src="js/data.js"></script>
-  <script src="js/bg.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
