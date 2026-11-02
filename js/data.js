@@ -220,7 +220,7 @@ window.SITE = {
     { text: "Risk comes from not knowing what you're doing.", author: "Warren Buffett",
       note: "Poker taught me this one: risk isn't the bet, it's betting without an edge." },
     { text: "The biggest risk is not taking any risk.", author: "Mark Zuckerberg",
-      note: "" },
+      note: "Read it with the one above: the move isn't to avoid bets, it's to only take the ones you understand." },
     { text: "It never gets easier, you just go faster.", author: "Greg LeMond",
       note: "Mile 120 of a century says hi." },
   ],
