@@ -78,9 +78,9 @@
       ${paths.join("")}
     </svg>`;
   }
-  const header = (title, sub, aside = "") => {
+  const header = (title, sub, aside = "", extra = "") => {
     const t = TABS.find((x) => x.label.startsWith(title.split(" ")[0]));
-    return `<div class="page-head">${t ? `<span class="page-suit ${isRed(t.suit) ? "red" : ""}">${t.suit}</span>` : ""}<div><h1 class="page-title">${esc(title)}</h1><p class="page-sub">${esc(sub)}</p>${aside ? `<p class="aside">${esc(aside)}</p>` : ""}</div></div>`;
+    return `<div class="page-head">${t ? `<span class="page-suit ${isRed(t.suit) ? "red" : ""}">${t.suit}</span>` : ""}<div><h1 class="page-title">${esc(title)}</h1><p class="page-sub">${esc(sub)}</p>${aside ? `<p class="aside">${esc(aside)}</p>` : ""}${extra}</div></div>`;
   };
   const resumeBtn = (label, cls = "pill solid") => `<a class="${cls} resume-btn" href="${esc(S.resume)}" target="_blank" rel="noopener">${label}</a>`;
 
@@ -203,8 +203,8 @@
             </span>
           </li>`;
       return `
-      ${header("Eats", "Almost 200 places logged on Beli: the best of them, and a few I'd skip. Big sushi guy.", "AI can do a lot. It can't taste.")}
-      <div class="pills" style="margin:0 0 40px"><a class="pill" href="${esc(S.beli)}" target="_blank" rel="noopener">follow me on beli ↗</a><button class="pill" id="rain">🍣 make it rain</button></div>
+      ${header("Eats", "Almost 200 places logged on Beli: the best of them, and a few I'd skip. Big sushi guy.", "AI can do a lot. It can't taste.",
+        `<div class="pills head-pills"><a class="pill sm" href="${esc(S.beli)}" target="_blank" rel="noopener">follow me on beli ↗</a><button class="pill sm" id="rain">🍣 make it rain</button></div>`)}
       <h2 class="sec-title">${suit("♥")}Top of my list</h2>
       <ol class="beli top" id="beli-top">${list.map((e, i) => row(e, i + 1, i >= 6 ? "extra" : "")).join("")}</ol>
       ${list.length > 6 ? `<button class="pill see-more" id="see-more">See all ${list.length} ↓</button>` : ""}

@@ -267,7 +267,7 @@ figcaption span { color: var(--muted); margin-left: 6px; }
 @media (max-width: 820px) { .sec-title { font-size: 26px; } }
 .pc-photo img { object-position: 50% 30%; }
 .qnote { margin: 12px 0 0; max-width: 60ch; color: var(--body); font-size: 16px; padding-left: 14px; border-left: 2px solid var(--accent); }
-.page-sub { max-width: 62ch; }
+.page-sub { max-width: 72ch; }
 .deal-btn { font-size: 18px; padding: 16px 34px; min-width: 210px; justify-content: center; font-weight: 600; }
 .aside { font: italic 400 20px/1.4 var(--serif); color: var(--accent); margin: -28px 0 32px; max-width: 60ch; }
 
@@ -345,3 +345,10 @@ figcaption span { color: var(--muted); margin-left: 6px; }
 .beli.top.open li.extra { display: grid; }
 .see-more { margin-top: 20px; }
 .rule.rule-lg { margin: 20px 0 22px; }
+/* compact page header on Eats */
+.page-head .aside { margin: -30px 0 0; }
+.head-pills { margin-top: 14px; gap: 10px; }
+.pill.sm { padding: 7px 15px; font-size: 14px; }
+.page-head:has(.head-pills) { margin-bottom: 28px; }
+.page-head:has(.head-pills) .page-sub { margin-bottom: 36px; }
+.beli li { padding: 15px 0; }
