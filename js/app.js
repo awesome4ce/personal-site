@@ -48,7 +48,7 @@
           <div class="links">
             <a class="btn" href="mailto:${esc(S.email)}">${esc(S.email)}</a>
             <a class="btn" href="${esc(S.linkedin)}" target="_blank" rel="noopener">LinkedIn ↗</a>
-            <a class="btn solid" href="${esc(S.resume)}" target="_blank" rel="noopener">Resume (PDF)</a>
+            <a class="btn solid resume-btn" href="${esc(S.resume)}" target="_blank" rel="noopener">Resume (PDF)</a>
           </div>
         </div>
         <aside class="panel">
@@ -86,7 +86,7 @@
           <p class="mono skills">${S.skills.map(esc).join(" · ")}</p>
         </div>
       </section>
-      <p class="center top-gap"><a class="btn solid" href="${esc(S.resume)}" target="_blank" rel="noopener">Download full resume</a></p>`,
+      <p class="center top-gap resume-btn"><a class="btn solid" href="${esc(S.resume)}" target="_blank" rel="noopener">Download full resume</a></p>`,
 
     play: () => `
       <section>
@@ -238,6 +238,16 @@
     main.innerHTML = views[tab]();
     void main.offsetWidth; main.classList.add("in");
     after[tab]?.();
+    if (!resumeOk) document.querySelectorAll(".resume-btn").forEach((b) => (b.hidden = true));
+  }
+
+  // Hide resume buttons if the PDF isn't there (no broken links).
+  let resumeOk = !!S.resume;
+  if (S.resume && location.protocol !== "file:") {
+    fetch(S.resume, { method: "HEAD" })
+      .then((r) => { resumeOk = r.ok; })
+      .catch(() => { resumeOk = false; })
+      .finally(() => { if (!resumeOk) document.querySelectorAll(".resume-btn").forEach((b) => (b.hidden = true)); });
   }
   addEventListener("hashchange", route);
   route();
