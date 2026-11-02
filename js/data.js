@@ -231,6 +231,7 @@ window.SITE = {
     // PLACEHOLDER — swap in your own
     { title: "How to Do Great Work", author: "Paul Graham", type: "article", url: "https://paulgraham.com/greatwork.html", tags: ["career"], note: "Follow the thing you can't stop poking at until it turns into an edge. Basically the problem-solving-junkie manifesto." },
     { title: "Oaktree Memos", author: "Howard Marks", type: "article", url: "https://www.oaktreecapital.com/insights", tags: ["markets"], note: "Second-level thinking is poker for markets: what does everyone else believe, and where are they wrong?" },
+    { title: "Moneyball", author: "Michael Lewis", type: "book", url: "", tags: ["sports", "data"], note: "The reason I spent a summer in Rams play-by-play data: whatever the market doesn't measure, it misprices." },
     { title: "Thinking in Bets", author: "Annie Duke", type: "book", url: "", tags: ["decisions", "poker"], note: "Judge the decision, not the outcome. Every poker player learns it the hard way; Duke makes it a life rule." },
     { title: "Money Stuff", author: "Matt Levine", type: "article", url: "https://www.bloomberg.com/account/newsletters/money-stuff", tags: ["markets"], note: "Made credit and capital markets click before I ever sat on an underwriting desk, and it's the only finance newsletter that makes me laugh." },
   ],
