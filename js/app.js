@@ -298,6 +298,18 @@
     });
   }
 
+  // Quote "shoe": a shuffled deck of every quote. Deal through all of them before any repeats,
+  // then reshuffle (never starting the new deck with the quote you just saw).
+  let quoteDeck = [], lastQuote = -1;
+  function nextQuote() {
+    if (!quoteDeck.length) {
+      quoteDeck = S.quotes.map((_, i) => i);
+      for (let i = quoteDeck.length - 1; i > 0; i--) { const j = (Math.random() * (i + 1)) | 0; [quoteDeck[i], quoteDeck[j]] = [quoteDeck[j], quoteDeck[i]]; }
+      if (quoteDeck.length > 1 && quoteDeck[quoteDeck.length - 1] === lastQuote) quoteDeck.unshift(quoteDeck.pop());
+    }
+    return (lastQuote = quoteDeck.pop());
+  }
+
   const after = {
     eats: () => {
       $("#rain").addEventListener("click", () => sushiRain());
@@ -312,12 +324,11 @@
       const card = $("#qcard");
       const btn = $("#deal");
       const ranks = ["A", "K", "Q", "J", "10", "9"];
-      let last = -1, first = true, busy = false, faceUp = false;
+      let first = true, busy = false, faceUp = false;
       // deal a new card out of the shoe, face DOWN
       const deal = () => {
         if (busy) return; busy = true;
-        let i; do { i = (Math.random() * S.quotes.length) | 0; } while (S.quotes.length > 1 && i === last);
-        last = i;
+        const i = nextQuote();
         const go = () => {
           const s = SUITS[(Math.random() * 4) | 0];
           const ix = $("#q-ix");
