@@ -220,7 +220,31 @@
       ${header("Quotes & Reads", "Keep moving when life won't wait, put in the reps nobody sees, and take the good bets. Plus a few reads worth your time.")}
       <div class="deal-area">
         <div class="deal-stage">
-          <div class="shoe" aria-hidden="true"><span class="shoe-cards"></span><span class="shoe-mouth"></span></div>
+          <div class="shoe" aria-hidden="true">
+            <svg viewBox="0 0 180 120">
+              <defs>
+                <pattern id="cb" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" fill="#3d6b55"/><rect width="1.4" height="5" fill="#5c8a73"/></pattern>
+              </defs>
+              <ellipse cx="92" cy="112" rx="80" ry="6" fill="rgba(0,0,0,.12)"/>
+              <!-- body: wedge-shaped shoe, tall at the front (right) -->
+              <path d="M8 58 L150 22 Q160 20 162 30 L166 98 Q166 106 158 106 L16 106 Q8 106 8 98 Z" fill="#2a3530"/>
+              <!-- see-through top: the deck of cards inside, slanted toward the front -->
+              <path d="M18 60 L146 29 L148 52 L20 84 Z" fill="#fff"/>
+              <g stroke="#cfc6b4" stroke-width="1">
+                ${Array.from({ length: 22 }, (_, i) => { const x = 22 + i * 5.8; return `<line x1="${x}" y1="${59 - i * 1.4}" x2="${x + 1.4}" y2="${83 - i * 1.4}"/>`; }).join("")}
+              </g>
+              <path d="M18 60 L146 29 L148 52 L20 84 Z" fill="none" stroke="#1b2420" stroke-width="2"/>
+              <!-- brass trim -->
+              <path d="M8 58 L150 22" stroke="#c9a24a" stroke-width="3" stroke-linecap="round"/>
+              <!-- front slot with a card sliding out -->
+              <rect x="146" y="70" width="18" height="26" rx="4" fill="#141b17"/>
+              <g transform="rotate(-8 168 86)">
+                <rect x="150" y="76" width="30" height="20" rx="2.5" fill="#fff"/>
+                <rect x="152.5" y="78.5" width="25" height="15" rx="1.5" fill="url(#cb)"/>
+              </g>
+              <path d="M146 96 Q156 101 166 96" stroke="#c9a24a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            </svg>
+          </div>
           <div class="qcard" id="qcard"><div class="qcard-inner">
             <div class="qcard-back"></div>
             <div class="qcard-front"><span class="ix" id="q-ix">A<br>♠</span><blockquote id="q-text"></blockquote><cite id="q-by"></cite></div>
@@ -336,11 +360,11 @@
           card.classList.add("dealing");
           faceUp = false;
           btn.textContent = "Flip it over";
-          setTimeout(() => (busy = false), 750);
+          setTimeout(() => (busy = false), 1100);
         };
         if (first) { first = false; go(); return; }
         card.classList.add("toss");
-        setTimeout(go, 280);
+        setTimeout(go, 360);
       };
       // reveal the card that's on the table
       const flip = () => {

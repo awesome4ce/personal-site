@@ -156,21 +156,20 @@ figcaption span { color: var(--muted); margin-left: 6px; }
 .deal-area { display: flex; align-items: center; gap: 48px; margin-bottom: 48px; flex-wrap: wrap; }
 .deal-stage { display: flex; align-items: center; gap: 56px; }
 /* the blackjack shoe */
-.shoe { position: relative; width: 150px; height: 104px; flex: none; transform: rotate(-8deg); }
-.shoe::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, #3a4a42, #26312b); clip-path: polygon(0 18%, 100% 0, 100% 100%, 0 100%); border-radius: 6px; box-shadow: 0 10px 22px rgba(0,0,0,.18); }
-.shoe-cards { position: absolute; left: 14px; right: 14px; top: 26px; height: 46px; background: repeating-linear-gradient(90deg, #fff 0 2px, #e8e2d6 2px 4px); clip-path: polygon(0 20%, 100% 0, 100% 100%, 0 100%); opacity: .9; }
-.shoe-mouth { position: absolute; right: -6px; top: 34px; width: 14px; height: 52px; background: #1b2420; border-radius: 3px; }
+.shoe { position: relative; width: 210px; height: 140px; flex: none; }
+.deal-stage { --from-x: -229px; --from-y: 30px; }   /* card starts at the shoe's front slot */
+.shoe svg { width: 100%; height: 100%; display: block; overflow: visible; }
 .qcard { width: 300px; height: 200px; perspective: 1000px; cursor: pointer; flex: none; opacity: 0; }
-.qcard.dealing { animation: deal .75s cubic-bezier(.2,.8,.25,1) forwards; }
-.qcard.toss { opacity: 1; animation: toss .28s ease-in forwards; }
+.qcard.dealing { animation: deal 1.1s cubic-bezier(.2,.8,.25,1) forwards; }
+.qcard.toss { opacity: 1; animation: toss .36s ease-in forwards; }
 @keyframes deal {
-  0%   { opacity: 0; transform: translate(-190px, 6px) rotate(-10deg) scale(.42); }
+  0%   { opacity: 0; transform: translate(var(--from-x, -205px), var(--from-y, 24px)) rotate(-10deg) scale(.42); }
   12%  { opacity: 1; }
   65%  { opacity: 1; transform: translate(0, -22px) rotate(3deg) scale(1.07); }
   100% { opacity: 1; transform: none; }
 }
 @keyframes toss { to { opacity: 0; transform: translate(60px, -30px) rotate(12deg) scale(.9); } }
-.qcard-inner { position: relative; width: 100%; height: 100%; transition: transform .6s cubic-bezier(.2,.7,.2,1); transform-style: preserve-3d; }
+.qcard-inner { position: relative; width: 100%; height: 100%; transition: transform .8s cubic-bezier(.2,.7,.2,1); transform-style: preserve-3d; }
 .qcard.flipped .qcard-inner { transform: rotateY(180deg); }
 .qcard-back, .qcard-front { position: absolute; inset: 0; border-radius: 12px; backface-visibility: hidden; -webkit-backface-visibility: hidden; box-shadow: 0 8px 24px rgba(40,30,10,.14); }
 .qcard-back { background: repeating-linear-gradient(45deg, rgba(255,255,255,.18) 0 2px, transparent 2px 9px), repeating-linear-gradient(-45deg, rgba(255,255,255,.18) 0 2px, transparent 2px 9px), var(--accent); border: 6px solid #fff; }
@@ -216,10 +215,9 @@ figcaption span { color: var(--muted); margin-left: 6px; }
   .tiles.screens .tile { scroll-snap-align: start; }
   .reads li { grid-template-columns: 1fr; gap: 4px; }
   .deal-stage { gap: 18px; }
-  .shoe { width: 70px; height: 56px; }
-  .shoe-cards { top: 14px; height: 24px; left: 8px; right: 8px; }
-  .shoe-mouth { top: 18px; height: 28px; width: 8px; }
-  .qcard { width: 240px; height: 180px; }
+  .shoe { width: 84px; height: 56px; }
+  .deal-stage { --from-x: -143px; --from-y: 12px; }
+      .qcard { width: 240px; height: 180px; }
   .qcard-front { padding: 24px 20px 16px; }
   .qcard-front blockquote { font-size: 16px; }
 }
@@ -357,13 +355,13 @@ figcaption span { color: var(--muted); margin-left: 6px; }
 .foot { align-items: center; }
 .foot-right { display: flex; align-items: center; gap: 18px; }
 .mate { display: inline-flex; align-items: flex-end; gap: 10px; height: 38px; }
-.mate em { font: italic 400 16px var(--serif); color: var(--muted); opacity: 0; transform: translateY(3px); transition: opacity .4s ease 1.25s, transform .4s ease 1.25s; }
+.mate em { font: italic 400 16px var(--serif); color: var(--muted); opacity: 0; transform: translateY(3px); transition: opacity .5s ease 1.7s, transform .5s ease 1.7s; }
 .mate .board { position: relative; width: 94px; height: 32px; border-bottom: 1px solid var(--line); }
 .mate svg { position: absolute; bottom: 1px; width: 21px; height: 29px; }
 .mate .q { left: 0; fill: var(--ink); opacity: 0; transform: translateX(-12px); }
 .mate .k { left: 39px; fill: var(--red); transform-origin: 85% 100%; }
-.mate.go .q { animation: mate-queen .75s cubic-bezier(.2,.8,.2,1) forwards; }
-.mate.go .k { animation: mate-king .6s cubic-bezier(.3,.1,.4,1) .68s forwards; }
+.mate.go .q { animation: mate-queen 1s cubic-bezier(.2,.8,.2,1) forwards; }
+.mate.go .k { animation: mate-king .8s cubic-bezier(.3,.1,.4,1) .92s forwards; }
 .mate.go em { opacity: 1; transform: none; }
 @keyframes mate-queen {
   0%   { opacity: 0; transform: translateX(-12px); }
