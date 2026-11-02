@@ -106,7 +106,7 @@
 
     play: () => `
       ${header("Play", "Mostly bikes. Some snow, some sand.")}
-      <p class="eyebrow">${suit("♠")}Two days over a hundred miles</p>
+      <p class="eyebrow">${suit("♠")}Two favorite centuries</p>
       <div class="rides">
         ${S.rides.map((r) => `
           <article class="card ride">
@@ -144,7 +144,7 @@
         ${list.map((e, i) => `
           <li>
             <span class="rank">${i + 1}</span>
-            <div><h4>${esc(e.name)}</h4><p class="meta">${esc(e.cuisine)} · ${esc(e.city)}</p><p class="order">Order: ${esc(e.order)}</p></div>
+            <div><h4>${esc(e.name)}</h4><p class="meta">${e.price ? esc(e.price) + " · " : ""}${esc(e.cuisine)} · ${esc(e.city)}</p>${e.order ? `<p class="order">Order: ${esc(e.order)}</p>` : ""}</div>
             <span class="score ${tone(e.score)}">${Number(e.score).toFixed(1)}</span>
           </li>`).join("")}
       </ol>

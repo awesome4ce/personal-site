@@ -106,24 +106,24 @@ window.SITE = {
   // used to draw the little elevation line. Replace with real numbers later.
   rides: [
     {
-      name: "Century #1 — Route name", // PLACEHOLDER
-      date: "2026",
-      miles: 102,
-      elevation: "6,800 ft",
-      where: "Peninsula → Half Moon Bay → back",
-      note: "One line about the ride — the climb that hurt, the coffee stop, who you rode with.",
-      profile: [10, 12, 30, 55, 48, 20, 15, 18, 40, 70, 62, 35, 22, 14, 25, 50, 44, 18, 10],
-      photos: ["", ""],
+      name: "Around the Bay",
+      date: "Apr. 4, 2026",
+      miles: 138.2,
+      elevation: "4,147 ft",
+      where: "A full loop of the SF Bay",
+      note: "Longest ride I've ever done: 8h20m moving at 16.6 mph, 138 W average, and my 2nd-fastest 100 miles along the way.",
+      profile: [6, 10, 14, 9, 18, 26, 20, 12, 30, 22, 14, 10, 16, 24, 15, 8, 12, 18, 10, 6],
+      photos: ["photos/ride-bay-loop-map.jpg"],
     },
     {
-      name: "Century #2 — Route name", // PLACEHOLDER
-      date: "2026",
-      miles: 110,
-      elevation: "8,200 ft",
-      where: "Skyline Blvd loop",
-      note: "One line about the ride.",
-      profile: [5, 8, 20, 45, 80, 76, 60, 30, 25, 50, 85, 90, 70, 40, 30, 20, 35, 22, 8],
-      photos: ["", ""],
+      name: "Page Mill to Santa Cruz",
+      date: "Oct. 5, 2025",
+      miles: 113.2,
+      elevation: "8,173 ft",
+      where: "West Old La Honda, the coast, Santa Cruz",
+      note: "Ate so much wind: headwind half the ride, including 2h21m straight. Still PR'd Upper West Old La Honda and went 10th all-time on Page Mill → Santa Cruz.",
+      profile: [30, 55, 82, 60, 35, 12, 6, 10, 8, 14, 9, 20, 48, 78, 95, 70, 52, 34, 22, 15],
+      photos: ["photos/ride-santa-cruz-map.jpg"],
     },
   ],
   hobbies: [
@@ -148,24 +148,32 @@ window.SITE = {
     },
   ],
   travel: [
-    // PLACEHOLDER — add as many as you want
-    { place: "Los Angeles", region: "California", coords: "34.05°N 118.24°W", img: "" },
-    { place: "Stanford", region: "California", coords: "37.43°N 122.17°W", img: "" },
-    { place: "Lake Tahoe", region: "California / Nevada", coords: "39.10°N 120.03°W", img: "" },
-    { place: "Somewhere new", region: "Add a trip", coords: "00.00°N 00.00°W", img: "" },
+    // Captions are guesses from the photos. Fix the place names if they're off.
+    { place: "Switzerland", region: "Lake day", img: "photos/swiss-lake.jpg" },
+    { place: "Switzerland", region: "Mountain railway", img: "photos/swiss-train.jpg" },
+    { place: "Switzerland", region: "Sunset swim", img: "photos/swiss-sunset-swim.jpg" },
+    { place: "Switzerland", region: "Hillside", img: "photos/swiss-hillside.jpg" },
+    { place: "Switzerland", region: "Garden", img: "photos/swiss-garden.jpg" },
   ],
 
   /* ---------------- EATS (Beli-style) ---------------- */
   // score is out of 10 like Beli. Sorted automatically, highest first.
   eats: [
-    // PLACEHOLDER — all of these
-    { name: "Restaurant One", city: "Palo Alto", cuisine: "Italian", order: "What you always get", score: 9.4 },
-    { name: "Restaurant Two", city: "Los Angeles", cuisine: "Korean BBQ", order: "What you always get", score: 9.1 },
-    { name: "Restaurant Three", city: "San Francisco", cuisine: "Ramen", order: "What you always get", score: 8.7 },
-    { name: "Restaurant Four", city: "Los Angeles", cuisine: "Tacos", order: "What you always get", score: 8.5 },
-    { name: "Restaurant Five", city: "Palo Alto", cuisine: "Coffee", order: "What you always get", score: 7.9 },
+    // From my Beli "Been" list. Add `order: "..."` to any spot to show what to get.
+    { name: "J'ai la patate", city: "Hokkaido, Japan", cuisine: "French, Japanese", price: "¥¥¥¥", score: 10.0 },
+    { name: "The Brothers Sushi", city: "Santa Monica, CA", cuisine: "Sushi", price: "$$$$", score: 10.0 },
+    { name: "SANGHYUN", city: "Seoul, South Korea", cuisine: "Omakase", price: "₩₩₩₩", score: 9.9 },
+    { name: "Kuni Sushi", city: "Sapporo, Japan", cuisine: "Omakase", price: "¥¥¥", score: 9.9 },
+    { name: "Ristorante L'Escale", city: "Tremezzina, Italy", cuisine: "Italian, Wine Bar", price: "€€€€", score: 9.9 },
+    { name: "Farmshop", city: "Brentwood, CA", cuisine: "American", price: "$$$", score: 9.8 },
+    { name: "Matu Kai", city: "Brentwood, CA", cuisine: "Steakhouse", price: "$$$$", score: 9.8 },
+    { name: "Robin", city: "Menlo Park, CA", cuisine: "Omakase", price: "$$$$", score: 9.8 },
+    { name: "Nozawa Bar", city: "Beverly Hills, CA", cuisine: "Omakase", price: "$$$$", score: 9.8 },
+    { name: "yeobo, darling", city: "Menlo Park, CA", cuisine: "Korean, Taiwanese", price: "$$$$", score: 9.7 },
+    { name: "The Mulberry", city: "Sawtelle, LA", cuisine: "Korean", price: "$$$$", score: 9.7 },
+    { name: "White House Tavern", city: "Aspen, CO", cuisine: "Burgers, Sandwiches", price: "$$", score: 9.7 },
   ],
-  beliScreens: ["", "", ""], // e.g. "photos/beli-1.png"  // PLACEHOLDER
+  beliScreens: ["photos/beli-1.jpg", "photos/beli-2.jpg", "photos/beli-3.jpg"],
 
   /* ---------------- QUOTES ---------------- */
   quotes: [
