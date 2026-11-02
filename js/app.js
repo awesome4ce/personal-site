@@ -45,8 +45,12 @@
   };
   // company logo from its website's icon; falls back to an initials badge if it can't load
   const initials = (name) => name.replace(/\(.*?\)/g, "").split(/\s+/).filter((w) => /^[A-Z]/.test(w)).slice(0, 2).map((w) => w[0]).join("");
-  const logo = (name, domain, size = "") => `<span class="logo ${size}" data-i="${esc(initials(name))}">${domain
-    ? `<img src="https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=128" alt="" loading="lazy" onerror="this.remove()">` : ""}</span>`;
+  // `domain` can be a website (logo fetched from its icon) or a local file like "photos/logos/x.png"
+  const logo = (name, domain, size = "") => {
+    const src = !domain ? "" : domain.includes("/") ? domain : `https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=128`;
+    return `<span class="logo ${size}" data-i="${esc(initials(name))}">${src
+      ? `<img src="${esc(src)}" alt="" loading="lazy" onerror="this.remove()" onload="if(this.naturalWidth<32)this.remove()">` : ""}</span>`;
+  };
   // Home background: running averages of noisy bets converging on their expected value (law of large numbers)
   function evBackground() {
     // Law of large numbers: running averages of noisy bets swing wildly, then converge on the expected value.

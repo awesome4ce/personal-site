@@ -285,10 +285,9 @@ figcaption span { color: var(--muted); margin-left: 6px; }
 /* company logos */
 .logo { position: relative; flex: none; width: 44px; height: 44px; border-radius: 10px; background: #fff; border: 1px solid var(--line); display: grid; place-items: center; overflow: hidden; }
 .logo::before { content: attr(data-i); font: 600 14px var(--sans); color: var(--accent); letter-spacing: .02em; }
-.logo img { position: absolute; inset: 6px; width: calc(100% - 12px); height: calc(100% - 12px); object-fit: contain; background: #fff; }
+.logo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: #fff; }   /* square logos fill the tile */
 .logo.sm { width: 34px; height: 34px; border-radius: 8px; }
 .logo.sm::before { font-size: 12px; }
-.logo.sm img { inset: 5px; width: calc(100% - 10px); height: calc(100% - 10px); }
 .co { display: flex; align-items: center; gap: 14px; }
 .co .role { margin-top: 0; }
 .exp-list li { align-items: center; gap: 14px; }
