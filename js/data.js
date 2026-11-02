@@ -191,7 +191,7 @@ window.SITE = {
       note: "So go do the impossible." },
     { text: "I trained four years to run nine seconds.", author: "Usain Bolt",
       note: "The result is the small, visible part. The reps nobody sees are the real work." },
-    { text: "Don't practice until you get it right. Practice until you can't get it wrong.", author: "",
+    { text: "Don't practice until you get it right. Practice until you can't get it wrong.", author: "Nick Saban",
       note: "" },
     { text: "There is no tomorrow!", author: "Apollo Creed, Rocky III",
       note: "" },
