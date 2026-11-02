@@ -200,8 +200,6 @@ window.SITE = {
       note: "The result is the small, visible part. The reps nobody sees are the real work." },
     { text: "Don't practice until you get it right. Practice until you can't get it wrong.", author: "Nick Saban",
       note: "" },
-    { text: "Volume negates luck.", author: "Alex Hormozi",
-      note: "The law of large numbers, applied to a person: see enough hands, rides, and data, and the noise washes out. What's left is the edge." },
     { text: "There is no tomorrow!", author: "Apollo Creed, Rocky III",
       note: "" },
     { text: "Stay gold, Ponyboy.", author: "Johnny Cade, The Outsiders",

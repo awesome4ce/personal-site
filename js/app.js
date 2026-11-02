@@ -50,7 +50,7 @@
   function evBackground() {
     let seed = 7;
     const rand = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
-    const W = 1000, H = 420, mid = H * 0.56, n = 220, paths = [];
+    const W = 1600, H = 420, mid = H * 0.52, n = 260, paths = [];
     for (let k = 0; k < 13; k++) {
       let sum = 0, d = "";
       const j0 = 5;                                                 // skip the very first (spikiest) bets
@@ -59,7 +59,7 @@
         sum += draw;
         if (j < j0) continue;
         const x = Math.pow((j - j0) / (n - j0), 0.8) * W;
-        const y = mid - (sum / j) * 95;
+        const y = mid - (sum / j) * 80;
         d += `${j === j0 ? "M" : "L"}${x.toFixed(1)},${Math.max(10, Math.min(H - 10, y)).toFixed(1)}`;
       }
       paths.push(`<path class="${k === 4 ? "hot" : ""}" d="${d}" pathLength="1" style="animation-delay:${(k * 0.12).toFixed(2)}s"/>`);
@@ -67,7 +67,6 @@
     return `<svg class="ev-bg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">
       <line class="ev-line" x1="0" y1="${mid}" x2="${W}" y2="${mid}"/>
       ${paths.join("")}
-      <text class="ev-label" x="${W - 14}" y="${mid - 10}" text-anchor="end">EV</text>
     </svg>`;
   }
   const header = (title, sub, aside = "") => {
@@ -79,8 +78,10 @@
   /* ---------- views ---------- */
   const views = {
     home: () => `
+      <div class="hero-wrap">
+      ${evBackground()}
       <section class="table">
-        ${evBackground()}
+        <div class="ev-key" aria-hidden="true"><span class="ev-dash"></span><i>EV</i> · volume negates luck</div>
         <div class="table-text">
           <p class="hello">Hi, I'm</p>
           <h1>${esc(S.name)}</h1>
@@ -101,6 +102,7 @@
           </div>
         </div>
       </section>
+      </div>
       <section class="grid-2 below">
         <div class="card">
           <p class="eyebrow">${suit("♠")}Right now</p>
