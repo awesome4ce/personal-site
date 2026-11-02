@@ -188,7 +188,7 @@ window.SITE = {
     { text: "Life is a train that stops for no one.", author: "",
       note: "Hit home when I lost my home in the Palisades fire and still had to finish school, move, and get through college interviews. The world doesn't pause, so you don't either." },
     { text: "It always seems impossible until it's done.", author: "Nelson Mandela",
-      note: "Every long ride, every hard semester. True every time." },
+      note: "So go do the impossible." },
     { text: "I trained four years to run nine seconds.", author: "Usain Bolt",
       note: "The result is the small, visible part. The reps nobody sees are the real work." },
     { text: "Don't practice until you get it right. Practice until you can't get it wrong.", author: "",
