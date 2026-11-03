@@ -43,7 +43,7 @@ window.SITE = {
   experience: [
     {
       company: "JLL",
-      blurb: "Next summer. Capital markets in San Francisco.",
+      blurb: "Joining the Capital Markets team in San Francisco for summer 2027.",
       logo: "jll.com", // company website, used to show its logo
       role: "Incoming Capital Markets Summer Analyst",
       location: "San Francisco, CA",
@@ -52,7 +52,7 @@ window.SITE = {
     },
     {
       company: "ACORE Capital",
-      blurb: "Underwrote 56 deals (~$8B) across everything from data centers to self-storage, and got two all the way to close. Also built a council of AI agents that reads the 300-page appraisals so nobody else has to.",
+      blurb: "Underwrote 56 loan opportunities (~$8B) across data center, industrial, multifamily, retail, self-storage, hospitality, and office, and helped take two through IC approval and close. Built an AI-agent council that reviews appraisals, PCAs, and Phase I reports and flags diligence issues.",
       logo: "acorecapital.com", // company website, used to show its logo
       logoPad: true, // shrink the logo a bit inside its tile instead of filling it
       role: "Summer Analyst",
@@ -67,7 +67,7 @@ window.SITE = {
     },
     {
       company: "Bregal Sagemount",
-      blurb: "A partner-led crash course in how growth equity finds and prices software companies. I pitched six of my own.",
+      blurb: "Partner-led training in deal origination, diligence, valuation, and LBO modeling. Sourced and evaluated six software companies against the firm's criteria and presented the target list to the partners.",
       logo: "sagemount.com", // company website, used to show its logo
       role: "Spring Analyst",
       location: "Palo Alto, CA",
@@ -79,7 +79,7 @@ window.SITE = {
     },
     {
       company: "NAIOP Silicon Valley University Challenge",
-      blurb: "One of four Stanford students pitching a 1.2M sq ft mixed-use development, from construction loan to levered returns.",
+      blurb: "Selected as one of four to represent Stanford. Underwrote a 1.2M SF office, multifamily, and retail development and sized its construction debt and equity with GC, architecture, and brokerage partners.",
       logo: "naiop.org", // company website, used to show its logo
       role: "Student Developer",
       location: "Palo Alto, CA",
@@ -91,7 +91,7 @@ window.SITE = {
     },
     {
       company: "Los Angeles Rams",
-      blurb: "Dug through college and NFL play-by-play to see whether draft round actually predicts how good a running back turns out.",
+      blurb: "Analyzed college and NFL play-by-play data to measure how draft round relates to running-back performance.",
       logo: "therams.com", // company website, used to show its logo
       role: "Summer Data Analyst",
       location: "Los Angeles, CA",
@@ -100,7 +100,7 @@ window.SITE = {
     },
     {
       company: "Cimulate (acquired by Salesforce, 2026)",
-      blurb: "Built memory for their LLM and cut compute costs about 60%. They got acquired by Salesforce two years later. Probably unrelated.",
+      blurb: "Built memory tagging for the company's LLM system and benchmarked new models, cutting compute costs by ~60%. Cimulate was acquired by Salesforce in 2026.",
       logo: "cimulate.ai", // company website, used to show its logo
       logoPad: true,
       role: "AI Engineering Intern",

@@ -135,12 +135,12 @@
             ${S.experience.slice(0, 4).map((e) => `
               <li>${logo(e.company, e.logo, "sm", e.logoPad)}<div class="exp-main"><h4>${esc(e.company.replace(/\s*\(.*\)/, ""))}</h4><div class="role">${esc(e.role)}</div></div></li>`).join("")}
           </ul>
-          <a class="more" href="#work">What I actually did there →</a>
+          <a class="more" href="#work">See the work →</a>
         </div>
       </section>`,
 
     work: () => `
-      ${header("Work", "The day jobs so far.")}
+      ${header("Work", "Real estate credit, private equity, and data.")}
       <div class="jobs">
         ${S.experience.map((e) => `
           <article class="card job">
@@ -154,7 +154,7 @@
         <span>${suit("♣")}Won the Wharton Data Science Competition (1st of 216 teams)</span>
         <span>${suit("♥")}Published twice in the Wharton Sports Analytics Journal</span>
       </p>
-      <p class="boring resume-btn">Want all the details? <a href="${esc(S.resume)}" target="_blank" rel="noopener">Full resume (PDF) ↗</a></p>`,
+      <p class="boring resume-btn"><a href="${esc(S.resume)}" target="_blank" rel="noopener">Full resume (PDF) ↗</a></p>`,
 
     play: () => `
       ${header("Play", "Mostly bikes. Some snow, some sand.", "Working hard, or hardly working?")}
