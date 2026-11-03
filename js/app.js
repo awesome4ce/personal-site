@@ -154,7 +154,7 @@
         <span>${suit("♣")}Won the Wharton Data Science Competition (1st of 216 teams)</span>
         <span>${suit("♥")}Published twice in the Wharton Sports Analytics Journal</span>
       </p>
-      <p class="boring resume-btn">Want the boring version? <a href="${esc(S.resume)}" target="_blank" rel="noopener">Here's the resume (PDF) ↗</a></p>`,
+      <p class="boring resume-btn">Want all the details? <a href="${esc(S.resume)}" target="_blank" rel="noopener">Full resume (PDF) ↗</a></p>`,
 
     play: () => `
       ${header("Play", "Mostly bikes. Some snow, some sand.", "Working hard, or hardly working?")}
