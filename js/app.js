@@ -139,22 +139,29 @@
         </div>
       </section>`,
 
-    work: () => `
+    work: () => {
+      const W = S.work, SU = ["♠", "♥", "♦", "♣"];
+      return `
       ${header("Work", "Real estate credit, private equity, and data.")}
+      <p class="story">${esc(W.story)}</p>
+      <ol class="path">
+        ${W.path.map((p, i) => `<li>${p.to ? `<a href="#work" data-to="${esc(p.to)}">` : "<span>"}${suit(SU[i % 4])}${esc(p.label)}${p.note ? ` <em>${esc(p.note)}</em>` : ""}${p.to ? "</a>" : "</span>"}</li>`).join("")}
+      </ol>
       <div class="jobs">
-        ${S.experience.map((e) => `
-          <article class="card job">
-            <div class="co">${logo(e.company, e.logo, "", e.logoPad)}<div><h3>${esc(e.company.replace(/\s*\(.*\)/, ""))}</h3><p class="role">${esc(e.role)}</p></div></div>
-            <p class="blurb">${esc(e.blurb || "")}</p>
-            <p class="meta">${esc(e.dates)} · ${esc(e.location)}</p>
+        ${W.cards.map((c) => `
+          <article class="card job" id="job-${esc(c.id)}">
+            <div class="co">${logo(c.company, c.logo, "sm", c.logoPad)}<div><h4>${esc(c.company)}</h4><p class="role">${esc(c.role)} · ${esc(c.when)}</p></div></div>
+            <div class="stat">${esc(c.stat)}<small>${esc(c.statLabel)}</small></div>
+            <p class="blurb">${esc(c.line)}</p>
+            ${c.learned ? `<p class="learned">${esc(c.learned)}</p>` : ""}
           </article>`).join("")}
       </div>
-      <p class="also">
-        <span>${suit("♦")}Stanford, data science + quant finance, class of 2029</span>
-        <span>${suit("♣")}Won the Wharton Data Science Competition (1st of 216 teams)</span>
-        <span>${suit("♥")}Published twice in the Wharton Sports Analytics Journal</span>
-      </p>
-      <p class="boring resume-btn"><a href="${esc(S.resume)}" target="_blank" rel="noopener">Full resume (PDF) ↗</a></p>`,
+      <div class="card next-up" id="job-${esc(W.next.id)}">
+        ${logo(W.next.company, W.next.logo)}
+        <div><p class="eyebrow">${suit("♠")}Next</p><h3>${esc(W.next.company)}</h3><p class="role">${esc(W.next.line)}</p></div>
+      </div>
+      <p class="boring resume-btn"><a href="${esc(S.resume)}" target="_blank" rel="noopener">Full resume (PDF) ↗</a></p>`;
+    },
 
     play: () => `
       ${header("Play", "Mostly bikes. Some snow, some sand.", "Working hard, or hardly working?")}
@@ -329,6 +336,13 @@
   const nextQuote = () => quoteOrder[quotePos++ % quoteOrder.length];
 
   const after = {
+    work: () => {
+      document.querySelectorAll(".path a[data-to]").forEach((a) => a.addEventListener("click", (e) => {
+        e.preventDefault();
+        const el = document.getElementById("job-" + a.dataset.to);
+        if (el) { el.scrollIntoView({ behavior: "smooth", block: "center" }); el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash"); }
+      }));
+    },
     home: () => {
       const hand = $("#hand");
       if (!S.babyPhoto) return;          // swap turns on once there's a baby photo
