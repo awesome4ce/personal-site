@@ -398,3 +398,16 @@ figcaption span { color: var(--muted); margin-left: 6px; }
 @media (hover: none) { .hand-hint { opacity: .7; } .hand.used .hand-hint { opacity: 0; } }
 .logo.pad img { inset: 15%; width: 70%; height: 70%; object-fit: contain; }
 .sub .dot { font-size: 1.6em; line-height: 0; vertical-align: -0.12em; margin: 0 2px; }
+
+/* Work: short cards instead of a resume */
+.jobs { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.job { padding: 26px 28px; display: flex; flex-direction: column; gap: 12px; }
+.job .co h3 { font-size: 24px; margin: 0; }
+.job .role { margin: 0; color: var(--muted); font-size: 15px; }
+.job .blurb { margin: 0; font-size: 16.5px; line-height: 1.6; color: var(--body); flex: 1; }
+.job .meta { margin: 0; font-size: 13px; }
+.also { display: flex; flex-wrap: wrap; gap: 10px 26px; margin: 34px 0 0; color: var(--body); font-size: 15px; }
+.also .s { margin-right: 7px; }
+.boring { margin: 18px 0 0; color: var(--muted); font: italic 400 17px var(--serif); }
+.boring a { color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; font-style: normal; font-family: var(--sans); font-size: 15px; margin-left: 4px; }
+@media (max-width: 820px) { .jobs { grid-template-columns: 1fr; } }

@@ -18,14 +18,14 @@ window.SITE = {
 
   /* ---------------- ABOUT ---------------- */
   intro: [
-    // Wrap words in **double asterisks** to bold them.
-    "I'm a **problem-solving junkie**. It started with hunting for edges in **chess and poker**: spotting where information is asymmetric or missing, and figuring out how to use it. I love any excuse to **flex some creativity**.",
-    "When I'm not doing that, I'm usually **on a bike**, chasing powder, or on a volleyball court.",
+    "I study data science at Stanford.",
+    "Chess and poker got me hooked on finding edges, the small stuff everyone else at the table misses. These days I mostly look for them in data.",
+    "The rest of the time I'm on a bike, on a mountain, or at a sushi counter.",
   ],
   now: [
-    "Incoming Capital Markets Summer Analyst at JLL (SF, summer 2027)",
-    "VP of the Stanford Real Estate Association",
-    "Chasing another century ride before the rain season",
+    "Heading to JLL in SF next summer for capital markets",
+    "Running firm relations for the Stanford Real Estate Association",
+    "Trying to get one more century in before the rain",
   ],
 
   /* ---------------- WORK ---------------- */
@@ -43,6 +43,7 @@ window.SITE = {
   experience: [
     {
       company: "JLL",
+      blurb: "Next summer. Capital markets in San Francisco.",
       logo: "jll.com", // company website, used to show its logo
       role: "Incoming Capital Markets Summer Analyst",
       location: "San Francisco, CA",
@@ -51,6 +52,7 @@ window.SITE = {
     },
     {
       company: "ACORE Capital",
+      blurb: "Underwrote 56 deals (~$8B) across everything from data centers to self-storage, and got two all the way to close. Also built a council of AI agents that reads the 300-page appraisals so nobody else has to.",
       logo: "acorecapital.com", // company website, used to show its logo
       logoPad: true, // shrink the logo a bit inside its tile instead of filling it
       role: "Summer Analyst",
@@ -65,6 +67,7 @@ window.SITE = {
     },
     {
       company: "Bregal Sagemount",
+      blurb: "A partner-led crash course in how growth equity finds and prices software companies. I pitched six of my own.",
       logo: "sagemount.com", // company website, used to show its logo
       role: "Spring Analyst",
       location: "Palo Alto, CA",
@@ -76,6 +79,7 @@ window.SITE = {
     },
     {
       company: "NAIOP Silicon Valley University Challenge",
+      blurb: "One of four Stanford students pitching a 1.2M sq ft mixed-use development, from construction loan to levered returns.",
       logo: "naiop.org", // company website, used to show its logo
       role: "Student Developer",
       location: "Palo Alto, CA",
@@ -87,6 +91,7 @@ window.SITE = {
     },
     {
       company: "Los Angeles Rams",
+      blurb: "Dug through college and NFL play-by-play to see whether draft round actually predicts how good a running back turns out.",
       logo: "therams.com", // company website, used to show its logo
       role: "Summer Data Analyst",
       location: "Los Angeles, CA",
@@ -95,6 +100,7 @@ window.SITE = {
     },
     {
       company: "Cimulate (acquired by Salesforce, 2026)",
+      blurb: "Built memory for their LLM and cut compute costs about 60%. They got acquired by Salesforce two years later. Probably unrelated.",
       logo: "cimulate.ai", // company website, used to show its logo
       logoPad: true,
       role: "AI Engineering Intern",

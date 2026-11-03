@@ -130,43 +130,31 @@
           <ul class="now-list">${S.now.map((n) => `<li>${md(n)}</li>`).join("")}</ul>
         </div>
         <div class="card">
-          <p class="eyebrow">${suit("♥")}Experience</p>
+          <p class="eyebrow">${suit("♥")}Where I've been</p>
           <ul class="exp-list">
             ${S.experience.slice(0, 4).map((e) => `
-              <li>${logo(e.company, e.logo, "sm", e.logoPad)}<div class="exp-main"><h4>${esc(e.company)}</h4><div class="role">${esc(e.role)}</div></div><div class="when">${esc(e.dates)}</div></li>`).join("")}
+              <li>${logo(e.company, e.logo, "sm", e.logoPad)}<div class="exp-main"><h4>${esc(e.company.replace(/\s*\(.*\)/, ""))}</h4><div class="role">${esc(e.role)}</div></div></li>`).join("")}
           </ul>
-          <a class="more" href="#work">Full experience →</a>
+          <a class="more" href="#work">What I actually did there →</a>
         </div>
       </section>`,
 
     work: () => `
-      ${header("Work", "Real estate credit, capital markets, and a little bit of everything data.")}
-      <ol class="timeline">
+      ${header("Work", "The day jobs so far.")}
+      <div class="jobs">
         ${S.experience.map((e) => `
-          <li>
-            <div class="when">${esc(e.dates)}<br>${esc(e.location)}</div>
-            <div>
-              <div class="co">${logo(e.company, e.logo, "", e.logoPad)}<div><h3>${esc(e.company)}</h3><p class="role">${esc(e.role)}</p></div></div>
-              ${e.bullets.length ? `<ul>${e.bullets.map((b) => `<li>${esc(b)}</li>`).join("")}</ul>` : ""}
-            </div>
-          </li>`).join("")}
-      </ol>
-      <hr class="rule">
-      <section class="grid-2">
-        <div class="card">
-          <p class="eyebrow">${suit("♦")}Education</p>
-          <div class="co">${logo(S.education.school, S.education.logo)}<h3>${esc(S.education.school)}</h3></div>
-          <p class="role">${esc(S.education.degree)}</p>
-          <p class="meta">${esc(S.education.dates)}</p>
-          <ul>${S.education.details.map((d) => `<li>${esc(d)}</li>`).join("")}</ul>
-        </div>
-        <div class="card">
-          <p class="eyebrow">${suit("♣")}Awards</p>
-          ${S.awards.map((a) => `<div class="award"><h4>${esc(a.title)}</h4><p>${esc(a.detail)}</p></div>`).join("")}
-          <p class="meta" style="margin-top:20px">Tools: ${S.skills.map(esc).join(" · ")}</p>
-        </div>
-      </section>
-      <div class="pills resume-btn">${resumeBtn("Download full resume")}</div>`,
+          <article class="card job">
+            <div class="co">${logo(e.company, e.logo, "", e.logoPad)}<div><h3>${esc(e.company.replace(/\s*\(.*\)/, ""))}</h3><p class="role">${esc(e.role)}</p></div></div>
+            <p class="blurb">${esc(e.blurb || "")}</p>
+            <p class="meta">${esc(e.dates)} · ${esc(e.location)}</p>
+          </article>`).join("")}
+      </div>
+      <p class="also">
+        <span>${suit("♦")}Stanford, data science + quant finance, class of 2029</span>
+        <span>${suit("♣")}Won the Wharton Data Science Competition (1st of 216 teams)</span>
+        <span>${suit("♥")}Published twice in the Wharton Sports Analytics Journal</span>
+      </p>
+      <p class="boring resume-btn">Want the boring version? <a href="${esc(S.resume)}" target="_blank" rel="noopener">Here's the resume (PDF) ↗</a></p>`,
 
     play: () => `
       ${header("Play", "Mostly bikes. Some snow, some sand.", "Working hard, or hardly working?")}
