@@ -1,5 +1,7 @@
 :root {
-  --bg: #f4f0e8;
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .32 0 0 0 0 .27 0 0 0 0 .2 0 0 0 .12 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .09' numOctaves='2' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .3 0 0 0 0 .22 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E"); color: var(--body); font: 17px/1.7 var(--sans);
+  --bg: #f7f4ee;
   --surface: #faf7f1;
   --ink: #1f1d1a;
   --body: #4a4640;
@@ -14,9 +16,7 @@
 [hidden] { display: none !important; }
 html { scroll-behavior: smooth; }
 body { margin: 0; background-color: var(--bg);
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .32 0 0 0 0 .27 0 0 0 0 .2 0 0 0 .2 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .09' numOctaves='2' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .3 0 0 0 0 .22 0 0 0 .11 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E"); color: var(--body); font: 17px/1.7 var(--sans); -webkit-font-smoothing: antialiased; }
+  background-image: var(--grain); -webkit-font-smoothing: antialiased; }
 a { color: inherit; }
 img { max-width: 100%; display: block; }
 .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
@@ -455,8 +455,11 @@ h4 { letter-spacing: -0.005em; }
 
 /* paper, take two: visible grain, warm edge vignette, cards let the paper show through */
 body::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
-  background: radial-gradient(ellipse 120% 90% at 50% 40%, transparent 55%, rgba(120,95,55,.10) 100%); }
+  background: radial-gradient(ellipse 120% 90% at 50% 40%, transparent 60%, rgba(120,95,55,.045) 100%); }
 main, footer, .ridge { position: relative; z-index: 1; }   /* (nav stays sticky) */
 .card { background-color: rgba(250,247,241,.78); }
 .job .stat, .page-title, h3 { font-optical-sizing: auto; }
 body { font-size: 17px; letter-spacing: -0.005em; }
+
+/* the header gets the same paper grain (it was a flat color, hiding the texture) */
+.nav { background-color: color-mix(in srgb, var(--bg) 94%, transparent); background-image: var(--grain); }
