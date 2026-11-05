@@ -456,8 +456,7 @@ h4 { letter-spacing: -0.005em; }
 /* paper, take two: visible grain, warm edge vignette, cards let the paper show through */
 body::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
   background: radial-gradient(ellipse 120% 90% at 50% 40%, transparent 55%, rgba(120,95,55,.10) 100%); }
-.nav, main, footer, .ridge { position: relative; z-index: 1; }
-.nav { z-index: 10; }
+main, footer, .ridge { position: relative; z-index: 1; }   /* (nav stays sticky) */
 .card { background-color: rgba(250,247,241,.78); }
 .job .stat, .page-title, h3 { font-optical-sizing: auto; }
 body { font-size: 17px; letter-spacing: -0.005em; }
