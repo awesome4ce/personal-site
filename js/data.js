@@ -23,7 +23,7 @@ window.SITE = {
     "The rest of the time I'm on a bike, on a mountain, or at a sushi counter.",
   ],
   now: [
-    "Heading to JLL in SF next summer for capital markets",
+    "Heading to Tishman Speyer in New York next summer for acquisitions",
     "Running firm relations for the Stanford Real Estate Association",
     "Trying to get one more century in before the rain",
   ],
@@ -42,11 +42,11 @@ window.SITE = {
   },
   experience: [
     {
-      company: "JLL",
-      blurb: "Joining the Capital Markets team in San Francisco for summer 2027.",
-      logo: "jll.com", // company website, used to show its logo
-      role: "Incoming Capital Markets Summer Analyst",
-      location: "San Francisco, CA",
+      company: "Tishman Speyer",
+      blurb: "Joining the Acquisitions team in New York for summer 2027.",
+      logo: "tishmanspeyer.com", // company website, used to show its logo
+      role: "Incoming Acquisitions Summer Analyst",
+      location: "New York, NY",
       dates: "Jun. – Aug. 2027",
       bullets: [],
     },
@@ -111,14 +111,14 @@ window.SITE = {
   ],
   // ---- Work page: the story + one card per stop. `learned` is my own one-line takeaway (optional).
   work: {
-    story: "It started at the poker table, figuring out what everyone else didn't know. That turned into sports analytics, then AI, then real estate credit, where every loan is a bet you have to underwrite. Next stop is JLL.",
+    story: "It started at the poker table, figuring out what everyone else didn't know. That turned into sports analytics, then AI, then real estate credit, where every loan is a bet you have to underwrite. Next stop is Tishman Speyer.",
     path: [
       { label: "Chess & poker" },
       { label: "Sports analytics", to: "rams" },
       { label: "AI", to: "cimulate" },
       { label: "Real estate credit", to: "acore" },
       { label: "Private equity", to: "sagemount" },
-      { label: "JLL", note: "next", to: "jll" },
+      { label: "Tishman Speyer", note: "next", to: "tishman" },
     ],
     cards: [
       { id: "rams", company: "Los Angeles Rams", logo: "therams.com", role: "Summer Data Analyst", when: "2024",
@@ -146,7 +146,7 @@ window.SITE = {
         line: "Sourced and evaluated software companies against the firm's criteria and presented them to the partners.",
         learned: "" },
     ],
-    next: { id: "jll", company: "JLL", logo: "jll.com", line: "Capital Markets, San Francisco. Summer 2027." },
+    next: { id: "tishman", company: "Tishman Speyer", logo: "tishmanspeyer.com", line: "Acquisitions, New York. Summer 2027." },
   },
   awards: [
     { title: "Wharton Data Science Competition — 2024 Winner", detail: "#1 of 216 teams; led a four-person team predicting soccer match outcomes" },
