@@ -166,8 +166,10 @@
       ${header("Play", "Mostly bikes. Some snow, some sand.", "Working hard, or hardly working?")}
       <h2 class="sec-title">${suit("♠")}Cycling<span>Two favorite centuries</span></h2>
       <div class="rides">
-        ${S.rides.map((r) => `
-          <article class="card ride">
+        ${S.rides.map((r, i) => `
+          <article class="card ride pcard-ride ${["♥","♦"].includes(r.suit || ["♠","♥"][i % 2]) ? "is-red" : ""}">
+            <span class="ix">${esc(r.rank || ["A","K"][i % 2])}<br>${r.suit || ["♠","♥"][i % 2]}</span>
+            <span class="ix flip">${esc(r.rank || ["A","K"][i % 2])}<br>${r.suit || ["♠","♥"][i % 2]}</span>
             <div class="ride-num">${esc(r.miles)}<small>miles</small></div>
             <h3>${esc(r.name)}</h3>
             <p class="meta">${esc(r.date)} · ${esc(r.elevation)} climbing · ${esc(r.where)}</p>

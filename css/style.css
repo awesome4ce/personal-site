@@ -561,3 +561,25 @@ body::before { background: radial-gradient(ellipse 85% 65% at 50% 30%, rgba(255,
 .job .learned { border-top-color: rgba(255,255,255,.12); }
 .path > li > a, .path > li > span { --ink: #f3efe6; --accent: #a9d8bd; --red: #f0897b; background: transparent; border-color: rgba(255,255,255,.22); }
 .path a:hover { border-color: var(--accent); color: var(--accent); }
+
+/* the two centuries are playing cards on the felt */
+.card.pcard-ride {
+  --ink: #1f1d1a; --body: #4a4640; --muted: #756e63; --line: #e2dccf; --accent: #3d6b55; --red: #b5473a;
+  position: relative; background-color: #fbf9f4 !important; border: 0 !important; border-radius: 16px;
+  padding: 48px 44px 40px; box-shadow: 0 18px 40px rgba(0,0,0,.28), 0 2px 6px rgba(0,0,0,.12) !important;
+  transition: transform .4s cubic-bezier(.2,.7,.2,1);
+}
+.pcard-ride .ix { position: absolute; top: 14px; left: 16px; font: 600 20px/1.05 var(--serif); text-align: center; color: var(--ink); }
+.pcard-ride .ix.flip { top: auto; left: auto; bottom: 14px; right: 16px; transform: rotate(180deg); }
+.pcard-ride.is-red .ix { color: var(--red); }
+.rides .pcard-ride:nth-child(1) { transform: rotate(-1.2deg); }
+.rides .pcard-ride:nth-child(2) { transform: rotate(1deg); }
+.rides .pcard-ride:hover { transform: translateY(-4px) rotate(0); }
+.pcard-ride .elev-line { stroke: #3d6b55; }
+.pcard-ride .elev-fill { fill: rgba(61,107,85,.1); }
+.pcard-ride .tile { border-color: #e2dccf; }
+@media (max-width: 820px) { .card.pcard-ride { padding: 44px 24px 36px; } }
+
+/* home: hero panel and the panels below share one corner radius */
+.table { border-radius: 14px !important; }
+.card:not(.pcard-ride) { border-radius: 14px; }
