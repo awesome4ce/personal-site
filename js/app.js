@@ -230,7 +230,7 @@
           <div class="shoe" aria-hidden="true">
             <svg viewBox="0 0 180 120">
               <defs>
-                <pattern id="cb" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" fill="#3d6b55"/><rect width="1.4" height="5" fill="#5c8a73"/></pattern>
+                <pattern id="cb" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" fill="#a8352b"/><rect width="1.4" height="5" fill="#c4574c"/></pattern>
               </defs>
               <ellipse cx="92" cy="112" rx="80" ry="6" fill="rgba(0,0,0,.12)"/>
               <!-- body: wedge-shaped shoe, tall at the front (right) -->

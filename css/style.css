@@ -583,3 +583,7 @@ body::before { background: radial-gradient(ellipse 85% 65% at 50% 30%, rgba(255,
 /* home: hero panel and the panels below share one corner radius */
 .table { border-radius: 14px !important; }
 .card:not(.pcard-ride) { border-radius: 14px; }
+
+/* red card backs (logo mini cards + dealt quote card) so they pop on the felt */
+.mc-back { background: repeating-linear-gradient(45deg, rgba(255,255,255,.22) 0 1px, transparent 1px 4px), #a8352b !important; }
+.qcard-back { background: repeating-linear-gradient(45deg, rgba(255,255,255,.16) 0 2px, transparent 2px 9px), repeating-linear-gradient(-45deg, rgba(255,255,255,.16) 0 2px, transparent 2px 9px), #a8352b !important; }
