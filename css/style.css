@@ -462,3 +462,32 @@ body { font-size: 17px; letter-spacing: -0.005em; }
 
 /* the header gets the same paper grain (it was a flat color, hiding the texture) */
 .nav { background-color: color-mix(in srgb, var(--bg) 94%, transparent); background-image: var(--grain); }
+
+/* ===== unslop pass (charles-unslop) ===== */
+/* type: sentence case instead of uppercase + wide tracking */
+.eyebrow, .sub, .sec-title span:not(.s), .job .stat small, .rtype {
+  text-transform: none !important; letter-spacing: 0 !important; }
+.eyebrow { font-size: 15px; font-weight: 500; }
+.sub { font-size: 16px; font-weight: 500; margin-bottom: 24px; }
+.sec-title span:not(.s) { font-size: 15px; color: var(--muted); }
+.job .stat small { font-size: 13px; font-weight: 500; }
+.rtype { font-size: 13px; }
+body { letter-spacing: 0; }
+/* type: no italic for emphasis (quotes stay italic, they're quotes) */
+.aside, .job .learned, .boring { font-style: normal !important; }
+/* details: no decorative dashed lines */
+.table::after { display: none; }
+.path li + li::before { border-top-style: solid; border-color: rgba(31,29,26,.12); }
+.ev-line { stroke-dasharray: none; stroke-width: 1; }
+.ev-tip .ev-dash { border-top-style: solid; }
+/* subtract: let spacing group things instead of divider lines */
+.rule { border: 0; margin: 56px 0 0; }
+.rule.rule-lg { margin: 48px 0 0; }
+.now-list li, .exp-list li { border-top: 0; padding: 8px 0; }
+.now-list li:first-child, .exp-list li:first-child { padding-top: 0; }
+.quote { border-top: 0; padding: 24px 0; }
+.reads li { border-top: 0; padding: 16px 0; }
+/* details: one depth cue per card (soft shadow), no tilt */
+.card { border-color: transparent; box-shadow: 0 1px 2px rgba(60,45,20,.05), 0 8px 24px -12px rgba(60,45,20,.16); }
+.job:nth-child(3n+2), .job:nth-child(3n) { transform: none; }
+.page-head:has(.page-sub:empty) .page-sub { display: none; }

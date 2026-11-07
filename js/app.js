@@ -97,7 +97,6 @@
       <section class="table">
 
         <div class="table-text">
-          <p class="hello">Hi, I'm</p>
           <h1>${esc(S.name)}</h1>
           <p class="sub">${esc(S.eyebrow).replace(/ · /g, ' <span class="dot">·</span> ')}</p>
           ${S.intro.map((p) => `<p class="intro">${md(p)}</p>`).join("")}
@@ -142,7 +141,7 @@
     work: () => {
       const W = S.work, SU = ["♠", "♥", "♦", "♣"];
       return `
-      ${header("Work", "Real estate credit, private equity, and data.")}
+      ${header("Work", "")}
       <p class="story">${esc(W.story)}</p>
       <ol class="path">
         ${W.path.map((p, i) => `<li>${p.to ? `<a href="#work" data-to="${esc(p.to)}">` : "<span>"}${suit(SU[i % 4])}${esc(p.label)}${p.note ? ` <em>${esc(p.note)}</em>` : ""}${p.to ? "</a>" : "</span>"}</li>`).join("")}
@@ -210,7 +209,7 @@
           </li>`;
       return `
       ${header("Eats", "Almost 200 places logged on Beli: the best of them, and a few I'd skip. Big sushi guy.", "AI can do a lot. It can't taste.",
-        `<div class="pills head-pills"><a class="pill sm" href="${esc(S.beli)}" target="_blank" rel="noopener">follow me on beli ↗</a><button class="pill sm" id="rain">🍣 make it rain</button></div>`)}
+        `<div class="pills head-pills"><a class="pill sm" href="${esc(S.beli)}" target="_blank" rel="noopener">Follow me on Beli ↗</a><button class="pill sm" id="rain">Make it rain</button></div>`)}
       <h2 class="sec-title">${suit("♥")}Top of my list</h2>
       <ol class="beli top" id="beli-top">${list.map((e, i) => row(e, i + 1, i >= 6 ? "extra" : "")).join("")}</ol>
       ${list.length > 6 ? `<button class="pill see-more" id="see-more">See all ${list.length} ↓</button>` : ""}
