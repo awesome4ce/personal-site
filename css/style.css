@@ -608,3 +608,8 @@ body::before { background: radial-gradient(ellipse 85% 65% at 50% 30%, rgba(255,
 /* header suits match the tab suits: cream black-suits, coral red-suits (white cards keep real card ink) */
 .page-suit, .sec-title .s, .card:not(.pcard-ride) .eyebrow .s, .path .s, .also .s { color: #f3efe6; }
 .page-suit.red, .sec-title .s.red, .card:not(.pcard-ride) .eyebrow .s.red, .path .s.red, .also .s.red { color: #ff5f4a; }
+/* logo cards: flip over right away on hover, but wait a beat before flipping back */
+.mc-in { transition-delay: .75s; }
+.mc + .mc .mc-in { transition-delay: .65s; }
+.brand:hover .mc-in { transition-delay: 0s; }
+.brand:hover .mc + .mc .mc-in { transition-delay: .07s; }
