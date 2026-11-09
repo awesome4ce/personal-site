@@ -629,3 +629,9 @@ body::before { background: radial-gradient(ellipse 85% 65% at 50% 30%, rgba(255,
 .beli li.reveal.in-view .chip-score { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) { .beli li.reveal .chip-score { opacity: 1; transform: none; } }
 .chip-score b { font-size: 13px; }
+/* high-roller chip: black body + gold edge, value printed on a cream inlay so it reads */
+.c-black .c-body { fill: #141414; }
+.c-black .c-edge { stroke: #d9b35a; }
+.c-black .c-face { fill: #f7f0df; }
+.c-black .c-ring { stroke: #c9a24a; stroke-width: 2; stroke-dasharray: none; }
+.c-black b { color: #1a1612; font-weight: 700; }
