@@ -593,3 +593,15 @@ body::before { background: radial-gradient(ellipse 85% 65% at 50% 30%, rgba(255,
 .mc-front { color: #1f1d1a !important; font: 700 11px/1 var(--serif) !important; }
 .mc-front.red { color: #b5473a !important; }
 .mc-front i { font-size: 10px; }
+
+/* both ride cards: same height, same map size, maps lined up at the bottom */
+.rides { align-items: stretch; }
+.card.pcard-ride { display: flex; flex-direction: column; }
+.pcard-ride .ride-photos { margin-top: auto; padding-top: 24px; }
+.pcard-ride .ride-photos .tile { aspect-ratio: 923 / 786 !important; }
+.pcard-ride .ride-photos .tile img { height: 100% !important; object-fit: cover; }
+.pcard-ride .meta { min-height: 3em; }
+/* tab suits: bigger and brighter on the felt */
+.tabs .s { font-size: 17px; margin-right: 7px; color: #f3efe6; opacity: 1; vertical-align: -1px; }
+.tabs .s.red { color: #ff9a8b; }
+.tabs a[aria-current="page"] .s { color: var(--accent); }

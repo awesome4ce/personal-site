@@ -6,7 +6,7 @@ window.PHOTO_SIZES = {
  "photos/coast-sea-cave.jpg": 1.3333,
  "photos/headshot.jpg": 0.7143,
  "photos/ride-bay-loop-map.jpg": 1.1743,
- "photos/ride-santa-cruz-map.jpg": 1.0489,
+ "photos/ride-santa-cruz-map.jpg": 1.1743,
  "photos/ski-bootpack.jpg": 0.75,
  "photos/ski-chairlift-fog.jpg": 1.7769,
  "photos/ski-kiss.jpg": 1.7769,
