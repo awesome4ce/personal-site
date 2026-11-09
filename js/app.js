@@ -199,13 +199,19 @@
 
     eats: () => {
       const list = [...S.eats].sort((a, b) => b.score - a.score);
-      const tone = (s) => (s >= 7 ? "hi" : s >= 3.5 ? "mid" : "lo");   // Beli-style colors
+      // chip denomination by score: high roller (black/gold) → green → red → plain white
+      const chipTier = (s) => (s >= 9.5 ? "c-black" : s >= 7 ? "c-green" : s >= 3.5 ? "c-red" : "c-white");
       const row = (e, rank, cls = "") => `
           <li class="${cls}">
             <span class="rank">${rank}</span>
             <div><h4>${esc(e.name)}</h4><p class="meta">${esc(e.cuisine)} · ${esc(e.city)}</p>${e.order ? `<p class="order">Order: ${esc(e.order)}</p>` : ""}</div>
-            <span class="score ${tone(e.score)}" style="--p:${Math.max(0, Math.min(1, e.score / 10))}">
-              <svg viewBox="0 0 54 54" aria-hidden="true"><circle class="trk" cx="27" cy="27" r="24"/><circle class="arc" cx="27" cy="27" r="24"/></svg>
+            <span class="chip-score ${chipTier(e.score)}" title="${Number(e.score).toFixed(1)} / 10 on Beli">
+              <svg viewBox="0 0 56 56" aria-hidden="true">
+                <circle class="c-body" cx="28" cy="28" r="27"/>
+                <circle class="c-edge" cx="28" cy="28" r="23.5"/>
+                <circle class="c-ring" cx="28" cy="28" r="17"/>
+                <circle class="c-face" cx="28" cy="28" r="15.5"/>
+              </svg>
               <b>${Number(e.score).toFixed(1)}</b>
             </span>
           </li>`;

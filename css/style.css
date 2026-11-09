@@ -613,3 +613,19 @@ body::before { background: radial-gradient(ellipse 85% 65% at 50% 30%, rgba(255,
 .mc + .mc .mc-in { transition-delay: .65s; }
 .brand:hover .mc-in { transition-delay: 0s; }
 .brand:hover .mc + .mc .mc-in { transition-delay: .07s; }
+
+/* Beli ratings as poker chips (color = denomination) */
+.chip-score { position: relative; width: 56px; height: 56px; display: grid; place-items: center; flex: none; }
+.chip-score svg { position: absolute; inset: 0; width: 100%; height: 100%; filter: drop-shadow(0 3px 4px rgba(0,0,0,.35)); }
+.chip-score .c-edge { fill: none; stroke-width: 7; stroke-dasharray: 9.23 9.23; }   /* 8 edge spots */
+.chip-score .c-ring { fill: none; stroke-width: 1.2; stroke-dasharray: 2 2.45; }
+.chip-score b { position: relative; font: 600 14px/1 var(--sans); font-variant-numeric: tabular-nums; letter-spacing: 0; }
+.c-black .c-body, .c-black .c-face { fill: #171717; } .c-black .c-edge { stroke: #d6b25e; } .c-black .c-ring { stroke: #d6b25e; } .c-black b { color: #f2d48a; }
+.c-green .c-body, .c-green .c-face { fill: #23704b; } .c-green .c-edge, .c-green .c-ring { stroke: #f3efe6; } .c-green b { color: #fff; }
+.c-red   .c-body, .c-red .c-face   { fill: #b3382b; } .c-red .c-edge, .c-red .c-ring { stroke: #f3efe6; } .c-red b { color: #fff; }
+.c-white .c-body, .c-white .c-face { fill: #efebe2; } .c-white .c-edge, .c-white .c-ring { stroke: #9a9488; } .c-white b { color: #3a3631; }
+/* tossed onto the table as each row scrolls in */
+.beli li.reveal .chip-score { opacity: 0; transform: translateY(-10px) rotate(-200deg) scale(.7); transition: opacity .35s ease .15s, transform .7s cubic-bezier(.2,.8,.25,1) .15s; }
+.beli li.reveal.in-view .chip-score { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .beli li.reveal .chip-score { opacity: 1; transform: none; } }
+.chip-score b { font-size: 13px; }
