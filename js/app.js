@@ -352,6 +352,15 @@
     },
     home: () => {
       const hand = $("#hand");
+      if (!reduceMotion && hand.animate) {
+        // deal the two photo cards in: they start stacked below, then fan out into place
+        [...hand.querySelectorAll(".pc")].reverse().forEach((card, i) => {
+          const end = getComputedStyle(card).transform;
+          card.animate(
+            [{ transform: "translate(0, 70px) rotate(0deg) scale(.92)", opacity: 0 }, { transform: "translate(0, 0) rotate(0deg)", opacity: 1, offset: .45 }, { transform: end, opacity: 1 }],
+            { duration: 900, delay: 120 + i * 140, easing: EASE, fill: "backwards" });
+        });
+      }
       if (!S.babyPhoto) return;          // swap turns on once there's a baby photo
       let busy = false;
       const swap = () => {
@@ -469,10 +478,28 @@
     });
   }
 
-  function route() {
-    const id = (location.hash || "#home").slice(1);
-    const tab = views[id] ? id : "home";
-    nav.querySelectorAll("a").forEach((a) => (a.dataset.id === tab ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current")));
+  // sliding underline under the active tab
+  const bar = document.createElement("span");
+  bar.className = "tab-bar";
+  nav.appendChild(bar);
+  function moveBar(animate = true) {
+    const a = nav.querySelector('a[aria-current="page"]');
+    if (!animate) bar.style.transition = "none";
+    if (a) {
+      bar.style.width = a.offsetWidth + "px";
+      bar.style.transform = `translateX(${a.offsetLeft}px)`;
+      bar.style.opacity = "1";
+    } else bar.style.opacity = "0";
+    if (!animate) { void bar.offsetWidth; bar.style.transition = ""; }
+  }
+  addEventListener("resize", () => moveBar(false));
+  document.fonts?.ready.then(() => moveBar(false));
+
+  const ORDER = ["home", ...TABS.map((t) => t.id)];
+  const EASE = "cubic-bezier(.22,1,.36,1)";
+  let current = null, swapping = Promise.resolve();
+
+  function render(tab) {
     const main = $("#main");
     window.scrollTo({ top: 0, behavior: "instant" });   // jump, don't smooth-scroll, between pages
     main.innerHTML = views[tab]();
@@ -481,18 +508,63 @@
     reveal(main);
   }
 
-  // click any photo to see it big
+  function route() {
+    const id = (location.hash || "#home").slice(1);
+    const tab = views[id] ? id : "home";
+    nav.querySelectorAll("a").forEach((a) => (a.dataset.id === tab ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current")));
+    const first = current === null;
+    moveBar(!first);
+    const dir = first ? 0 : Math.sign(ORDER.indexOf(tab) - ORDER.indexOf(current));   // +1 = moving right
+    current = tab;
+    const main = $("#main");
+    if (first || !dir || reduceMotion || !main.animate) { render(tab); return; }
+    // swipe: old page slides out one way, new page slides in from the other side
+    swapping = swapping.then(() =>
+      main.animate([{ transform: "none", opacity: 1 }, { transform: `translateX(${-dir * 60}px)`, opacity: 0 }], { duration: 160, easing: "ease-in", fill: "forwards" }).finished
+        .then(() => {
+          render(tab);
+          return main.animate([{ transform: `translateX(${dir * 80}px)`, opacity: 0 }, { transform: "none", opacity: 1 }], { duration: 380, easing: EASE }).finished;
+        })
+        .then(() => main.getAnimations().forEach((a) => a.cancel()))
+        .catch(() => {})
+    );
+  }
+
+  // click any photo: it grows out of its spot into the lightbox, and shrinks back on close
+  let lbSource = null;
+  const flipFrom = (from, to) => {
+    const dx = from.left + from.width / 2 - (to.left + to.width / 2), dy = from.top + from.height / 2 - (to.top + to.height / 2);
+    return `translate(${dx}px, ${dy}px) scale(${from.width / to.width}, ${from.height / to.height})`;
+  };
+  function closeLightbox() {
+    const lb = document.querySelector(".lightbox");
+    if (!lb || lb.dataset.closing) return;
+    lb.dataset.closing = "1";
+    const big = lb.querySelector("img");
+    if (reduceMotion || !lbSource || !lbSource.isConnected || !big.animate) { lb.remove(); return; }
+    big.animate([{ transform: "none" }, { transform: flipFrom(lbSource.getBoundingClientRect(), big.getBoundingClientRect()) }], { duration: 300, easing: EASE, fill: "forwards" });
+    lb.animate([{ backgroundColor: "rgba(24,22,18,.88)" }, { backgroundColor: "rgba(24,22,18,0)" }], { duration: 300, easing: "ease", fill: "forwards" }).finished.then(() => lb.remove());
+    lb.querySelector("p").style.opacity = "0";
+  }
   document.addEventListener("click", (e) => {
+    if (document.querySelector(".lightbox")) { closeLightbox(); return; }
     const img = e.target.closest(".tile img");
-    const box = document.querySelector(".lightbox");
-    if (box) { box.remove(); return; }
     if (!img) return;
+    lbSource = img;
     const lb = document.createElement("div");
     lb.className = "lightbox";
     lb.innerHTML = `<img src="${img.src}" alt=""><p>${esc(img.alt)}</p>`;
     document.body.appendChild(lb);
+    const big = lb.querySelector("img");
+    if (reduceMotion || !big.animate) return;
+    lb.style.animation = "none";
+    const grow = () => {
+      big.animate([{ transform: flipFrom(img.getBoundingClientRect(), big.getBoundingClientRect()) }, { transform: "none" }], { duration: 420, easing: EASE });
+      lb.animate([{ backgroundColor: "rgba(24,22,18,0)" }, { backgroundColor: "rgba(24,22,18,.88)" }], { duration: 300, easing: "ease" });
+    };
+    big.complete ? grow() : big.addEventListener("load", grow, { once: true });
   });
-  addEventListener("keydown", (e) => { if (e.key === "Escape") document.querySelector(".lightbox")?.remove(); });
+  addEventListener("keydown", (e) => { if (e.key === "Escape") closeLightbox(); });
 
   if (S.resume && location.protocol !== "file:") {
     fetch(S.resume, { method: "HEAD" }).then((r) => (resumeOk = r.ok)).catch(() => (resumeOk = false)).finally(hideResume);
