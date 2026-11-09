@@ -635,3 +635,15 @@ body::before { background: radial-gradient(ellipse 85% 65% at 50% 30%, rgba(255,
 .c-black .c-face { fill: #f7f0df; }
 .c-black .c-ring { stroke: #c9a24a; stroke-width: 2; stroke-dasharray: none; }
 .c-black b { color: #1a1612; font-weight: 700; }
+
+/* every chip: value printed on a cream inlay in dark ink, chip color in the edge + ring */
+.chip-score { width: 62px; height: 62px; }
+.chip-score .c-face { fill: #f7f0df !important; }
+.chip-score .c-ring { stroke-width: 2.4 !important; stroke-dasharray: none !important; }
+.chip-score b { color: #16130f !important; font: 700 15px/1 var(--sans) !important; font-variant-numeric: tabular-nums; }
+.c-green .c-ring { stroke: #23704b !important; } .c-red .c-ring { stroke: #b3382b !important; }
+.c-white .c-body { fill: #e6e0d4; } .c-white .c-ring { stroke: #8f887b !important; } .c-white .c-edge { stroke: #8f887b; }
+/* "ones I'd skip": one chip color for the whole list (red) */
+.beli.worst .chip-score .c-body { fill: #b3382b !important; }
+.beli.worst .chip-score .c-edge { stroke: #f3efe6 !important; }
+.beli.worst .chip-score .c-ring { stroke: #b3382b !important; }

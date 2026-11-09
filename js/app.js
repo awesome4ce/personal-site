@@ -209,8 +209,8 @@
               <svg viewBox="0 0 56 56" aria-hidden="true">
                 <circle class="c-body" cx="28" cy="28" r="27"/>
                 <circle class="c-edge" cx="28" cy="28" r="23.5"/>
-                <circle class="c-ring" cx="28" cy="28" r="17"/>
-                <circle class="c-face" cx="28" cy="28" r="15.5"/>
+                <circle class="c-ring" cx="28" cy="28" r="19"/>
+                <circle class="c-face" cx="28" cy="28" r="17.6"/>
               </svg>
               <b>${Number(e.score).toFixed(1)}</b>
             </span>
