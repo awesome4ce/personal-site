@@ -505,7 +505,7 @@ body { letter-spacing: 0; }
   --muted: #a3b7ac;
   --line: rgba(255,255,255,.13);
   --accent: #a9d8bd;
-  --red: #f0897b;
+  --red: #ff5f4a;
   --surface: #f6f3ec;
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.15' numOctaves='2' seed='5' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 .04 0 0 0 0 .02 0 0 0 .2 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='1' seed='9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .75 0 0 0 0 .9 0 0 0 0 .8 0 0 0 1 0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0 .05 .14'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
 }
@@ -533,7 +533,7 @@ body::before { background: radial-gradient(ellipse 85% 65% at 50% 30%, rgba(255,
 
 /* EV lines glow softly on felt */
 .ev-bg path { stroke: #a9d8bd; opacity: .33; }
-.ev-bg path.hot { stroke: #f0897b; opacity: .5; }
+.ev-bg path.hot { stroke: #ff5f4a; opacity: .5; }
 .ev-line { stroke: #a9d8bd; opacity: .45; }
 
 /* quote card back + shoe read on dark */
@@ -543,7 +543,7 @@ body::before { background: radial-gradient(ellipse 85% 65% at 50% 30%, rgba(255,
 /* Beli scores: brighter on felt */
 .score.hi { color: #8fdcb0; }
 .score.mid { color: #e8c46a; }
-.score.lo { color: #f0897b; }
+.score.lo { color: #ff5f4a; }
 
 /* photos: a thin light edge so they sit on the table */
 .tile { border-color: rgba(255,255,255,.12); }
@@ -555,11 +555,11 @@ body::before { background: radial-gradient(ellipse 85% 65% at 50% 30%, rgba(255,
 
 /* felt panels instead of white cards: only real cards (photo cards, quote card, logos) stay white */
 .card {
-  --ink: #f3efe6; --body: #d6e0d9; --muted: #a3b7ac; --line: rgba(255,255,255,.12); --accent: #a9d8bd; --red: #f0897b;
+  --ink: #f3efe6; --body: #d6e0d9; --muted: #a3b7ac; --line: rgba(255,255,255,.12); --accent: #a9d8bd; --red: #ff5f4a;
   background-color: rgba(10,26,20,.34) !important; border: 1px solid rgba(255,255,255,.08) !important; box-shadow: none !important; color: var(--body);
 }
 .job .learned { border-top-color: rgba(255,255,255,.12); }
-.path > li > a, .path > li > span { --ink: #f3efe6; --accent: #a9d8bd; --red: #f0897b; background: transparent; border-color: rgba(255,255,255,.22); }
+.path > li > a, .path > li > span { --ink: #f3efe6; --accent: #a9d8bd; --red: #ff5f4a; background: transparent; border-color: rgba(255,255,255,.22); }
 .path a:hover { border-color: var(--accent); color: var(--accent); }
 
 /* the two centuries are playing cards on the felt */
@@ -603,8 +603,8 @@ body::before { background: radial-gradient(ellipse 85% 65% at 50% 30%, rgba(255,
 .pcard-ride .meta { min-height: 3em; }
 /* tab suits: bigger and brighter on the felt */
 .tabs .s { font-size: 17px; margin-right: 7px; color: #f3efe6; opacity: 1; vertical-align: -1px; }
-.tabs .s.red { color: #ff9a8b; }
+.tabs .s.red { color: #ff5f4a; }
 .tabs a[aria-current="page"] .s { color: var(--accent); }
 /* header suits match the tab suits: cream black-suits, coral red-suits (white cards keep real card ink) */
 .page-suit, .sec-title .s, .card:not(.pcard-ride) .eyebrow .s, .path .s, .also .s { color: #f3efe6; }
-.page-suit.red, .sec-title .s.red, .card:not(.pcard-ride) .eyebrow .s.red, .path .s.red, .also .s.red { color: #ff9a8b; }
+.page-suit.red, .sec-title .s.red, .card:not(.pcard-ride) .eyebrow .s.red, .path .s.red, .also .s.red { color: #ff5f4a; }
