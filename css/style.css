@@ -588,3 +588,8 @@ body::before { background: radial-gradient(ellipse 85% 65% at 50% 30%, rgba(255,
 /* hero panel a touch more solid so the intro reads over the EV lines */
 .table { background: rgba(10,26,20,.58) !important; }
 @media (max-width: 820px) { .table { background: rgba(10,26,20,.68) !important; } }
+/* mini logo cards: real card ink on the white face (the felt theme had made it cream-on-white) */
+.mc { width: 20px; height: 28px; }
+.mc-front { color: #1f1d1a !important; font: 700 11px/1 var(--serif) !important; }
+.mc-front.red { color: #b5473a !important; }
+.mc-front i { font-size: 10px; }
