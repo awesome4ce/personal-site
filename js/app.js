@@ -97,6 +97,8 @@
     home: () => `
       <div class="hero-wrap" id="hero-wrap">
       ${evBackground()}
+      <p class="ev-note ev-note-l" aria-hidden="true"><span>Short run:<br>all variance</span></p>
+      <p class="ev-note ev-note-r" aria-hidden="true"><span>Long run:<br>expected value</span></p>
       <section class="table">
 
         <div class="table-text">
@@ -126,9 +128,6 @@
         </div>
       </section>
       </div>
-      <p class="ev-caption" aria-label="The lines behind: in the short run, all variance; in the long run, expected value">
-        <span>Short run: all variance</span><i aria-hidden="true"></i><span>Long run: expected value</span>
-      </p>
       <section class="grid-2 below">
         <div class="card">
           <p class="eyebrow">${suit("♠")}Right now</p>
