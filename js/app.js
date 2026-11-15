@@ -97,8 +97,6 @@
     home: () => `
       <div class="hero-wrap" id="hero-wrap">
       ${evBackground()}
-      <p class="ev-ann ev-ann-l" aria-hidden="true">Short run<br>all variance</p>
-      <p class="ev-ann ev-ann-r" aria-hidden="true">Long run<br>expected value</p>
       <section class="table">
 
         <div class="table-text">
@@ -128,6 +126,9 @@
         </div>
       </section>
       </div>
+      <p class="ev-caption" aria-label="The lines behind: in the short run, all variance; in the long run, expected value">
+        <span>Short run: all variance</span><i aria-hidden="true"></i><span>Long run: expected value</span>
+      </p>
       <section class="grid-2 below">
         <div class="card">
           <p class="eyebrow">${suit("♠")}Right now</p>
@@ -336,11 +337,7 @@
       const t = wrap.querySelector(".table").getBoundingClientRect();
       const outside = e.clientX < t.left || e.clientX > t.right;
       const on = outside && nearLine(wrap.querySelector(".ev-bg"), e.clientX, e.clientY);
-      // each note only shows if its margin is wide enough to hold it
-      wrap.querySelectorAll(".ev-ann").forEach((n) => {
-        const room = (n.classList.contains("ev-ann-l") ? t.left : innerWidth - t.right) - 28;
-        n.style.visibility = n.offsetWidth <= room ? "visible" : "hidden";
-      });
+
       wrap.classList.toggle("ev-focus", on);
       if (on) wrap.dataset.side = e.clientX < t.left ? "left" : "right";
     });
