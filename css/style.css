@@ -712,3 +712,7 @@ html, body { overflow-x: clip; }
 .ev-note-r { right: calc((100% - 100vw) / 2); top: calc(-40px + .52 * (100% + 40px) + 14px); }
 .ev-note-r span { color: #f3efe6; }
 @media (min-width: 1320px) { .ev-note { display: block; } }
+/* notes: same height on both sides (just under the EV line), only while hovering the lines */
+.ev-note-l { bottom: auto; top: calc(-40px + .52 * (100% + 40px) + 14px); }
+.ev-note { opacity: 0; transform: translateY(3px); transition: opacity .12s ease-out, transform .12s ease-out; }
+.hero-wrap.ev-focus .ev-note { opacity: 1; transform: none; transition-duration: .25s; }
