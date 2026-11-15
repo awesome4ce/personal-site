@@ -678,16 +678,6 @@ html, body { overflow-x: clip; }
 .hand.hint-on .hand-hint { opacity: .9; }
 
 /* EV chip: spell out LLN */
-.ev-tip small { display: block; font: 400 11px var(--sans); color: var(--muted); margin-left: 4px; }
-.ev-tip { flex-wrap: wrap; }
-
-/* Eats chip key */
-.chip-key { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: -6px 0 18px; font-size: 14px; color: var(--muted); }
-.chip-key span { display: inline-flex; align-items: center; gap: 7px; }
-.mini-chip { width: 14px; height: 14px; border-radius: 50%; display: inline-block; border: 3px dashed; box-sizing: border-box; }
-.mini-chip.c-black { background: #141414; border-color: #d9b35a; }
-.mini-chip.c-green { background: #23704b; border-color: #f3efe6; }
-.mini-chip.c-red { background: #b3382b; border-color: #f3efe6; }
 
 /* touch: photos show they can be opened */
 @media (hover: none) {
@@ -701,3 +691,7 @@ html, body { overflow-x: clip; }
 .more, .boring a, .brand { padding-block: 8px; }
 .more { display: inline-block; }
 .reads h4 a { display: inline-block; padding-block: 6px; }
+
+/* EV chip: compact so it fits in the margin beside the panel */
+.ev-tip { font-size: 13px !important; padding: 4px 10px !important; gap: 5px !important; }
+.ev-tip .ev-dash { display: none; }

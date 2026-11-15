@@ -97,7 +97,7 @@
     home: () => `
       <div class="hero-wrap" id="hero-wrap">
       ${evBackground()}
-      <div class="ev-tip" aria-hidden="true" style="--yl:${evBackground.edges.left};--yr:${evBackground.edges.right}"><span class="ev-dash"></span><i>LLN</i> · motto of life<small>law of large numbers</small></div>
+      <div class="ev-tip" aria-hidden="true" style="--yl:${evBackground.edges.left};--yr:${evBackground.edges.right}"><span class="ev-dash"></span><i>LLN</i> · motto of life</div>
       <section class="table">
 
         <div class="table-text">
@@ -223,7 +223,6 @@
       ${header("Eats", "Almost 200 places logged on Beli: the best of them, and a few I'd skip. Big sushi guy.", "AI can do a lot. It can't taste.",
         `<div class="pills head-pills"><a class="pill sm" href="${esc(S.beli)}" target="_blank" rel="noopener">Follow me on Beli ↗</a><button class="pill sm" id="rain">Make it rain</button></div>`)}
       <h2 class="sec-title">${suit("♥")}Top of my list</h2>
-      <p class="chip-key" aria-label="Chip colors">${[["c-black", "9.5+"], ["c-green", "7 to 9.4"], ["c-red", "below 7"]].map(([c, l]) => `<span><i class="mini-chip ${c}"></i>${l}</span>`).join("")}</p>
       <ol class="beli top" id="beli-top">${list.map((e, i) => row(e, i + 1, i >= 6 ? "extra" : "")).join("")}</ol>
       ${list.length > 6 ? `<button class="pill see-more" id="see-more">See all ${list.length} ↓</button>` : ""}
       ${S.eatsWorst?.length ? `
@@ -335,7 +334,10 @@
       if (!wrap) return;
       const t = wrap.querySelector(".table").getBoundingClientRect();
       const outside = e.clientX < t.left || e.clientX > t.right;
+      const tip = wrap.querySelector(".ev-tip");
+      const room = (e.clientX < t.left ? t.left : innerWidth - t.right) - 24;
       const on = outside && nearLine(wrap.querySelector(".ev-bg"), e.clientX, e.clientY);
+      if (tip) tip.style.visibility = tip.offsetWidth <= room ? "visible" : "hidden";
       wrap.classList.toggle("ev-focus", on);
       if (on) wrap.dataset.side = e.clientX < t.left ? "left" : "right";
     });
