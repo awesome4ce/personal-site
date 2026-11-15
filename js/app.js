@@ -62,7 +62,7 @@
     const rand = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
     const W = 1600, H = 420, mid = H * 0.52, n = 260, j0 = 1, paths = [];
     const A = H * 0.47;                                        // max swing (soft-limited, so spikes never flatten)
-    const series = [];
+    const series = [], clips = [];
     for (let k = 0; k < 7; k++) {
       // 1) running averages of noisy bets (mean 0 = EV)
       const avg = []; let sum = 0;
@@ -88,11 +88,15 @@
         pts.push([x, y]);
         d += `${idx ? "L" : "M"}${x.toFixed(1)},${y.toFixed(1)}`;
       });
-      paths.push(`<path class="${want > 0 ? "hot" : "cold"}" d="${d}"/>`);
+      const begin = (0.2 + k * 0.32).toFixed(2), dur = 1.5;
+      const grow = reduceMotion ? "" : `<animate attributeName="width" from="0" to="${W}" begin="${begin}s" dur="${dur}s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines=".45 .05 .25 1"/>`;
+      clips.push(`<clipPath id="evc${k}"><rect x="0" y="-20" height="${H + 40}" width="${reduceMotion ? W : 0}">${grow}</rect></clipPath>`);
+      paths.push(`<path class="${k % 2 ? "tone-b" : "tone-a"}" clip-path="url(#evc${k})" d="${d}"/>`);
     }
     evBackground.edges = { left: mid / H, right: mid / H };
     evBackground.geo = { W, H, mid, series };
     return `<svg class="ev-bg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">
+      <defs>${clips.join("")}</defs>
       <line class="ev-line" x1="0" y1="${mid}" x2="${W}" y2="${mid}"/>
       ${paths.join("")}
     </svg>`;
@@ -373,7 +377,7 @@
     },
     home: () => {
       const hw = $("#hero-wrap");
-      setTimeout(() => hw && hw.classList.add("ev-shown"), reduceMotion ? 0 : 2900);
+      setTimeout(() => hw && hw.classList.add("ev-shown"), reduceMotion ? 0 : 4000);
       const hand = $("#hand");
       if (!reduceMotion && hand.animate) {
         // deal the two photo cards in: they start stacked below, then fan out into place
