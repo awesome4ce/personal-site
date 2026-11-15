@@ -64,22 +64,31 @@
     const A = H * 0.47;                                        // max swing (soft-limited, so spikes never flatten)
     const series = [];
     for (let k = 0; k < 7; k++) {
-      let sum = 0, d = "", early = 0;
+      // 1) running averages of noisy bets (mean 0 = EV)
+      const avg = []; let sum = 0;
+      for (let j = 1; j <= n; j++) {
+        let draw = (rand() + rand() + rand() - 1.5) * 3.4;
+        if (k === 1 && j <= 3) draw = 3.2 - j * 0.4;              // one run gets a big early heater
+        sum += draw; avg.push(sum / j);
+      }
+      // 2) alternate which side each run starts on (the bets are symmetric, so flipping a run is fair)
+      const want = k % 2 === 0 ? 1 : -1;
+      const flip = Math.sign(avg[0]) === want ? 1 : -1;
+      // 3) some runs bounce off EV and stay on their side; the rest are free to cross
+      const bounce = k === 0 || k === 3 || k === 4;
+      let d = "";
       const pts = [];
       series.push(pts);
-      for (let j = 1; j <= n; j++) {
-        let draw = (rand() + rand() + rand() - 1.5) * 3.4;       // one noisy outcome, mean 0 (= EV)
-        if (k === 1 && j <= 3) draw = 3.2 - j * 0.4;              // one line gets a hot start, way above EV
-        sum += draw;
-        if (j === 12) early = sum / j;                             // how the run started: hot or cold
-        if (j < j0) continue;
-        const x = Math.pow((j - j0) / (n - j0), 0.68) * W;       // give the wild early part more room
-        const squeeze = 1 - 0.82 * Math.pow(x / W, 2.4);          // tighten the band toward the right edge
-        const y = mid - A * Math.tanh((sum / j) / 1.6) * squeeze; // running average so far
+      avg.forEach((a, idx) => {
+        let v = a * flip;
+        if (bounce) v = want * Math.abs(v);
+        const x = Math.pow(idx / (n - 1), 0.68) * W;              // give the wild early part more room
+        const squeeze = 1 - 0.82 * Math.pow(x / W, 2.4);           // tighten the band toward the right edge
+        const y = mid - A * Math.tanh(v / 1.6) * squeeze;
         pts.push([x, y]);
-        d += `${j === j0 ? "M" : "L"}${x.toFixed(1)},${y.toFixed(1)}`;
-      }
-      paths.push(`<path class="${early >= 0 ? "hot" : "cold"}" d="${d}"/>`);
+        d += `${idx ? "L" : "M"}${x.toFixed(1)},${y.toFixed(1)}`;
+      });
+      paths.push(`<path class="${want > 0 ? "hot" : "cold"}" d="${d}"/>`);
     }
     evBackground.edges = { left: mid / H, right: mid / H };
     evBackground.geo = { W, H, mid, series };
@@ -99,7 +108,7 @@
     home: () => `
       <div class="hero-wrap" id="hero-wrap">
       ${evBackground()}
-      <p class="ev-note ev-note-l" aria-hidden="true"><span>Short run: all variance<br><b class="hot">running hot</b> · <b class="cold">running cold</b></span></p>
+      <p class="ev-note ev-note-l" aria-hidden="true"><span>Short run:<br>all variance</span></p>
       <p class="ev-note ev-note-r" aria-hidden="true"><span>Long run:<br>expected value</span></p>
       <section class="table">
 
