@@ -18,9 +18,13 @@
   if (S.updated) $("#updated").textContent = ` · Last updated ${S.updated}`;
 
   /* ---------- helpers ---------- */
+  // responsive images: photos/x.jpg -> photos/web/x-800.webp / x-1400.webp
+  const web = (src, w) => /^photos\/[^/]+\.jpe?g$/i.test(src) ? src.replace(/^photos\/(.+)\.jpe?g$/i, `photos/web/$1-${w}.webp`) : src;
+  const img = (src, alt, sizes = "(max-width: 820px) 100vw, 380px", eager = false) =>
+    `<img src="${esc(web(src, 800))}" srcset="${esc(web(src, 800))} 800w, ${esc(web(src, 1400))} 1400w" sizes="${sizes}" data-full="${esc(web(src, 1400))}" alt="${esc(alt)}" ${eager ? "" : 'loading="lazy" decoding="async"'}>`;
   const tile = (src, label = "") =>
     src
-      ? `<div class="tile"><img src="${esc(src)}" alt="${esc(label)}" loading="lazy"></div>`
+      ? `<div class="tile">${img(src, label)}</div>`
       : `<div class="tile ph"><span>${esc(label || "add photo")}</span></div>`;
 
   function elevation(profile) {
@@ -31,7 +35,7 @@
       <polygon points="0,${h} ${line} ${w},${h}" class="elev-fill"/><polyline points="${line}" class="elev-line"/></svg>`;
   }
   // natural-aspect photo for masonry galleries (click to enlarge)
-  const photo = (p) => `<figure>${p.img ? `<div class="tile nat" style="aspect-ratio:${ratio(p.img)}"><img src="${esc(p.img)}" alt="${esc(p.caption || "")}" loading="lazy"></div>` : `<div class="tile ph"><span>add photo</span></div>`}${p.caption ? `<figcaption>${esc(p.caption)}${p.sub ? `<span>${esc(p.sub)}</span>` : ""}</figcaption>` : ""}</figure>`;
+  const photo = (p) => `<figure>${p.img ? `<div class="tile nat" style="aspect-ratio:${ratio(p.img)}">${img(p.img, p.alt || p.caption || "")}</div>` : `<div class="tile ph"><span>add photo</span></div>`}${p.caption ? `<figcaption>${esc(p.caption)}${p.sub ? `<span>${esc(p.sub)}</span>` : ""}</figcaption>` : ""}</figure>`;
   const ratio = (src) => (window.PHOTO_SIZES || {})[src] || 0.75;
   const gallery = (items, cls = "", cols = 3) => {
     const colsHtml = Array.from({ length: cols }, () => []);
@@ -93,7 +97,7 @@
     home: () => `
       <div class="hero-wrap" id="hero-wrap">
       ${evBackground()}
-      <div class="ev-tip" aria-hidden="true" style="--yl:${evBackground.edges.left};--yr:${evBackground.edges.right}"><span class="ev-dash"></span><i>LLN</i> · motto of life</div>
+      <div class="ev-tip" aria-hidden="true" style="--yl:${evBackground.edges.left};--yr:${evBackground.edges.right}"><span class="ev-dash"></span><i>LLN</i> · motto of life<small>law of large numbers</small></div>
       <section class="table">
 
         <div class="table-text">
@@ -109,13 +113,13 @@
         <div class="hand ${S.babyPhoto ? "swappable" : ""}" id="hand" ${S.babyPhoto ? `role="button" tabindex="0" aria-label="Photos of ${esc(S.name)}: click to switch cards"` : `aria-label="Photo of ${esc(S.name)}"`}>
           <div class="pc pc-photo behind" data-card="then">
             <span class="ix red">S<br>♥</span>
-            ${S.babyPhoto ? `<img src="${esc(S.babyPhoto)}" alt="${esc(S.name)} as a baby">` : `<div class="plain-back"><span class="pip red">♥</span></div>`}
+            ${S.babyPhoto ? img(S.babyPhoto, `${S.name} as a kid`, "320px") : `<div class="plain-back"><span class="pip red">♥</span></div>`}
             <span class="ix red flip">S<br>♥</span>
             ${S.babyPhoto ? `<span class="pc-tag">then</span>` : ""}
           </div>
           <div class="pc pc-photo front" data-card="now">
             <span class="ix">E<br>♠</span>
-            ${S.headshot ? `<img src="${esc(S.headshot)}" alt="${esc(S.name)}">` : `<div class="photo-ph">your photo here<br><small>photos/headshot.jpg</small></div>`}
+            ${S.headshot ? img(S.headshot, S.name, "320px", true) : `<div class="photo-ph">your photo here<br><small>photos/headshot.jpg</small></div>`}
             <span class="ix flip">E<br>♠</span>
             ${S.babyPhoto ? `<span class="pc-tag">now</span>` : ""}
           </div>
@@ -219,6 +223,7 @@
       ${header("Eats", "Almost 200 places logged on Beli: the best of them, and a few I'd skip. Big sushi guy.", "AI can do a lot. It can't taste.",
         `<div class="pills head-pills"><a class="pill sm" href="${esc(S.beli)}" target="_blank" rel="noopener">Follow me on Beli ↗</a><button class="pill sm" id="rain">Make it rain</button></div>`)}
       <h2 class="sec-title">${suit("♥")}Top of my list</h2>
+      <p class="chip-key" aria-label="Chip colors">${[["c-black", "9.5+"], ["c-green", "7 to 9.4"], ["c-red", "below 7"]].map(([c, l]) => `<span><i class="mini-chip ${c}"></i>${l}</span>`).join("")}</p>
       <ol class="beli top" id="beli-top">${list.map((e, i) => row(e, i + 1, i >= 6 ? "extra" : "")).join("")}</ol>
       ${list.length > 6 ? `<button class="pill see-more" id="see-more">See all ${list.length} ↓</button>` : ""}
       ${S.eatsWorst?.length ? `
@@ -266,8 +271,9 @@
         <div class="deal-copy"><p>One card from the shoe. Your move.</p><button class="pill solid deal-btn" id="deal">Flip it over</button></div>
       </div>
       <ul class="quotes">
-        ${S.quotes.map((q) => `<li class="quote"><figure><blockquote>“${esc(q.text)}”</blockquote>${q.author ? `<figcaption>— ${esc(q.author)}</figcaption>` : ""}${q.note ? `<p class="qnote">${esc(q.note)}</p>` : ""}</figure></li>`).join("")}
+        ${S.quotes.map((q, qi) => `<li class="quote ${qi >= 5 ? "extra" : ""}"><figure><blockquote>“${esc(q.text)}”</blockquote>${q.author ? `<figcaption>— ${esc(q.author)}</figcaption>` : ""}${q.note ? `<p class="qnote">${esc(q.note)}</p>` : ""}</figure></li>`).join("")}
       </ul>
+      ${S.quotes.length > 5 ? `<button class="pill see-more" id="more-quotes">See all ${S.quotes.length} quotes ↓</button>` : ""}
       <hr class="rule">
       <h2 class="sec-title">${suit("♣")}Reads</h2>
       <div class="filters" id="filters"><button class="chip on" data-f="all">all</button>${tags.map((t) => `<button class="chip" data-f="${esc(t)}">${esc(t)}</button>`).join("")}</div>
@@ -342,6 +348,9 @@
   let quotePos = 0;
   const nextQuote = () => quoteOrder[quotePos++ % quoteOrder.length];
 
+  const sessionStorageGet = (k) => { try { return sessionStorage.getItem(k); } catch { return null; } };
+  const sessionStorageSet = (k, v) => { try { sessionStorage.setItem(k, v); } catch {} };
+
   const after = {
     work: () => {
       document.querySelectorAll(".path a[data-to]").forEach((a) => a.addEventListener("click", (e) => {
@@ -362,6 +371,11 @@
         });
       }
       if (!S.babyPhoto) return;          // swap turns on once there's a baby photo
+      if (!sessionStorageGet("hintShown")) {
+        setTimeout(() => hand.classList.add("hint-on"), 1400);
+        setTimeout(() => hand.classList.remove("hint-on"), 5200);
+        sessionStorageSet("hintShown", "1");
+      }
       let busy = false;
       const swap = () => {
         if (busy) return; busy = true;
@@ -395,6 +409,12 @@
       });
     },
     reads: () => {
+      const mq = $("#more-quotes");
+      if (mq) mq.addEventListener("click", () => {
+        const ul = document.querySelector(".quotes"), open = ul.classList.toggle("open");
+        mq.textContent = open ? "Show fewer ↑" : `See all ${S.quotes.length} quotes ↓`;
+        if (!open) ul.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
       const card = $("#qcard");
       const btn = $("#deal");
       const ranks = ["A", "K", "Q", "J", "10", "9"];
@@ -553,7 +573,7 @@
     lbSource = img;
     const lb = document.createElement("div");
     lb.className = "lightbox";
-    lb.innerHTML = `<img src="${img.src}" alt=""><p>${esc(img.alt)}</p>`;
+    lb.innerHTML = `<img src="${img.dataset.full || img.currentSrc || img.src}" alt="${esc(img.alt)}"><p>${esc(img.alt)}</p>`;
     document.body.appendChild(lb);
     const big = lb.querySelector("img");
     if (reduceMotion || !big.animate) return;

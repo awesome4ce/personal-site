@@ -667,3 +667,37 @@ html, body { overflow-x: clip; }
   .rides .pcard-ride.reveal:not(.in-view):nth-child(n) { transform: translate(-90px, 30px) rotate(-10deg); }
 }
 .lightbox img { will-change: transform; }
+
+/* ===== impeccable critique fixes ===== */
+/* quotes: first five, rest behind a toggle */
+.quotes li.extra { display: none; }
+.quotes.open li.extra { display: block; }
+#more-quotes { margin-top: 8px; }
+
+/* card-swap hint shows on its own once per visit */
+.hand.hint-on .hand-hint { opacity: .9; }
+
+/* EV chip: spell out LLN */
+.ev-tip small { display: block; font: 400 11px var(--sans); color: var(--muted); margin-left: 4px; }
+.ev-tip { flex-wrap: wrap; }
+
+/* Eats chip key */
+.chip-key { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: -6px 0 18px; font-size: 14px; color: var(--muted); }
+.chip-key span { display: inline-flex; align-items: center; gap: 7px; }
+.mini-chip { width: 14px; height: 14px; border-radius: 50%; display: inline-block; border: 3px dashed; box-sizing: border-box; }
+.mini-chip.c-black { background: #141414; border-color: #d9b35a; }
+.mini-chip.c-green { background: #23704b; border-color: #f3efe6; }
+.mini-chip.c-red { background: #b3382b; border-color: #f3efe6; }
+
+/* touch: photos show they can be opened */
+@media (hover: none) {
+  .tile:has(img)::after { content: ""; position: absolute; right: 8px; bottom: 8px; width: 26px; height: 26px; border-radius: 50%; pointer-events: none;
+    background: rgba(15,30,24,.62) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f3efe6' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7'/%3E%3C/svg%3E") center/14px no-repeat; }
+  .tile { position: relative; }
+}
+
+/* tap targets: at least ~40px without changing the look */
+.chip { min-height: 36px; padding: 8px 16px; }
+.more, .boring a, .brand { padding-block: 8px; }
+.more { display: inline-block; }
+.reads h4 a { display: inline-block; padding-block: 6px; }

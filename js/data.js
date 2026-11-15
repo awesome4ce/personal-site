@@ -192,7 +192,7 @@ window.SITE = {
     text: "Tree runs, deep powder, boot-packing for the good stuff, and the occasional total whiteout on the chairlift.", // edit me
     photos: [
       { img: "photos/ski-powder.jpg", caption: "Powder day" },
-      { img: "photos/ski-kiss.jpg", caption: "" },
+      { img: "photos/ski-kiss.jpg", caption: "", alt: "Kissing my skis in the trees" },
       { img: "photos/ski-chairlift-fog.jpg", caption: "Visibility: zero" },
       { img: "photos/ski-bootpack.jpg", caption: "Boot-packing up" },
     ],
@@ -203,7 +203,7 @@ window.SITE = {
     photos: [
       { img: "photos/vb-dig.jpg", caption: "Harvard-Westlake varsity" },
       { img: "photos/vb-beach.jpg", caption: "Beach days" },
-      { img: "photos/vb-dive.jpg", caption: "" },
+      { img: "photos/vb-dive.jpg", caption: "", alt: "Diving for a dig during a match" },
       { img: "photos/vb-team-ucsb.jpg", caption: "Tournament at UCSB (red jersey)" },
     ],
   },
