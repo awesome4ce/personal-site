@@ -716,3 +716,25 @@ html, body { overflow-x: clip; }
 .ev-note-l { bottom: auto; top: calc(-40px + .52 * (100% + 40px) + 14px); }
 .ev-note { opacity: 0; transform: translateY(3px); transition: opacity .12s ease-out, transform .12s ease-out; }
 .hero-wrap.ev-focus .ev-note { opacity: 1; transform: none; transition-duration: .25s; }
+
+/* EV graph: draw as one left-to-right sweep (not stroke by stroke), colored by how each run started */
+.ev-bg path { stroke-dasharray: none !important; stroke-dashoffset: 0 !important; animation: none !important; }
+.ev-bg { animation: ev-sweep 2.6s cubic-bezier(.45,.05,.25,1) .2s both; }
+@keyframes ev-sweep { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@media (prefers-reduced-motion: reduce) { .ev-bg { animation: none; } }
+.ev-bg path.hot  { stroke: #e8c46a; }
+.ev-bg path.cold { stroke: #ff8a78; }
+.ev-line { stroke: #f3efe6 !important; opacity: .55; }
+.hero-wrap.ev-focus .ev-line { opacity: .95; }
+/* notes fade in by themselves after the sweep */
+.hero-wrap.ev-shown .ev-note { opacity: 1; transform: none; transition: opacity .6s ease, transform .6s ease; }
+.ev-note b { font-weight: 600; }
+.ev-note b.hot { color: #e8c46a; }
+.ev-note b.cold { color: #ff8a78; }
+/* hot = warm orange, cold = ice blue: distinct on felt and self-explanatory */
+.ev-bg path.hot  { stroke: #ffb35c; opacity: .6; }
+.ev-bg path.cold { stroke: #8cc8ff; opacity: .6; }
+.hero-wrap.ev-focus .ev-bg path.hot, .hero-wrap.ev-focus .ev-bg path.cold { opacity: .9; }
+.ev-note b.hot { color: #ffb35c; }
+.ev-note b.cold { color: #8cc8ff; }
+@media (max-width: 820px) { .ev-bg path.hot, .ev-bg path.cold { opacity: .3; } }
