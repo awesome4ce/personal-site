@@ -97,7 +97,7 @@
     home: () => `
       <div class="hero-wrap" id="hero-wrap">
       ${evBackground()}
-      <div class="ev-tip" aria-hidden="true" style="--yl:${evBackground.edges.left};--yr:${evBackground.edges.right}"><span class="ev-dash"></span><i>LLN</i> · motto of life</div>
+      <div class="ev-tip" aria-hidden="true" style="--yl:${evBackground.edges.left};--yr:${evBackground.edges.right}">Law of large numbers:<br>motto of life</div>
       <section class="table">
 
         <div class="table-text">

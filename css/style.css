@@ -695,3 +695,8 @@ html, body { overflow-x: clip; }
 /* EV chip: compact so it fits in the margin beside the panel */
 .ev-tip { font-size: 13px !important; padding: 4px 10px !important; gap: 5px !important; }
 .ev-tip .ev-dash { display: none; }
+
+/* EV chip: plain, one font, two short lines */
+.ev-tip { font: 500 13px/1.35 var(--sans) !important; color: #1f1d1a !important; white-space: normal !important;
+  display: block !important; max-width: 150px; padding: 7px 11px !important; border-radius: 10px !important; }
+.ev-tip { font-size: 12px !important; max-width: none; white-space: nowrap !important; padding: 6px 10px !important; }
