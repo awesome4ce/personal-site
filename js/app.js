@@ -88,7 +88,7 @@
         pts.push([x, y]);
         d += `${idx ? "L" : "M"}${x.toFixed(1)},${y.toFixed(1)}`;
       });
-      const begin = (0.2 + k * 0.32).toFixed(2), dur = 1.5;
+      const begin = (0.15 + k * 0.22).toFixed(2), dur = 1.05;
       const grow = reduceMotion ? "" : `<animate attributeName="width" from="0" to="${W}" begin="${begin}s" dur="${dur}s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines=".45 .05 .25 1"/>`;
       clips.push(`<clipPath id="evc${k}"><rect x="0" y="-20" height="${H + 40}" width="${reduceMotion ? W : 0}">${grow}</rect></clipPath>`);
       paths.push(`<path class="${k % 2 ? "tone-b" : "tone-a"}" clip-path="url(#evc${k})" d="${d}"/>`);
@@ -377,7 +377,7 @@
     },
     home: () => {
       const hw = $("#hero-wrap");
-      setTimeout(() => hw && hw.classList.add("ev-shown"), reduceMotion ? 0 : 4000);
+      setTimeout(() => hw && hw.classList.add("ev-shown"), reduceMotion ? 0 : 2800);
       const hand = $("#hand");
       if (!reduceMotion && hand.animate) {
         // deal the two photo cards in: they start stacked below, then fan out into place

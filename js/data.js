@@ -23,9 +23,9 @@ window.SITE = {
     "The rest of the time I'm on a bike, on a mountain, or at a sushi counter.",
   ],
   now: [
-    "Heading to Tishman Speyer in New York next summer for acquisitions",
+    "Tishman Speyer acquisitions internship, New York, summer 2027",
     "Running firm relations for the Stanford Real Estate Association",
-    "Trying to get one more century in before the rain",
+    "Getting one more century ride in",
   ],
 
   /* ---------------- WORK ---------------- */
