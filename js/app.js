@@ -73,11 +73,12 @@
         sum += draw;
         if (j < j0) continue;
         const x = Math.pow((j - j0) / (n - j0), 0.68) * W;       // give the wild early part more room
-        const y = mid - A * Math.tanh((sum / j) / 1.6);           // running average so far
+        const squeeze = 1 - 0.93 * Math.pow(x / W, 2.4);          // tighten the band toward the right edge
+        const y = mid - A * Math.tanh((sum / j) / 1.6) * squeeze; // running average so far
         pts.push([x, y]);
         d += `${j === j0 ? "M" : "L"}${x.toFixed(1)},${y.toFixed(1)}`;
       }
-      paths.push(`<path class="${k === 3 ? "hot" : ""}" d="${d}" pathLength="1" style="animation-delay:${(k * 0.15).toFixed(2)}s"/>`);
+      paths.push(`<path d="${d}" pathLength="1" style="animation-delay:${(k * 0.15).toFixed(2)}s"/>`);
     }
     evBackground.edges = { left: mid / H, right: mid / H };
     evBackground.geo = { W, H, mid, series };
