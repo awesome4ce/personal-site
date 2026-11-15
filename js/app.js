@@ -97,7 +97,8 @@
     home: () => `
       <div class="hero-wrap" id="hero-wrap">
       ${evBackground()}
-      <div class="ev-tip" aria-hidden="true" style="--yl:${evBackground.edges.left};--yr:${evBackground.edges.right}">Law of large numbers:<br>motto of life</div>
+      <p class="ev-ann ev-ann-l" aria-hidden="true">Short run<br>all variance</p>
+      <p class="ev-ann ev-ann-r" aria-hidden="true">Long run<br>expected value</p>
       <section class="table">
 
         <div class="table-text">
@@ -334,10 +335,12 @@
       if (!wrap) return;
       const t = wrap.querySelector(".table").getBoundingClientRect();
       const outside = e.clientX < t.left || e.clientX > t.right;
-      const tip = wrap.querySelector(".ev-tip");
-      const room = (e.clientX < t.left ? t.left : innerWidth - t.right) - 24;
       const on = outside && nearLine(wrap.querySelector(".ev-bg"), e.clientX, e.clientY);
-      if (tip) tip.style.visibility = tip.offsetWidth <= room ? "visible" : "hidden";
+      // each note only shows if its margin is wide enough to hold it
+      wrap.querySelectorAll(".ev-ann").forEach((n) => {
+        const room = (n.classList.contains("ev-ann-l") ? t.left : innerWidth - t.right) - 28;
+        n.style.visibility = n.offsetWidth <= room ? "visible" : "hidden";
+      });
       wrap.classList.toggle("ev-focus", on);
       if (on) wrap.dataset.side = e.clientX < t.left ? "left" : "right";
     });

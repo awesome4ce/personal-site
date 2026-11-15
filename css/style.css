@@ -700,3 +700,10 @@ html, body { overflow-x: clip; }
 .ev-tip { font: 500 13px/1.35 var(--sans) !important; color: #1f1d1a !important; white-space: normal !important;
   display: block !important; max-width: 150px; padding: 7px 11px !important; border-radius: 10px !important; }
 .ev-tip { font-size: 12px !important; max-width: none; white-space: nowrap !important; padding: 6px 10px !important; }
+
+/* EV graph annotations: plain labels in the margins, fade in with the lines */
+.ev-ann { position: absolute; z-index: 2; margin: 0; pointer-events: none; font: 500 12px/1.4 var(--sans); color: #e9efe9;
+  text-shadow: 0 0 8px #1f3b30, 0 0 3px #1f3b30; opacity: 0; transition: opacity .12s ease-out; white-space: nowrap; }
+.ev-ann-l { left: calc((100% - 100vw) / 2 + 14px); top: 10px; }
+.ev-ann-r { right: calc((100% - 100vw) / 2 + 14px); top: calc(-40px + .52 * (100% + 80px) - 46px); text-align: right; }
+.hero-wrap.ev-focus .ev-ann { opacity: .92; transition-duration: .3s; }
