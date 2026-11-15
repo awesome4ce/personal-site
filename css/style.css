@@ -169,7 +169,7 @@ figcaption span { color: var(--muted); margin-left: 6px; }
 @keyframes toss { to { opacity: 0; transform: translate(60px, -30px) rotate(12deg) scale(.9); } }
 .qcard-inner { position: relative; width: 100%; height: 100%; transition: transform .8s cubic-bezier(.2,.7,.2,1); transform-style: preserve-3d; }
 .qcard.flipped .qcard-inner { transform: rotateY(180deg); }
-.qcard-back, .qcard-front { position: absolute; inset: 0; border-radius: 12px; backface-visibility: hidden; -webkit-backface-visibility: hidden; box-shadow: 0 8px 24px rgba(40,30,10,.14); }
+.qcard-back, .qcard-front { position: absolute; inset: 0; border-radius: 12px; backface-visibility: hidden; -webkit-backface-visibility: hidden; box-shadow: 0 8px 24px rgba(0,0,0,.35); }
 .qcard-back { background: repeating-linear-gradient(45deg, rgba(255,255,255,.18) 0 2px, transparent 2px 9px), repeating-linear-gradient(-45deg, rgba(255,255,255,.18) 0 2px, transparent 2px 9px), var(--accent); border: 6px solid #fff; }
 .qcard-front { background: #fff; transform: rotateY(180deg); padding: 28px 28px 22px; display: flex; flex-direction: column; justify-content: center; }
 .qcard-front blockquote { margin: 0; font: italic 400 19px/1.35 var(--serif); color: var(--ink); }
@@ -445,7 +445,7 @@ figcaption span { color: var(--muted); margin-left: 6px; }
 }
 
 /* paper feel: cards are slightly lifted sheets, not identical outlined boxes */
-.card { border-color: rgba(120,105,80,.16); box-shadow: 0 1px 0 rgba(255,255,255,.7) inset, 0 1px 2px rgba(60,45,20,.05), 0 6px 18px -10px rgba(60,45,20,.18); }
+.card { border-color: rgba(120,105,80,.16); box-shadow: 0 1px 0 rgba(255,255,255,.7) inset, 0 1px 2px rgba(0,0,0,.05), 0 6px 18px -10px rgba(0,0,0,.18); }
 .job:nth-child(3n+2) { transform: rotate(-.25deg); }
 .job:nth-child(3n) { transform: rotate(.2deg); }
 .job.reveal:not(.in-view) { transform: translateY(16px); }
@@ -488,7 +488,7 @@ body { letter-spacing: 0; }
 .quote { border-top: 0; padding: 24px 0; }
 .reads li { border-top: 0; padding: 16px 0; }
 /* details: one depth cue per card (soft shadow), no tilt */
-.card { border-color: transparent; box-shadow: 0 1px 2px rgba(60,45,20,.05), 0 8px 24px -12px rgba(60,45,20,.16); }
+.card { border-color: transparent; box-shadow: 0 1px 2px rgba(0,0,0,.05), 0 8px 24px -12px rgba(0,0,0,.16); }
 .job:nth-child(3n+2), .job:nth-child(3n) { transform: none; }
 .page-head:has(.page-sub:empty) .page-sub { display: none; }
 
