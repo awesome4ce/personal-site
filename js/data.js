@@ -52,14 +52,14 @@ window.SITE = {
     },
     {
       company: "ACORE Capital",
-      blurb: "Underwrote 56 loan opportunities (~$8B) across data center, industrial, multifamily, retail, self-storage, hospitality, and office, and helped take two through IC approval and close. Built an AI-agent council that reviews appraisals, PCAs, and Phase I reports and flags diligence issues.",
+      blurb: "Underwrote 57 loan opportunities (~$8B) across data center, industrial, multifamily, retail, self-storage, hospitality, and office, and helped take two through IC approval and close. Built an AI-agent council that reviews appraisals, PCAs, and Phase I reports and flags diligence issues.",
       logo: "acorecapital.com", // company website, used to show its logo
       logoPad: true, // shrink the logo a bit inside its tile instead of filling it
       role: "Summer Analyst",
       location: "Los Angeles, CA",
       dates: "Jun. – Aug. 2026",
       bullets: [
-        "Underwrote 56 prospective deals (~$8B) across data center, industrial, multifamily, retail, self-storage, hospitality, and office",
+        "Underwrote 57 prospective deals (~$8B) across data center, industrial, multifamily, retail, self-storage, hospitality, and office",
         "Modeled cash flows from T-12s and rent rolls, sizing loans to LTV, debt yield, and DSCR through broker Q&A",
         "Supported 2 of these loans through IC approval and close, drafting quote sheets and IC memo sections",
         "Built an AI-agent council that reviews third-party reports (appraisal, PCA, Phase I) and flags issues in due diligence",
@@ -134,7 +134,7 @@ window.SITE = {
         line: "Built memory tagging for the LLM system and benchmarked new models. Acquired by Salesforce in 2026.",
         learned: "" },
       { id: "acore", company: "ACORE Capital", logo: "acorecapital.com", logoPad: true, role: "Summer Analyst", when: "2026",
-        stat: "56 deals", statLabel: "~$8B underwritten",
+        stat: "57 deals", statLabel: "~$8B underwritten",
         line: "Underwrote loans across seven property types, took two through IC and close, and built an AI-agent council for diligence.",
         learned: "Every loan is a bet on someone's story. Underwriting is checking it." },
       { id: "naiop", company: "NAIOP University Challenge", logo: "naiop.org", role: "Student Developer", when: "2025–26",
