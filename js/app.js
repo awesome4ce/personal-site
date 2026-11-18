@@ -11,7 +11,7 @@
     { id: "work", label: "Work", suit: "♠" },
     { id: "play", label: "Play", suit: "♥" },
     { id: "eats", label: "Eats", suit: "♦" },
-    { id: "reads", label: "Quotes & Reads", suit: "♣" },
+    { id: "reads", label: S.showReads ? "Quotes & Reads" : "Quotes", suit: "♣" },
   ];
 
   $("#year").textContent = new Date().getFullYear();
@@ -251,7 +251,7 @@
     reads: () => {
       const tags = [...new Set(S.reads.flatMap((r) => [r.type === "book" ? "books" : "articles", ...r.tags]))];
       return `
-      ${header("Quotes & Reads", "Keep moving when life won't wait, put in the reps nobody sees, and take the good bets. Plus a few reads worth your time.")}
+      ${header(S.showReads ? "Quotes & Reads" : "Quotes", "Keep moving when life won't wait, put in the reps nobody sees, and take the good bets." + (S.showReads ? " Plus a few reads worth your time." : ""))}
       <div class="deal-area">
         <div class="deal-stage">
           <div class="shoe" aria-hidden="true">
@@ -290,20 +290,20 @@
         ${S.quotes.map((q, qi) => `<li class="quote ${qi >= 5 ? "extra" : ""}"><figure><blockquote>“${esc(q.text)}”</blockquote>${q.author ? `<figcaption>— ${esc(q.author)}</figcaption>` : ""}${q.note ? `<p class="qnote">${esc(q.note)}</p>` : ""}</figure></li>`).join("")}
       </ul>
       ${S.quotes.length > 5 ? `<button class="pill see-more" id="more-quotes">See all ${S.quotes.length} quotes ↓</button>` : ""}
-      <hr class="rule">
-      <h2 class="sec-title">${suit("♣")}Reads</h2>
-      <div class="filters" id="filters"><button class="chip on" data-f="all">all</button>${tags.map((t) => `<button class="chip" data-f="${esc(t)}">${esc(t)}</button>`).join("")}</div>
+      ${S.showReads ? `      <hr class="rule">
+      <h2 class="sec-title">\${suit("♣")}Reads</h2>
+      <div class="filters" id="filters"><button class="chip on" data-f="all">all</button>\${tags.map((t) => \`<button class="chip" data-f="\${esc(t)}">\${esc(t)}</button>\`).join("")}</div>
       <ul class="reads" id="reads-list">
-        ${S.reads.map((r) => `
-          <li data-tags="${esc([r.type === "book" ? "books" : "articles", ...r.tags].join(" "))}">
-            <span class="rtype">${r.type === "book" ? "BOOK" : "READ"}</span>
+        \${S.reads.map((r) => \`
+          <li data-tags="\${esc([r.type === "book" ? "books" : "articles", ...r.tags].join(" "))}">
+            <span class="rtype">\${r.type === "book" ? "BOOK" : "READ"}</span>
             <div>
-              <h4>${r.url ? `<a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.title)} ↗</a>` : esc(r.title)}</h4>
-              <p class="meta">${esc(r.author)}</p>
-              <p>${esc(r.note)}</p>
+              <h4>\${r.url ? \`<a href="\${esc(r.url)}" target="_blank" rel="noopener">\${esc(r.title)} ↗</a>\` : esc(r.title)}</h4>
+              <p class="meta">\${esc(r.author)}</p>
+              <p>\${esc(r.note)}</p>
             </div>
-          </li>`).join("")}
-      </ul>`;
+          </li>\`).join("")}
+      </ul>` : ""}`;
     },
   };
 
@@ -472,7 +472,7 @@
       card.addEventListener("click", next);
       setTimeout(deal, 300);
 
-      $("#filters").addEventListener("click", (e) => {
+      if ($("#filters")) $("#filters").addEventListener("click", (e) => {
         const b = e.target.closest(".chip"); if (!b) return;
         document.querySelectorAll("#filters .chip").forEach((c) => c.classList.toggle("on", c === b));
         document.querySelectorAll("#reads-list li").forEach((li) => {

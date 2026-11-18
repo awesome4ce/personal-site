@@ -278,6 +278,7 @@ window.SITE = {
   ],
 
   /* ---------------- READS ---------------- */
+  showReads: false, // set to true to show the Reads section again
   // type: "book" or "article". tags drive the filter buttons.
   reads: [
     // PLACEHOLDER — swap in your own
