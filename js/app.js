@@ -15,6 +15,7 @@
   ];
 
   $("#year").textContent = new Date().getFullYear();
+  document.addEventListener("touchstart", () => {}, { passive: true });   // lets :active press states fire on iOS
   if (S.updated) $("#updated").textContent = ` · Last updated ${S.updated}`;
 
   /* ---------- helpers ---------- */

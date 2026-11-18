@@ -745,3 +745,12 @@ html, body { overflow-x: clip; }
 .ev-bg path.tone-b { stroke: #d9cba4; opacity: .38; }
 .hero-wrap.ev-focus .ev-bg path.tone-a, .hero-wrap.ev-focus .ev-bg path.tone-b { opacity: .75; }
 @media (max-width: 820px) { .ev-bg path.tone-a, .ev-bg path.tone-b { opacity: .22; } }
+
+/* press feedback: buttons dip slightly while pressed */
+.pill, .chip, .path > li > a, .tabs a, .brand, .more, .boring a, .reads h4 a {
+  transition: transform .12s cubic-bezier(.22,1,.36,1), border-color .15s, color .15s, background-color .15s;
+}
+.tabs a, .more, .boring a, .reads h4 a { display: inline-block; }
+.pill:active, .chip:active, .path > li > a:active, .more:active, .boring a:active, .reads h4 a:active { transform: scale(.95); }
+.deal-btn:active { transform: scale(.96); }
+.tabs a:active, .brand:active { transform: scale(.96); }
