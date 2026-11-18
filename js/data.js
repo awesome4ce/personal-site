@@ -36,7 +36,7 @@ window.SITE = {
     dates: "Expected Jun. 2029",
     details: [
       "GPA: 3.97 / 4.00",
-      "Stanford Real Estate Association — VP; run firm relations and recruiting events",
+      "Stanford Real Estate Association — VP, Corporate and Industry Partnerships",
       "Stanford Cycling Club · Stanford Blyth Fund · Stanford Ski Club",
     ],
   },
@@ -52,16 +52,17 @@ window.SITE = {
     },
     {
       company: "ACORE Capital",
-      blurb: "Underwrote 57 loan opportunities (~$8B) across data center, industrial, multifamily, retail, self-storage, hospitality, and office, and helped take two through IC approval and close. Built an AI-agent council that reviews appraisals, PCAs, and Phase I reports and flags diligence issues.",
+      blurb: "Underwrote 57 prospective deals (~$8B), 11 of them quoted (~$1.4B). Built stabilized cash flows, sized senior loans, mezzanine debt, and preferred equity, led broker Q&A, and drafted IC memo sections for two loans taken to investment committee. Built an AI-agent council that reviews third-party reports and flags diligence issues.",
       logo: "acorecapital.com", // company website, used to show its logo
       logoPad: true, // shrink the logo a bit inside its tile instead of filling it
       role: "Summer Analyst",
       location: "Los Angeles, CA",
       dates: "Jun. – Aug. 2026",
       bullets: [
-        "Underwrote 57 prospective deals (~$8B) across data center, industrial, multifamily, retail, self-storage, hospitality, and office",
-        "Modeled cash flows from T-12s and rent rolls, sizing loans to LTV, debt yield, and DSCR through broker Q&A",
-        "Supported 2 of these loans through IC approval and close, drafting quote sheets and IC memo sections",
+        "Underwrote 57 prospective deals (~$8B), 11 of them quoted (~$1.4B), across data center, industrial, multifamily, retail, self-storage, hotel, and office",
+        "Built stabilized cash flows, reconciling sponsor NOI against independent market rent, absorption, tenant credit, and expense assumptions drawn from lease comps, third-party reports, and market data",
+        "Sized senior loans, mezzanine debt, and preferred equity to LTV, debt yield, and DSCR constraints",
+        "Led broker Q&A on live deals and drafted IC memo sections for 2 loans taken to investment committee",
         "Built an AI-agent council that reviews third-party reports (appraisal, PCA, Phase I) and flags issues in due diligence",
       ],
     },
@@ -91,7 +92,7 @@ window.SITE = {
     },
     {
       company: "Los Angeles Rams",
-      blurb: "Analyzed college and NFL play-by-play data to measure how draft round relates to running-back performance.",
+      blurb: "Analyzed college and pro running-back data to identify performance correlations and predict opponents' draft picks.",
       logo: "therams.com", // company website, used to show its logo
       role: "Summer Data Analyst",
       location: "Los Angeles, CA",
@@ -122,20 +123,20 @@ window.SITE = {
     ],
     cards: [
       { id: "rams", company: "Los Angeles Rams", logo: "therams.com", role: "Summer Data Analyst", when: "2024",
-        stat: "RB × draft", statLabel: "college + NFL play-by-play",
-        line: "Measured how draft round relates to running-back performance.",
+        stat: "RB × draft", statLabel: "college + pro running-back data",
+        line: "Analyzed college and pro running-back data to find performance correlations and predict opponents' draft picks.",
         learned: "" },
       { id: "wharton", company: "Wharton Data Science Competition", logo: "wharton.upenn.edu", role: "Team lead", when: "2024",
         stat: "#1 of 216", statLabel: "teams",
-        line: "Led a four-person team modeling soccer match outcomes. Published twice in the Wharton Sports Analytics Journal.",
+        line: "Led a four-person team building a Whole-History Rating model to predict soccer match outcomes. Published twice in the Wharton Sports Analytics Journal.",
         learned: "" },
       { id: "cimulate", company: "Cimulate", logo: "cimulate.ai", logoPad: true, role: "AI Engineering Intern", when: "2024",
         stat: "~60%", statLabel: "less compute",
         line: "Built memory tagging for the LLM system and benchmarked new models. Acquired by Salesforce in 2026.",
         learned: "" },
       { id: "acore", company: "ACORE Capital", logo: "acorecapital.com", logoPad: true, role: "Summer Analyst", when: "2026",
-        stat: "57 deals", statLabel: "~$8B underwritten",
-        line: "Underwrote loans across seven property types, took two through IC and close, and built an AI-agent council for diligence.",
+        stat: "57 deals", statLabel: "~$8B underwritten · 11 quoted",
+        line: "Underwrote loans across seven property types, quoted 11 of them (~$1.4B), drafted IC memo sections for two loans taken to investment committee, and built an AI-agent council for diligence.",
         learned: "Every loan is a bet on someone's story. Underwriting is checking it." },
       { id: "naiop", company: "NAIOP University Challenge", logo: "naiop.org", role: "Student Developer", when: "2025–26",
         stat: "1 of 4", statLabel: "chosen to represent Stanford",
@@ -154,7 +155,7 @@ window.SITE = {
     { title: "Hines Skyline Scholars", detail: "2026 Cohort" },
     { title: "Eastdil Secured RE Finance Training Program", detail: "2026" },
   ],
-  skills: ["Excel", "Argus", "Python", "R", "Java", "C++"],
+  skills: ["Excel", "Financial Modeling", "Argus", "CoStar", "Python", "R", "Java", "C++"],
 
   /* ---------------- PLAY ---------------- */
   // Two featured century rides. `profile` = rough elevation samples (any units),
