@@ -897,3 +897,8 @@ html, body { overflow-x: clip; }
 .below .now-list li { border: 0; padding: 0 0 22px; font: 400 21px/1.4 var(--serif); color: var(--ink); max-width: 28ch; }
 .below .exp-list li { border: 0; padding: 0 0 18px; }
 .below .exp-list li:first-child { padding-top: 0; }
+
+/* top-rated chips: cobalt blue with cream edge spots (reads as "good" and stands out on the felt; red stays for the skips) */
+.c-black .c-body { fill: #2457c5 !important; }
+.c-black .c-edge { stroke: #f3efe6 !important; }
+.c-black .c-ring { stroke: #2457c5 !important; }
