@@ -686,10 +686,10 @@
     const L0 = barAnim ? new DOMMatrix(cs.transform).m41 : barL, W0 = barAnim ? parseFloat(cs.width) : barW, R0 = L0 + W0;
     if (barAnim) barAnim.cancel();
     bar.style.width = W1 + "px"; bar.style.transform = `translateX(${L1}px)`;
-    const right = R1 >= R0, T = 0.62;
-    const lead = spring(0.7, 0.42), trail = spring(0.85, T), N = 48, frames = [];
+    const right = R1 >= R0, T = 0.78;
+    const lead = spring(0.52, 0.52), trail = spring(0.8, T), N = 48, frames = [];
     for (let i = 0; i <= N; i++) {
-      const t = (i / N) * T, fl = lead(Math.min(t, 0.42 * 1.6)), ft = trail(t);
+      const t = (i / N) * T, fl = lead(Math.min(t, 0.52 * 1.6)), ft = trail(t);
       const l = L0 + (L1 - L0) * (right ? ft : fl), r = R0 + (R1 - R0) * (right ? fl : ft);
       frames.push({ transform: `translateX(${l}px)`, width: `${Math.max(6, r - l)}px`, offset: i / N });
     }
