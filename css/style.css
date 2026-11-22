@@ -969,3 +969,7 @@ hr.rule + .sec-title, hr.rule + .grid-2 { margin-top: 20px; }
 /* count-up numbers never wrap while the digits change width (e.g. "#1 of 200" before it lands on 216) */
 .role-stat { white-space: nowrap; }
 .role-stat small { white-space: normal; }
+
+/* Play: the "Visibility: zero" photo is cropped taller (square) so its column fills more of the space beside the tall powder shot */
+.gallery.fill figure:has(img[src*="ski-chairlift-fog"]) .tile { aspect-ratio: 1 / 1 !important; }
+.gallery.fill img[src*="ski-chairlift-fog"] { object-position: 52% 50%; }
