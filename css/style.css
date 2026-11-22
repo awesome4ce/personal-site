@@ -869,10 +869,10 @@ html, body { overflow-x: clip; }
 .sec-title { margin-top: 64px; }
 .page-head + .sec-title { margin-top: 56px; }
 .beli.worst + * { margin-top: 0; }
-/* hover: the row you're on stays, the rest step back (same move as Work) */
+/* hover: the row you're on stays, the rest step back (Eats, like Work; Quotes stay still) */
 @media (hover: hover) {
-  .beli:has(li:hover) li:not(:hover), .quotes:has(.quote:hover) .quote:not(:hover) { opacity: .4; }
-  .beli li, .quote { transition: opacity .3s ease, transform .6s cubic-bezier(.2,.7,.2,1); }
+  .beli:has(li:hover) li:not(:hover) { opacity: .4; }
+  .beli li { transition: opacity .3s ease, transform .6s cubic-bezier(.2,.7,.2,1); }
 }
 @media (max-width: 900px) {
   .beli.top, .beli.worst { grid-template-columns: minmax(0, 1fr); }
@@ -906,3 +906,5 @@ html, body { overflow-x: clip; }
 /* Work: each row carries its own date, small and above the number, so "Summer 2027" can't read as a heading for the rows below it */
 .role-date { display: block; margin-bottom: 14px; font: 500 14px/1 var(--sans); letter-spacing: .02em; color: var(--muted); }
 .role-row.is-next .role-date { color: var(--accent); }
+.roles.has-focus .role-row:not(.focus) { opacity: .38; }
+.role-row { transition: opacity .3s ease, transform .6s cubic-bezier(.2,.7,.2,1); }

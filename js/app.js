@@ -390,19 +390,51 @@
     work: () => {
       const rows = [...document.querySelectorAll(".role-row")];
       const links = [...document.querySelectorAll(".rail a[data-to]")];
-      const setActive = (id) => links.forEach((l) => l.classList.toggle("on", l.dataset.to === id));
-      links.forEach((a) => a.addEventListener("click", (e) => {
-        e.preventDefault();
-        const el = document.getElementById("job-" + a.dataset.to);
-        if (el) { el.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" }); setActive(a.dataset.to); }
-      }));
-      if ("IntersectionObserver" in window) {
-        const spy = new IntersectionObserver((entries) => {
-          entries.forEach((e) => { if (e.isIntersecting) setActive(e.target.id.replace("job-", "")); });
-        }, { rootMargin: "-35% 0px -55% 0px" });
-        rows.forEach((r) => spy.observe(r));
-      }
-      setActive(rows[0]?.id.replace("job-", ""));
+      const roles = document.querySelector(".roles");
+      const idOf = (r) => r.id.replace("job-", "");
+      let current = null, hovered = null, lockId = null, lockUntil = 0;
+      const setActive = (id) => {
+        if (id === current) return;
+        current = id;
+        links.forEach((l) => { const on = l.dataset.to === id; l.classList.toggle("on", on); if (on) l.setAttribute("aria-current", "true"); else l.removeAttribute("aria-current"); });
+      };
+      // the row whose top most recently crossed a line 30% down the screen (last row once the page bottoms out)
+      const byScroll = () => {
+        const line = innerHeight * 0.3;
+        let pick = rows[0];
+        for (const r of rows) if (r.getBoundingClientRect().top <= line) pick = r;
+        const last = rows[rows.length - 1];
+        if (innerHeight + scrollY >= document.documentElement.scrollHeight - 4 && last.getBoundingClientRect().top < innerHeight) pick = last;
+        return idOf(pick);
+      };
+      const update = () => setActive(hovered || (performance.now() < lockUntil ? lockId : byScroll()));
+      let ticking = false;
+      const onScroll = () => { if (ticking) return; ticking = true; requestAnimationFrame(() => { ticking = false; update(); }); };
+      addEventListener("scroll", onScroll, { passive: true });
+      addEventListener("resize", onScroll);
+      // hover a role: the rail follows it
+      rows.forEach((r) => {
+        r.addEventListener("mouseenter", () => { hovered = idOf(r); update(); });
+        r.addEventListener("mouseleave", () => { hovered = null; update(); });
+      });
+      // hover (or focus) a rail stop: that role stays bright, the others step back
+      const focusRow = (id) => { roles.classList.toggle("has-focus", !!id); rows.forEach((r) => r.classList.toggle("focus", idOf(r) === id)); };
+      links.forEach((a) => {
+        a.addEventListener("mouseenter", () => focusRow(a.dataset.to));
+        a.addEventListener("mouseleave", () => focusRow(null));
+        a.addEventListener("focus", () => focusRow(a.dataset.to));
+        a.addEventListener("blur", () => focusRow(null));
+        a.addEventListener("click", (e) => {
+          e.preventDefault();
+          const el = document.getElementById("job-" + a.dataset.to);
+          if (!el) return;
+          lockId = a.dataset.to; lockUntil = performance.now() + 1100;   // keep the clicked stop lit while the page glides there
+          setActive(lockId);
+          el.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+          setTimeout(update, 1150);
+        });
+      });
+      update();
       // count-up: runs once per number, only when it scrolls into view
       const nums = [...document.querySelectorAll(".role-stat .num")];
       if (reduceMotion || !("IntersectionObserver" in window)) return;
