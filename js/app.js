@@ -160,26 +160,44 @@
       </section>`,
 
     work: () => {
-      const W = S.work, SU = ["♠", "♥", "♦", "♣"];
+      const W = S.work;
+      // the biggest number in a stat counts up when it scrolls into view
+      const statHtml = (t) => {
+        const nums = [...String(t).matchAll(/\d+(?:\.\d+)?/g)];
+        if (!nums.length) return esc(t);
+        const top = nums.reduce((m, x) => (parseFloat(x[0]) > parseFloat(m[0]) ? x : m));
+        const i = top.index, n = top[0];
+        return `${esc(t.slice(0, i))}<span class="num" data-to="${n}">${n}</span>${esc(t.slice(i + n.length))}`;
+      };
+      const row = (c, cls = "") => `
+        <article class="role-row ${cls}" id="job-${esc(c.id)}">
+          <div class="role-stat">${statHtml(c.stat)}<small>${esc(c.statLabel)}</small></div>
+          <div class="role-body">
+            <div class="role-co">${logo(c.company, c.logo, "sm", c.logoPad)}<div><h3>${esc(c.company)}</h3><p class="role">${esc(c.role)} · ${esc(c.when)}</p></div></div>
+            <p class="blurb">${esc(c.line)}</p>
+            ${c.learned ? `<p class="learned">${esc(c.learned)}</p>` : ""}
+          </div>
+        </article>`;
+      const stops = [W.next, ...W.cards];
       return `
       ${header("Work", "")}
       <p class="story">${esc(W.story)}</p>
-      <ol class="path">
-        ${W.path.map((p, i) => `<li>${p.to ? `<a href="#work" data-to="${esc(p.to)}">` : "<span>"}${suit(SU[i % 4])}${esc(p.label)}${p.note ? ` <em>${esc(p.note)}</em>` : ""}${p.to ? "</a>" : "</span>"}</li>`).join("")}
-      </ol>
-      <div class="card next-up" id="job-${esc(W.next.id)}">
-        ${logo(W.next.company, W.next.logo)}
-        <div><p class="eyebrow">${suit("♠")}Next</p><h3>${esc(W.next.company)}</h3><p class="role">${esc(W.next.line)}</p></div>
+      <div class="work-layout">
+        <nav class="rail" aria-label="Career path, newest first">
+          <ol>${stops.map((c) => `<li><a href="#work" data-to="${esc(c.id)}"><span class="rail-when">${esc(c.when)}</span><span class="rail-name">${esc(c.short || c.company)}</span><span class="rail-tag">${esc(c.tag || "")}</span></a></li>`).join("")}</ol>
+        </nav>
+        <div class="roles">
+          ${row(W.next, "is-next")}
+          ${W.cards.map((c) => row(c)).join("")}
+        </div>
       </div>
-      <div class="jobs">
-        ${W.cards.map((c) => `
-          <article class="card job" id="job-${esc(c.id)}">
-            <div class="co">${logo(c.company, c.logo, "sm", c.logoPad)}<div><h4>${esc(c.company)}</h4><p class="role">${esc(c.role)} · ${esc(c.when)}</p></div></div>
-            <div class="stat">${esc(c.stat)}<small>${esc(c.statLabel)}</small></div>
-            <p class="blurb">${esc(c.line)}</p>
-            ${c.learned ? `<p class="learned">${esc(c.learned)}</p>` : ""}
-          </article>`).join("")}
-      </div>
+      ${S.leadership?.length ? `
+      <section class="leadership">
+        <h2 class="sec-title">${suit("♣")}Leadership<span>Beyond the job titles</span></h2>
+        <ul class="lead-list">
+          ${S.leadership.map((l) => `<li><p class="lead-when">${esc(l.when)}</p><h3>${esc(l.name)}</h3><p class="role">${esc(l.role)}</p><p class="blurb">${esc(l.line)}</p></li>`).join("")}
+        </ul>
+      </section>` : ""}
       <p class="boring resume-btn"><a href="${esc(S.resume)}" target="_blank" rel="noopener">Full resume (PDF) ↗</a></p>`;
     },
 
@@ -370,11 +388,39 @@
 
   const after = {
     work: () => {
-      document.querySelectorAll(".path a[data-to]").forEach((a) => a.addEventListener("click", (e) => {
+      const rows = [...document.querySelectorAll(".role-row")];
+      const links = [...document.querySelectorAll(".rail a[data-to]")];
+      const setActive = (id) => links.forEach((l) => l.classList.toggle("on", l.dataset.to === id));
+      links.forEach((a) => a.addEventListener("click", (e) => {
         e.preventDefault();
         const el = document.getElementById("job-" + a.dataset.to);
-        if (el) { el.scrollIntoView({ behavior: "smooth", block: "center" }); el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash"); }
+        if (el) { el.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" }); setActive(a.dataset.to); }
       }));
+      if ("IntersectionObserver" in window) {
+        const spy = new IntersectionObserver((entries) => {
+          entries.forEach((e) => { if (e.isIntersecting) setActive(e.target.id.replace("job-", "")); });
+        }, { rootMargin: "-35% 0px -55% 0px" });
+        rows.forEach((r) => spy.observe(r));
+      }
+      setActive(rows[0]?.id.replace("job-", ""));
+      // count-up: runs once per number, only when it scrolls into view
+      const nums = [...document.querySelectorAll(".role-stat .num")];
+      if (reduceMotion || !("IntersectionObserver" in window)) return;
+      nums.forEach((n) => { n.textContent = "0"; });
+      const run = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          run.unobserve(e.target);
+          const end = parseFloat(e.target.dataset.to), t0 = performance.now(), dur = 900;
+          const tick = (t) => {
+            const k = Math.min(1, (t - t0) / dur), eased = 1 - Math.pow(1 - k, 4);
+            e.target.textContent = String(Math.round(end * eased));
+            if (k < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+        });
+      }, { threshold: 0.6 });
+      nums.forEach((n) => run.observe(n));
     },
     home: () => {
       const hw = $("#hero-wrap");
@@ -500,7 +546,7 @@
   // each "block" fades up once; blocks that arrive together stagger top-to-bottom, left-to-right.
   const BLOCKS = [
     ".page-head", ".table", ".card", ".sec-title", ".lead-line", ".pills", ".rule",
-    ".timeline > li", ".gallery figure", ".beli li", ".quote", ".reads li", ".filters", ".deal-area",
+    ".timeline > li", ".role-row", ".lead-list li", ".gallery figure", ".beli li", ".quote", ".reads li", ".filters", ".deal-area",
   ].join(",");
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const io = "IntersectionObserver" in window && !reduceMotion

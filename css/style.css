@@ -787,3 +787,64 @@ html, body { overflow-x: clip; }
   .ev-bg { -webkit-mask-image: linear-gradient(90deg, #000 calc(50% - var(--pw) / 2), rgba(0,0,0,.22) calc(50% - var(--pw) / 2 + 8px), rgba(0,0,0,.22) calc(50% + var(--pw) / 2 - 8px), #000 calc(50% + var(--pw) / 2)); mask-image: linear-gradient(90deg, #000 calc(50% - var(--pw) / 2), rgba(0,0,0,.22) calc(50% - var(--pw) / 2 + 8px), rgba(0,0,0,.22) calc(50% + var(--pw) / 2 - 8px), #000 calc(50% + var(--pw) / 2)); }
   .sub { font-size: 13px; letter-spacing: .06em; }
 }
+
+/* ===== Work page: spacing and type, no boxes ===== */
+.work-layout { display: grid; grid-template-columns: 190px 1fr; gap: 80px; margin-top: 64px; align-items: start; }
+
+/* the path: a sticky rail that follows the page */
+.rail { position: sticky; top: 108px; }
+.rail ol { list-style: none; margin: 0; padding: 0 0 0 0; border-left: 1px solid rgba(255,255,255,.14); }
+.rail a { position: relative; display: grid; gap: 1px; padding: 11px 0 11px 22px; text-decoration: none; color: var(--muted); transition: color .25s; }
+.rail a::before { content: ""; position: absolute; left: -4px; top: 19px; width: 7px; height: 7px; border-radius: 50%; background: var(--bg); border: 1px solid rgba(255,255,255,.34); transition: background .25s, border-color .25s, transform .25s; }
+.rail-when { font-size: 12px; letter-spacing: .02em; }
+.rail-name { font: 500 16px/1.3 var(--sans); }
+.rail-tag { font-size: 13px; color: var(--accent); opacity: 0; transform: translateY(-3px); transition: opacity .25s, transform .25s; }
+.rail a:hover { color: var(--ink); }
+.rail a.on { color: var(--ink); }
+.rail a.on::before { background: var(--accent); border-color: var(--accent); transform: scale(1.5); }
+.rail a.on .rail-tag { opacity: 1; transform: none; }
+
+/* roles: big number on the left, the story on the right, air between them */
+.roles { display: grid; }
+.role-row { display: grid; grid-template-columns: 250px 1fr; gap: 56px; padding: 56px 0; scroll-margin-top: 96px; }
+.role-row:first-child { padding-top: 0; }
+.role-stat { font: 400 clamp(46px, 5.4vw, 68px)/1 var(--serif); color: var(--ink); letter-spacing: -0.025em; font-variant-numeric: tabular-nums; }
+.role-stat small { display: block; margin-top: 12px; font: 500 14px/1.4 var(--sans); letter-spacing: 0; color: var(--accent); }
+.role-row.is-next .role-stat { color: var(--accent); }
+.role-co { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+.role-co h3 { margin: 0; font-size: 26px; }
+.role-co .role { margin: 2px 0 0; color: var(--muted); font-size: 15px; }
+.role-body .blurb { margin: 0; max-width: 56ch; font-size: 17px; line-height: 1.7; color: var(--body); }
+.role-body .learned { margin: 18px 0 0; max-width: 46ch; font: 400 20px/1.45 var(--serif); color: var(--accent); }
+
+/* hover: the row you're on stays, the others step back */
+@media (hover: hover) {
+  .roles:has(.role-row:hover) .role-row:not(:hover) { opacity: .38; }
+  .role-row { transition: opacity .3s ease, transform .6s cubic-bezier(.2,.7,.2,1); }
+}
+
+/* leadership: three columns, separated by space only */
+.leadership { margin-top: 56px; padding-top: 24px; }
+.lead-list { list-style: none; margin: 40px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 64px; }
+.lead-when { margin: 0 0 10px; font-size: 13px; color: var(--muted); }
+.lead-list h3 { margin: 0 0 4px; font-size: 22px; }
+.lead-list .role { margin: 0 0 14px; color: var(--muted); font-size: 15px; }
+.lead-list .blurb { margin: 0; font-size: 16px; line-height: 1.65; color: var(--body); }
+
+@media (max-width: 900px) {
+  .work-layout { grid-template-columns: 1fr; gap: 28px; margin-top: 40px; }
+  .rail { position: static; }
+  .rail ol { display: flex; gap: 22px; overflow-x: auto; border-left: 0; padding-bottom: 6px; scrollbar-width: none; }
+  .rail ol::-webkit-scrollbar { display: none; }
+  .rail li { flex: none; }
+  .rail a { padding: 6px 0; border-bottom: 1.5px solid transparent; }
+  .rail a::before, .rail-tag { display: none; }
+  .rail a.on { border-bottom-color: var(--accent); }
+  .role-row { grid-template-columns: 1fr; gap: 16px; padding: 40px 0; }
+  .role-row:first-child { padding-top: 8px; }
+  .lead-list { grid-template-columns: 1fr; gap: 44px; }
+  .leadership { margin-top: 40px; }
+}
+.roles { grid-template-columns: minmax(0, 1fr); }
+.role-body, .role-stat, .role-co > div { min-width: 0; }
+@media (max-width: 900px) { .work-layout { grid-template-columns: minmax(0, 1fr); } .role-co h3 { font-size: 22px; } }
