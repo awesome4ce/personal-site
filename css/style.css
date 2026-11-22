@@ -848,3 +848,52 @@ html, body { overflow-x: clip; }
 .roles { grid-template-columns: minmax(0, 1fr); }
 .role-body, .role-stat, .role-co > div { min-width: 0; }
 @media (max-width: 900px) { .work-layout { grid-template-columns: minmax(0, 1fr); } .role-co h3 { font-size: 22px; } }
+
+/* ===== Eats: podium for the top three, then two columns; space instead of rules ===== */
+.beli.top, .beli.worst { display: grid; gap: 0 72px; }
+.beli.top { grid-template-columns: repeat(6, minmax(0, 1fr)); margin-top: 40px; }
+.beli.worst { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 32px; }
+.beli.top li, .beli.worst li { border: 0 !important; padding: 16px 0; grid-column: span 3; }
+.beli.worst li { grid-column: auto; }
+.beli.top li:nth-child(-n+3) { grid-column: span 2; grid-template-columns: 1fr auto; grid-template-areas: "rank chip" "main main"; align-items: start; gap: 14px 16px; padding: 0 0 48px; }
+.beli.top li:nth-child(-n+3) .rank { grid-area: rank; font-size: 76px; line-height: .9; color: var(--accent); letter-spacing: -0.03em; }
+.beli.top li:nth-child(-n+3) .chip-score { grid-area: chip; width: 72px; height: 72px; }
+.beli.top li:nth-child(-n+3) > div { grid-area: main; }
+.beli.top li:nth-child(-n+3) h4 { font: 400 28px/1.15 var(--serif); letter-spacing: -0.01em; }
+.beli.top li:nth-child(-n+3) .meta { margin-top: 8px; font-size: 15px; }
+.beli.top li:nth-child(n+4) { padding: 14px 0; }
+.beli.top li:nth-child(n+4) .rank { font-size: 22px; }
+.beli.top .sec-gap, .beli + .see-more { margin-top: 28px; }
+.eats-skip { margin-top: 24px; }
+.rule.rule-lg { display: none; }
+.sec-title { margin-top: 64px; }
+.page-head + .sec-title { margin-top: 56px; }
+.beli.worst + * { margin-top: 0; }
+/* hover: the row you're on stays, the rest step back (same move as Work) */
+@media (hover: hover) {
+  .beli:has(li:hover) li:not(:hover), .quotes:has(.quote:hover) .quote:not(:hover) { opacity: .4; }
+  .beli li, .quote { transition: opacity .3s ease, transform .6s cubic-bezier(.2,.7,.2,1); }
+}
+@media (max-width: 900px) {
+  .beli.top, .beli.worst { grid-template-columns: minmax(0, 1fr); }
+  .beli.top li, .beli.top li:nth-child(-n+3), .beli.worst li { grid-column: 1; }
+  .beli.top li:nth-child(-n+3) { padding-bottom: 36px; }
+  .beli.top li:nth-child(-n+3) .rank { font-size: 56px; }
+}
+
+/* ===== Quotes: one big quote, then two columns; the note is plain text, not a side bar ===== */
+.quotes { columns: 2; column-gap: 96px; margin-top: 64px; }
+.quote, .quote:first-child { break-inside: avoid; padding: 0 0 64px; }
+.quote:first-child { column-span: all; padding-bottom: 80px; }
+.quote:first-child blockquote { font-size: clamp(34px, 4.6vw, 58px); max-width: 22ch; line-height: 1.2; }
+.quote blockquote { max-width: none; font-size: clamp(24px, 2.4vw, 31px); line-height: 1.32; }
+.quote figcaption { margin-top: 16px; }
+.qnote { border-left: 0 !important; padding-left: 0 !important; margin-top: 14px; max-width: 44ch; color: var(--muted); font-size: 16px; line-height: 1.6; }
+.quote:first-child .qnote { max-width: 52ch; font-size: 18px; }
+@media (max-width: 900px) { .quotes { columns: 1; margin-top: 40px; } .quote, .quote:first-child { padding-bottom: 44px; } }
+
+/* ===== Home: "Right now" reads as a short list in the serif, spaced rather than ruled ===== */
+.below .now-list { margin-top: 24px; }
+.below .now-list li { border: 0; padding: 0 0 22px; font: 400 21px/1.4 var(--serif); color: var(--ink); max-width: 28ch; }
+.below .exp-list li { border: 0; padding: 0 0 18px; }
+.below .exp-list li:first-child { padding-top: 0; }
