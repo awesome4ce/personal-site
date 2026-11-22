@@ -662,49 +662,19 @@
     });
   }
 
-  // sliding underline under the active tab: elastic. The edge it's heading toward springs ahead (with a hair of overshoot)
-  // and the other edge follows a beat later, so the line stretches between tabs and then snaps back to the tab's width.
+  // sliding underline under the active tab
   const bar = document.createElement("span");
   bar.className = "tab-bar";
   nav.appendChild(bar);
-  const spring = (zeta, T) => {
-    const wn = 4 / (zeta * T), wd = wn * Math.sqrt(1 - zeta * zeta);
-    return (t) => 1 - Math.exp(-zeta * wn * t) * (Math.cos(wd * t) + (zeta * wn / wd) * Math.sin(wd * t));
-  };
-  let barL = null, barW = null, barAnim = null;
   function moveBar(animate = true) {
     const a = nav.querySelector('a[aria-current="page"]');
-    if (!a) { bar.style.opacity = "0"; return; }
-    const L1 = a.offsetLeft, W1 = a.offsetWidth, R1 = L1 + W1;
-    bar.style.opacity = "1";
-    if (!animate || barL === null || reduceMotion) {
-      if (barAnim) barAnim.cancel();
-      barAnim = null; bar.style.width = W1 + "px"; bar.style.transform = `translateX(${L1}px)`; barL = L1; barW = W1; return;
-    }
-    if (L1 === barL && W1 === barW) return;
-    const cs = getComputedStyle(bar);
-    const L0 = barAnim ? new DOMMatrix(cs.transform).m41 : barL, W0 = barAnim ? parseFloat(cs.width) : barW, R0 = L0 + W0;
-    if (barAnim) barAnim.cancel();
-    bar.style.width = W1 + "px"; bar.style.transform = `translateX(${L1}px)`;
-    const right = R1 >= R0, T = 0.78;
-    const lead = spring(0.52, 0.52), trail = spring(0.8, T), N = 48, frames = [];
-    // long trips get a ceiling, applied softly: the extra stretch (beyond the tab's own width) is run through tanh, so it eases toward
-    // MAX_STRETCH instead of hitting a wall, and relaxes smoothly as the trailing edge catches up. Overshoot stays under ~14px.
-    const travel = Math.abs(R1 - R0), MAX_STRETCH = 110;
-    const k = Math.min(1, 14 / Math.max(1, travel * 0.18));
-    const cap = (v) => (v > 1 ? 1 + (v - 1) * k : v);
-    for (let i = 0; i <= N; i++) {
-      const t = (i / N) * T, fl = cap(lead(Math.min(t, 0.52 * 1.6))), ft = trail(t);
-      const l = L0 + (L1 - L0) * (right ? ft : fl), r = R0 + (R1 - R0) * (right ? fl : ft);
-      const base = W0 + (W1 - W0) * ft, extra = (r - l) - base, soft = MAX_STRETCH * Math.tanh(extra / MAX_STRETCH);
-      const w = Math.max(6, base + soft);
-      const lead_x = right ? r : l;                                   // the leading edge keeps its natural path
-      frames.push({ transform: `translateX(${right ? lead_x - w : lead_x}px)`, width: `${w}px`, offset: i / N });
-    }
-    frames[N] = { transform: `translateX(${L1}px)`, width: `${W1}px`, offset: 1 };
-    barAnim = bar.animate(frames, { duration: T * 1000, easing: "linear" });
-    barAnim.onfinish = () => { barAnim = null; };
-    barL = L1; barW = W1;
+    if (!animate) bar.style.transition = "none";
+    if (a) {
+      bar.style.width = a.offsetWidth + "px";
+      bar.style.transform = `translateX(${a.offsetLeft}px)`;
+      bar.style.opacity = "1";
+    } else bar.style.opacity = "0";
+    if (!animate) { void bar.offsetWidth; bar.style.transition = ""; }
   }
   addEventListener("resize", () => moveBar(false));
   document.fonts?.ready.then(() => moveBar(false));
