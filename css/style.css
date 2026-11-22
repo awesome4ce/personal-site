@@ -763,8 +763,8 @@ html, body { overflow-x: clip; }
    and fade out under the text column (a mask on the lines, not a darker panel). */
 .hero-wrap { --pw: min(1072px, calc(100vw - 48px)); }
 .ev-bg {
-  -webkit-mask-image: linear-gradient(90deg, #000 calc(50% - var(--pw) / 2), transparent calc(50% - var(--pw) / 2 + 12px), transparent calc(50% + var(--pw) / 2 - 540px), #000 calc(50% + var(--pw) / 2 - 450px));
-          mask-image: linear-gradient(90deg, #000 calc(50% - var(--pw) / 2), transparent calc(50% - var(--pw) / 2 + 12px), transparent calc(50% + var(--pw) / 2 - 540px), #000 calc(50% + var(--pw) / 2 - 450px));
+  -webkit-mask-image: linear-gradient(90deg, #000 calc(50% - var(--pw) / 2), rgba(0,0,0,.22) calc(50% - var(--pw) / 2 + 12px), rgba(0,0,0,.22) calc(50% + var(--pw) / 2 - 540px), #000 calc(50% + var(--pw) / 2 - 450px));
+          mask-image: linear-gradient(90deg, #000 calc(50% - var(--pw) / 2), rgba(0,0,0,.22) calc(50% - var(--pw) / 2 + 12px), rgba(0,0,0,.22) calc(50% + var(--pw) / 2 - 540px), #000 calc(50% + var(--pw) / 2 - 450px));
 }
 
 /* home: the two panels under the hero are plain columns separated by space, no boxes */
@@ -784,6 +784,6 @@ html, body { overflow-x: clip; }
   .nav-resume { margin-left: 0; }
   /* name and credentials come first on a phone; the card photo follows the buttons */
   .hand { order: 0; }
-  .ev-bg { -webkit-mask-image: linear-gradient(90deg, #000 calc(50% - var(--pw) / 2), transparent calc(50% - var(--pw) / 2 + 8px), transparent calc(50% + var(--pw) / 2 - 8px), #000 calc(50% + var(--pw) / 2)); mask-image: linear-gradient(90deg, #000 calc(50% - var(--pw) / 2), transparent calc(50% - var(--pw) / 2 + 8px), transparent calc(50% + var(--pw) / 2 - 8px), #000 calc(50% + var(--pw) / 2)); }
+  .ev-bg { -webkit-mask-image: linear-gradient(90deg, #000 calc(50% - var(--pw) / 2), rgba(0,0,0,.22) calc(50% - var(--pw) / 2 + 8px), rgba(0,0,0,.22) calc(50% + var(--pw) / 2 - 8px), #000 calc(50% + var(--pw) / 2)); mask-image: linear-gradient(90deg, #000 calc(50% - var(--pw) / 2), rgba(0,0,0,.22) calc(50% - var(--pw) / 2 + 8px), rgba(0,0,0,.22) calc(50% + var(--pw) / 2 - 8px), #000 calc(50% + var(--pw) / 2)); }
   .sub { font-size: 13px; letter-spacing: .06em; }
 }
