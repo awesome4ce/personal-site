@@ -961,7 +961,11 @@ html, body { overflow-x: clip; }
 .rule { margin: 28px 0 0 !important; }
 hr.rule + .sec-title, hr.rule + .grid-2 { margin-top: 20px; }
 
-/* Work: a short dashed line under "Up next" (the road isn't finished) */
-.role-row.is-next .role-stat small::before { content: ""; display: block; width: 64px; margin: 12px 0 14px; border-top: 2px dashed var(--accent); opacity: .8; }
-.role-row.is-next .role-stat small { margin-top: 22px; }
-.role-row.is-next .role-stat small::before { margin-top: 0; }
+/* Work: a long dashed line divides what's next from everything that's already happened */
+.role-row.is-next { position: relative; padding-bottom: 48px; }
+.role-row.is-next::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; border-bottom: 2px dashed rgba(169,216,189,.5); }
+.role-row.is-next + .role-row { padding-top: 48px; }
+
+/* count-up numbers never wrap while the digits change width (e.g. "#1 of 200" before it lands on 216) */
+.role-stat { white-space: nowrap; }
+.role-stat small { white-space: normal; }
