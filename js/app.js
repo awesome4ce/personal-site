@@ -398,23 +398,30 @@
       const roles = document.querySelector(".roles");
       const idOf = (r) => r.id.replace("job-", "");
       let current = null, hovered = null, lockId = null, lockUntil = 0;
-      // the bubble: one blob that slides between stops. The leading edge jumps ahead and overshoots, the trailing edge catches up
-      // a beat later, so it stretches on the way and snaps back like a drop of liquid.
+      // the bubble: one dot that slides between stops with a short, light spring. It stretches a little in the direction of travel
+      // (more for longer jumps, capped) and settles with a tiny overshoot.
       const rail = document.querySelector(".rail"), dot = document.querySelector(".rail-dot");
       const narrow = matchMedia("(max-width: 900px)");
-      let dotTop = null;
+      let dotY = null, anim = null;
       const place = (link, animate = true) => {
         if (!dot || !link || narrow.matches) return;
-        const SIZE = 11, t = link.offsetTop + 17, b = rail.offsetHeight - (t + SIZE);
-        if (!animate || dotTop === null || reduceMotion) {
-          dot.style.transition = "none"; dot.style.top = t + "px"; dot.style.bottom = b + "px"; void dot.offsetWidth; dot.style.transition = "";
-        } else if (t !== dotTop) {
-          const down = t > dotTop, lead = ".42s cubic-bezier(.3,1.55,.5,1)", trail = ".72s .05s cubic-bezier(.45,1.7,.4,1)";
-          dot.style.transition = down ? `bottom ${lead}, top ${trail}` : `top ${lead}, bottom ${trail}`;
-          dot.style.top = t + "px"; dot.style.bottom = b + "px";
-          dot.animate([{ transform: "scaleX(1)" }, { transform: "scaleX(.6)", offset: .3 }, { transform: "scaleX(1.15)", offset: .75 }, { transform: "scaleX(1)" }], { duration: 720, easing: "ease-out" });
+        const y = link.offsetTop + 17;   // top of the 11px bubble, centred on the stop's ring
+        if (!animate || dotY === null || reduceMotion) {
+          if (anim) anim.cancel();
+          anim = null; dot.style.transform = `translateY(${y}px)`; dotY = y; return;
         }
-        dotTop = t;
+        if (y === dotY) return;
+        const from = anim ? new DOMMatrix(getComputedStyle(dot).transform).m42 : dotY;   // where it is right now, if a move is still running
+        const dist = Math.abs(y - from), sy = Math.min(1.3, 1 + dist / 900), sx = 1 / sy;
+        if (anim) anim.cancel();
+        dot.style.transform = `translateY(${y}px)`;
+        anim = dot.animate([
+          { transform: `translateY(${from}px) scale(1, 1)` },
+          { transform: `translateY(${(from + y) / 2}px) scale(${sx}, ${sy})`, offset: .45 },
+          { transform: `translateY(${y}px) scale(1, 1)` },
+        ], { duration: Math.min(560, 320 + dist * 0.4), easing: "cubic-bezier(.32, 1.1, .5, 1)" });
+        anim.onfinish = () => { anim = null; };
+        dotY = y;
       };
       const setActive = (id) => {
         if (id === current) return;
@@ -422,7 +429,7 @@
         links.forEach((l) => { const on = l.dataset.to === id; l.classList.toggle("on", on); if (on) l.setAttribute("aria-current", "true"); else l.removeAttribute("aria-current"); });
         place(links.find((l) => l.dataset.to === id));
       };
-      const resettle = () => { dotTop = null; place(links.find((l) => l.dataset.to === current), false); };
+      const resettle = () => { dotY = null; place(links.find((l) => l.dataset.to === current), false); };
       addEventListener("resize", resettle);
       document.fonts?.ready.then(resettle);
       // the row whose top most recently crossed a line 30% down the screen (last row once the page bottoms out)

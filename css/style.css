@@ -929,7 +929,7 @@ html, body { overflow-x: clip; }
 .qcol .quote:first-child .qnote { font-size: 16px; max-width: 44ch; }
 
 /* Work rail: a single elastic bubble marks the active stop (the per-stop rings stay as quiet markers) */
-.rail-dot { position: absolute; left: -5px; width: 11px; border-radius: 999px; background: var(--accent); box-shadow: 0 0 0 5px rgba(169,216,189,.14); pointer-events: none; z-index: 1; transition: top .42s ease, bottom .42s ease; will-change: top, bottom; }
+.rail-dot { position: absolute; left: -5px; top: 0; width: 11px; height: 11px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 5px rgba(169,216,189,.14); pointer-events: none; z-index: 1; will-change: transform; }
 .rail a.on::before { background: var(--bg); border-color: rgba(255,255,255,.34); transform: none; }
 @media (max-width: 900px) { .rail-dot { display: none; } }
 @media (prefers-reduced-motion: reduce) { .rail-dot { transition: none !important; } }
