@@ -105,7 +105,7 @@ window.SITE = {
       { id: "acore", date: "Summer 2026", short: "ACORE", tag: "Real estate credit", company: "ACORE Capital", logo: "acorecapital.com", logoPad: true, role: "Summer Analyst", when: "2026",
         stat: "57 deals", statLabel: "~$8B underwritten · 11 quoted",
         line: "Underwrote loans across seven property types, quoted 11 of them (~$1.4B), drafted IC memo sections for two loans taken to investment committee, and built an AI-agent council for diligence.",
-        learned: "Every loan is a bet on someone's story. Underwriting is checking it." },
+        learned: "" },
       { id: "sagemount", date: "Spring 2026", short: "Sagemount", tag: "Private equity", company: "Bregal Sagemount", logo: "sagemount.com", role: "Spring Analyst", when: "2026",
         stat: "6 targets", statLabel: "sourced and pitched",
         line: "Sourced and evaluated software companies against the firm's criteria and presented them to the partners.",

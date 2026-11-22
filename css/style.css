@@ -992,3 +992,23 @@ hr.rule + .sec-title, hr.rule + .grid-2 { margin-top: 20px; }
 @media (max-width: 820px) { .jrow { flex-direction: column; } .jrow figure { flex: none !important; width: 100%; } }
 @media (min-width: 821px) { .jrow .tile.nat { aspect-ratio: var(--ar) !important; } .jrow .tile.nat img { object-fit: cover; object-position: 50% 45%; } }
 @media (min-width: 821px) { .jrow img[src*="vb-dig"] { object-position: 50% 68%; } }
+
+/* Headers: one left edge. Title, subtitle and the content below all start at the same line; the suit hangs to the left
+   of it like a bullet. On screens too narrow to hang it, the suit sits beside the title and everything else still starts at the edge. */
+.page-head { display: grid; grid-template-columns: auto 1fr; column-gap: 18px; align-items: start; }
+.page-head > div { display: contents; }
+.page-head .page-suit { grid-column: 1; grid-row: 1; align-self: center; margin-top: 0; }
+.page-head .page-title { grid-column: 2; grid-row: 1; margin-bottom: 14px; }
+.page-head > div > *:not(.page-title) { grid-column: 1 / -1; }
+.page-head .aside { margin-top: -26px; }
+@media (min-width: 1180px) {
+  .page-head { display: block; position: relative; }
+  .page-head > div { display: block; }
+  .page-head .page-suit { position: absolute; right: calc(100% + 20px); top: .32em; font-size: 40px; }
+  .page-head .aside { margin-top: -30px; }
+  .sec-title { position: relative; }
+  .sec-title > .s:first-child { position: absolute; right: calc(100% + 12px); top: .28em; margin: 0; }
+  .below .eyebrow { position: relative; }
+  .below .eyebrow > .s:first-child { position: absolute; right: calc(100% + 8px); margin: 0; }
+}
+.page-head + .story { margin-top: 10px; }
