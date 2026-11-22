@@ -433,17 +433,17 @@
         const dist = Math.abs(y - from);
         if (anim) anim.cancel();
         dot.style.transform = `translateY(${y}px)`;
-        // a real damped spring (one clear overshoot, a small second wobble), sampled into keyframes; the dot stretches with its speed
-        const ZETA = 0.6, T = Math.min(0.95, 0.6 + dist / 1500);                 // damping, and the time to settle (seconds)
+        // a real damped spring (a single, small overshoot), sampled into keyframes; the dot stretches with its speed
+        const ZETA = 0.78, T = Math.min(0.9, 0.5 + dist / 1500);                 // damping, and the time to settle (seconds)
         const wn = 4 / (ZETA * T), wd = wn * Math.sqrt(1 - ZETA * ZETA), N = 56;
-        const k = Math.min(1, 16 / Math.max(1, dist * 0.095));                      // keep the overshoot to ~16px even on long jumps
+        const k = Math.min(1, 6 / Math.max(1, dist * 0.02));                       // keep the overshoot to ~6px even on long jumps
         const raw = (t) => 1 - Math.exp(-ZETA * wn * t) * (Math.cos(wd * t) + (ZETA * wn / wd) * Math.sin(wd * t));
         const x = (t) => { const v = raw(t); return v > 1 ? 1 + (v - 1) * k : v; };
         const frames = [];
         for (let i = 0; i <= N; i++) {
           const t = (i / N) * T, pos = from + (y - from) * x(t);
           const speed = Math.abs((y - from) * (x(Math.min(T, t + 0.012)) - x(Math.max(0, t - 0.012)))) / 24 / 1000 * 1000; // px per ms
-          const sy = 1 + Math.min(0.6, speed * 0.55), sx = 1 / Math.sqrt(sy);
+          const sy = 1 + Math.min(0.85, speed * 0.8), sx = 1 / Math.sqrt(sy);
           frames.push({ transform: `translateY(${pos}px) scale(${sx.toFixed(3)}, ${sy.toFixed(3)})`, offset: i / N });
         }
         frames[N].transform = `translateY(${y}px) scale(1, 1)`;
