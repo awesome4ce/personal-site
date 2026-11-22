@@ -101,7 +101,7 @@ window.SITE = {
   ],
   // ---- Work page: the story + one card per stop. `learned` is my own one-line takeaway (optional).
   work: {
-    story: "I call myself a problem-solving junkie. It started with chess and poker, where the edge is what the other side doesn't know. That turned into sports analytics, then AI, then real estate, where most of the market trades privately and the edge is the information. Next stop is Tishman Speyer.",
+    story: "It started at the chess board and the poker table, where the edge is knowing something the other side doesn't. I chased that into sports analytics, then AI, then real estate, where prices and deal terms are mostly private and the edge is the information. Next stop: Tishman Speyer.",
     cards: [
       { id: "acore", date: "Summer 2026", short: "ACORE", tag: "Real estate credit", company: "ACORE Capital", logo: "acorecapital.com", logoPad: true, role: "Summer Analyst", when: "2026",
         stat: "57 deals", statLabel: "~$8B underwritten · 11 quoted",
