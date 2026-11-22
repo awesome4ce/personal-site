@@ -663,19 +663,41 @@
     });
   }
 
-  // sliding underline under the active tab
+  // sliding underline under the active tab: elastic. The edge it's heading toward springs ahead (with a hair of overshoot)
+  // and the other edge follows a beat later, so the line stretches between tabs and then snaps back to the tab's width.
   const bar = document.createElement("span");
   bar.className = "tab-bar";
   nav.appendChild(bar);
+  const spring = (zeta, T) => {
+    const wn = 4 / (zeta * T), wd = wn * Math.sqrt(1 - zeta * zeta);
+    return (t) => 1 - Math.exp(-zeta * wn * t) * (Math.cos(wd * t) + (zeta * wn / wd) * Math.sin(wd * t));
+  };
+  let barL = null, barW = null, barAnim = null;
   function moveBar(animate = true) {
     const a = nav.querySelector('a[aria-current="page"]');
-    if (!animate) bar.style.transition = "none";
-    if (a) {
-      bar.style.width = a.offsetWidth + "px";
-      bar.style.transform = `translateX(${a.offsetLeft}px)`;
-      bar.style.opacity = "1";
-    } else bar.style.opacity = "0";
-    if (!animate) { void bar.offsetWidth; bar.style.transition = ""; }
+    if (!a) { bar.style.opacity = "0"; return; }
+    const L1 = a.offsetLeft, W1 = a.offsetWidth, R1 = L1 + W1;
+    bar.style.opacity = "1";
+    if (!animate || barL === null || reduceMotion) {
+      if (barAnim) barAnim.cancel();
+      barAnim = null; bar.style.width = W1 + "px"; bar.style.transform = `translateX(${L1}px)`; barL = L1; barW = W1; return;
+    }
+    if (L1 === barL && W1 === barW) return;
+    const cs = getComputedStyle(bar);
+    const L0 = barAnim ? new DOMMatrix(cs.transform).m41 : barL, W0 = barAnim ? parseFloat(cs.width) : barW, R0 = L0 + W0;
+    if (barAnim) barAnim.cancel();
+    bar.style.width = W1 + "px"; bar.style.transform = `translateX(${L1}px)`;
+    const right = R1 >= R0, T = 0.62;
+    const lead = spring(0.7, 0.42), trail = spring(0.85, T), N = 48, frames = [];
+    for (let i = 0; i <= N; i++) {
+      const t = (i / N) * T, fl = lead(Math.min(t, 0.42 * 1.6)), ft = trail(t);
+      const l = L0 + (L1 - L0) * (right ? ft : fl), r = R0 + (R1 - R0) * (right ? fl : ft);
+      frames.push({ transform: `translateX(${l}px)`, width: `${Math.max(6, r - l)}px`, offset: i / N });
+    }
+    frames[N] = { transform: `translateX(${L1}px)`, width: `${W1}px`, offset: 1 };
+    barAnim = bar.animate(frames, { duration: T * 1000, easing: "linear" });
+    barAnim.onfinish = () => { barAnim = null; };
+    barL = L1; barW = W1;
   }
   addEventListener("resize", () => moveBar(false));
   document.fonts?.ready.then(() => moveBar(false));
