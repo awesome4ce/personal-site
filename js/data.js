@@ -20,7 +20,7 @@ window.SITE = {
   intro: [
     "I study data science at Stanford.",
     "Chess and poker got me hooked on finding edges, the small stuff everyone else at the table misses. These days I mostly look for them in data.",
-    "The rest of the time I'm on a bike, on a mountain, or at a sushi counter.",
+    "The rest of the time I'm on a bike, on a mountain, or ordering the strangest thing on the menu.",
   ],
   now: [
     "Tishman Speyer acquisitions internship, New York, summer 2027",
