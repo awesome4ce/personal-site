@@ -237,7 +237,7 @@
             </span>
           </li>`;
       return `
-      ${header("Eats", "Almost 200 places logged on Beli: the best of them, and a few I'd skip. I'll try anything once.", "AI can do a lot. It can't taste.",
+      ${header("Eats", "Almost 200 places logged on Beli: the best of them, and a few I'd skip. I have to try everything at least once.", "AI can do a lot. It can't taste.",
         `<div class="pills head-pills"><a class="pill sm" href="${esc(S.beli)}" target="_blank" rel="noopener">Follow me on Beli ↗</a><button class="pill sm" id="rain">Make it rain</button></div>`)}
       <h2 class="sec-title">${suit("♥")}Top of my list</h2>
       <ol class="beli top" id="beli-top">${list.map((e, i) => row(e, i + 1, i >= 6 ? "extra" : "")).join("")}</ol>
