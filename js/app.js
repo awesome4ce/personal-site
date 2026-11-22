@@ -120,6 +120,7 @@
         <div class="table-text">
           <h1>${esc(S.name)}</h1>
           <p class="sub">${esc(S.eyebrow).replace(/ · /g, ' <span class="dot">·</span> ')}</p>
+          ${S.credentials?.length ? `<ul class="cred">${S.credentials.map((c) => `<li><b>${esc(c.co)}</b><span>${esc(c.line)}</span></li>`).join("")}</ul>` : ""}
           ${S.intro.map((p) => `<p class="intro">${md(p)}</p>`).join("")}
           <div class="pills">
             <a class="pill solid" href="mailto:${esc(S.email)}">email</a>
@@ -167,6 +168,10 @@
       <ol class="path">
         ${W.path.map((p, i) => `<li>${p.to ? `<a href="#work" data-to="${esc(p.to)}">` : "<span>"}${suit(SU[i % 4])}${esc(p.label)}${p.note ? ` <em>${esc(p.note)}</em>` : ""}${p.to ? "</a>" : "</span>"}</li>`).join("")}
       </ol>
+      <div class="card next-up" id="job-${esc(W.next.id)}">
+        ${logo(W.next.company, W.next.logo)}
+        <div><p class="eyebrow">${suit("♠")}Next</p><h3>${esc(W.next.company)}</h3><p class="role">${esc(W.next.line)}</p></div>
+      </div>
       <div class="jobs">
         ${W.cards.map((c) => `
           <article class="card job" id="job-${esc(c.id)}">
@@ -175,10 +180,6 @@
             <p class="blurb">${esc(c.line)}</p>
             ${c.learned ? `<p class="learned">${esc(c.learned)}</p>` : ""}
           </article>`).join("")}
-      </div>
-      <div class="card next-up" id="job-${esc(W.next.id)}">
-        ${logo(W.next.company, W.next.logo)}
-        <div><p class="eyebrow">${suit("♠")}Next</p><h3>${esc(W.next.company)}</h3><p class="role">${esc(W.next.line)}</p></div>
       </div>
       <p class="boring resume-btn"><a href="${esc(S.resume)}" target="_blank" rel="noopener">Full resume (PDF) ↗</a></p>`;
     },
@@ -237,7 +238,7 @@
             </span>
           </li>`;
       return `
-      ${header("Eats", "Almost 200 places logged on Beli: the best of them, and a few I'd skip. I have to try everything at least once.", "AI can do a lot. It can't taste.",
+      ${header("Eats", "Almost 200 places logged on Beli: the best of them, and a few I'd skip.", "I have to try everything at least once. AI can do a lot. It can't taste.",
         `<div class="pills head-pills"><a class="pill sm" href="${esc(S.beli)}" target="_blank" rel="noopener">Follow me on Beli ↗</a><button class="pill sm" id="rain">Make it rain</button></div>`)}
       <h2 class="sec-title">${suit("♥")}Top of my list</h2>
       <ol class="beli top" id="beli-top">${list.map((e, i) => row(e, i + 1, i >= 6 ? "extra" : "")).join("")}</ol>
@@ -485,6 +486,13 @@
   /* ---------- router ---------- */
   const nav = $("#tabs");
   nav.innerHTML = TABS.map((t) => `<a href="#${t.id}" data-id="${t.id}">${suit(t.suit)}${t.label}</a>`).join("");
+
+  // resume link in the nav on every page
+  if (S.resume) {
+    const nr = document.createElement("a");
+    nr.className = "nav-resume pill resume-btn"; nr.textContent = "Resume"; nr.href = S.resume; nr.target = "_blank"; nr.rel = "noopener";
+    document.querySelector(".nav-inner").appendChild(nr);
+  }
 
   let resumeOk = !!S.resume;
   const hideResume = () => { if (!resumeOk) document.querySelectorAll(".resume-btn").forEach((b) => (b.hidden = true)); };
