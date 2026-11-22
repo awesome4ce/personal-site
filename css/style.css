@@ -960,3 +960,8 @@ html, body { overflow-x: clip; }
 /* Play: tighter gap between sections (the photo columns now end on one line, so less air is needed) */
 .rule { margin: 28px 0 0 !important; }
 hr.rule + .sec-title, hr.rule + .grid-2 { margin-top: 20px; }
+
+/* Work: a short dashed line under "Up next" (the road isn't finished) */
+.role-row.is-next .role-stat small::before { content: ""; display: block; width: 64px; margin: 12px 0 14px; border-top: 2px dashed var(--accent); opacity: .8; }
+.role-row.is-next .role-stat small { margin-top: 22px; }
+.role-row.is-next .role-stat small::before { margin-top: 0; }
