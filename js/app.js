@@ -120,7 +120,6 @@
         <div class="table-text">
           <h1>${esc(S.name)}</h1>
           <p class="sub">${esc(S.eyebrow).replace(/ · /g, ' <span class="dot">·</span> ')}</p>
-          ${S.credentials?.length ? `<ul class="cred">${S.credentials.map((c) => `<li><b>${esc(c.co)}</b><span>${esc(c.line)}</span></li>`).join("")}</ul>` : ""}
           ${S.intro.map((p) => `<p class="intro">${md(p)}</p>`).join("")}
           <div class="pills">
             <a class="pill solid" href="mailto:${esc(S.email)}">email</a>

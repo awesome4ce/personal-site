@@ -756,14 +756,20 @@ html, body { overflow-x: clip; }
 .tabs a:active, .brand:active { transform: scale(.96); }
 
 /* ===== impeccable critique pass ===== */
-/* home: credentials sit right under the name, so the first screen already says what he's done */
-.cred { list-style: none; padding: 0; margin: 0 0 26px; display: flex; flex-wrap: wrap; gap: 10px; }
-.cred li { display: flex; flex-direction: column; gap: 2px; padding: 10px 16px; border: 1px solid rgba(255,255,255,.16); border-radius: 12px; background: rgba(255,255,255,.04); }
-.cred b { font: 600 15px/1.3 var(--sans); color: var(--ink); }
-.cred span { font-size: 14px; line-height: 1.4; color: var(--body); }
+/* home: hero panel uses the same felt shade as the cards, so the two read as one family */
+.table { background: rgba(10,26,20,.34) !important; border-color: rgba(255,255,255,.08) !important; }
 
-/* home: keep the chart lines out from behind the paragraph; they stay bright on the right and in the margins */
-.table { background: linear-gradient(90deg, rgba(10,26,20,.92) 0%, rgba(10,26,20,.85) 52%, rgba(10,26,20,.55) 100%) !important; }
+/* home: the chart lines stay out from behind the intro. They show in the side margins and behind the portrait,
+   and fade out under the text column (a mask on the lines, not a darker panel). */
+.hero-wrap { --pw: min(1072px, calc(100vw - 48px)); }
+.ev-bg {
+  -webkit-mask-image: linear-gradient(90deg, #000 calc(50% - var(--pw) / 2), transparent calc(50% - var(--pw) / 2 + 12px), transparent calc(50% + var(--pw) / 2 - 540px), #000 calc(50% + var(--pw) / 2 - 450px));
+          mask-image: linear-gradient(90deg, #000 calc(50% - var(--pw) / 2), transparent calc(50% - var(--pw) / 2 + 12px), transparent calc(50% + var(--pw) / 2 - 540px), #000 calc(50% + var(--pw) / 2 - 450px));
+}
+
+/* home: the two panels under the hero are plain columns separated by space, no boxes */
+.below { margin-top: 64px; gap: 72px; }
+.below .card { background: none !important; border: 0 !important; border-radius: 0; padding: 0; box-shadow: none !important; }
 
 /* nav: resume on every page */
 .nav-resume { padding: 7px 16px; font-size: 14px; white-space: nowrap; margin-left: 8px; }
@@ -778,6 +784,6 @@ html, body { overflow-x: clip; }
   .nav-resume { margin-left: 0; }
   /* name and credentials come first on a phone; the card photo follows the buttons */
   .hand { order: 0; }
+  .ev-bg { -webkit-mask-image: linear-gradient(90deg, #000 calc(50% - var(--pw) / 2), transparent calc(50% - var(--pw) / 2 + 8px), transparent calc(50% + var(--pw) / 2 - 8px), #000 calc(50% + var(--pw) / 2)); mask-image: linear-gradient(90deg, #000 calc(50% - var(--pw) / 2), transparent calc(50% - var(--pw) / 2 + 8px), transparent calc(50% + var(--pw) / 2 - 8px), #000 calc(50% + var(--pw) / 2)); }
   .sub { font-size: 13px; letter-spacing: .06em; }
-  .cred li { flex: 1 1 100%; }
 }

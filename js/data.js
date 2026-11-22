@@ -17,10 +17,6 @@ window.SITE = {
   beli: "https://beliapp.co/app/ethanseung",
 
   /* ---------------- ABOUT ---------------- */
-  credentials: [
-    { co: "Tishman Speyer", line: "Acquisitions, New York, summer 2027" },
-    { co: "ACORE Capital", line: "Underwrote 57 deals (~$8B), summer 2026" },
-  ],
   intro: [
     "I study data science at Stanford.",
     "Chess and poker got me hooked on finding edges, the small stuff everyone else at the table misses. These days I mostly look for them in data.",
