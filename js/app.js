@@ -304,9 +304,13 @@
         </div>
         <div class="deal-copy"><p>One card from the shoe. Your move.</p><button class="pill solid deal-btn" id="deal">Flip it over</button></div>
       </div>
-      <ul class="quotes">
-        ${S.quotes.map((q, qi) => `<li class="quote ${qi >= 5 ? "extra" : ""}"><figure><blockquote>“${esc(q.text)}”</blockquote>${q.author ? `<figcaption>— ${esc(q.author)}</figcaption>` : ""}${q.note ? `<p class="qnote">${esc(q.note)}</p>` : ""}</figure></li>`).join("")}
-      </ul>
+      ${(() => {
+        // The first quote is featured. The rest alternate left/right by position, so "See all" only adds to the bottom of each column and nothing already shown moves.
+        const item = (q, qi) => `<li class="quote ${qi === 0 ? "featured" : ""} ${qi >= 5 ? "extra" : ""}" style="order:${qi}"><figure><blockquote>“${esc(q.text)}”</blockquote>${q.author ? `<figcaption>— ${esc(q.author)}</figcaption>` : ""}${q.note ? `<p class="qnote">${esc(q.note)}</p>` : ""}</figure></li>`;
+        const rest = S.quotes.map((q, qi) => ({ q, qi })).slice(1);
+        const col = (m) => rest.filter((_, j) => j % 2 === m).map(({ q, qi }) => item(q, qi)).join("");
+        return `<ul class="quotes">${S.quotes[0] ? item(S.quotes[0], 0) : ""}<li class="qcols"><ul class="qcol">${col(0)}</ul><ul class="qcol">${col(1)}</ul></li></ul>`;
+      })()}
       ${S.quotes.length > 5 ? `<button class="pill see-more" id="more-quotes">See all ${S.quotes.length} quotes ↓</button>` : ""}
       ${S.showReads ? `      <hr class="rule">
       <h2 class="sec-title">\${suit("♣")}Reads</h2>

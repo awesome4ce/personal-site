@@ -908,3 +908,22 @@ html, body { overflow-x: clip; }
 .role-row.is-next .role-date { color: var(--accent); }
 .roles.has-focus .role-row:not(.focus) { opacity: .38; }
 .role-row { transition: opacity .3s ease, transform .6s cubic-bezier(.2,.7,.2,1); }
+
+/* Quotes: two fixed columns (positions never change when "See all" opens), first quote featured */
+.quotes { columns: auto; display: block; }
+.quote:first-child:not(.featured) { column-span: none; }
+.quote.featured { padding-bottom: 80px; }
+.quote.featured blockquote { font-size: clamp(34px, 4.6vw, 58px); max-width: 22ch; line-height: 1.2; }
+.quote.featured .qnote { max-width: 52ch; font-size: 18px; }
+.qcols { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 96px; align-items: start; }
+.qcol { list-style: none; margin: 0; padding: 0; }
+.qcol .quote { padding: 0 0 64px; break-inside: auto; }
+.qcol .quote .qnote { font-size: 16px; max-width: 44ch; }
+@media (max-width: 900px) {
+  .qcols { display: flex; flex-direction: column; }
+  .qcol { display: contents; }
+  .qcol .quote { padding-bottom: 44px; }
+  .quote.featured { padding-bottom: 44px; }
+}
+.qcol .quote:first-child blockquote { font-size: clamp(24px, 2.4vw, 31px); max-width: none; line-height: 1.32; }
+.qcol .quote:first-child .qnote { font-size: 16px; max-width: 44ch; }
