@@ -871,7 +871,6 @@ html, body { overflow-x: clip; }
 .beli.worst + * { margin-top: 0; }
 /* hover: the row you're on stays, the rest step back (Eats, like Work; Quotes stay still) */
 @media (hover: hover) {
-  .beli.has-hot li:not(.hot) { opacity: .4; }
   .beli li { transition: opacity .3s ease, transform .6s cubic-bezier(.2,.7,.2,1); }
 }
 @media (max-width: 900px) {
@@ -935,4 +934,4 @@ html, body { overflow-x: clip; }
 @media (prefers-reduced-motion: reduce) { .rail-dot { transition: none !important; } }
 
 /* dimming is instant once you start hovering (no easing lag while scrolling) */
-.roles.hot-seen .role-row, .beli.hot-seen li { transition: opacity .1s ease-out, transform .6s cubic-bezier(.2,.7,.2,1); }
+.roles.hot-seen .role-row { transition: opacity .1s ease-out, transform .6s cubic-bezier(.2,.7,.2,1); }

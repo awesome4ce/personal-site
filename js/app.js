@@ -259,8 +259,7 @@
       ${header("Eats", "Almost 200 places logged on Beli: the best of them, and a few I'd skip.", "I have to try everything at least once. AI can do a lot. It can't taste.",
         `<div class="pills head-pills"><a class="pill sm" href="${esc(S.beli)}" target="_blank" rel="noopener">Follow me on Beli ↗</a><button class="pill sm" id="rain">Make it rain</button></div>`)}
       <h2 class="sec-title">${suit("♥")}Top of my list</h2>
-      <ol class="beli top" id="beli-top">${list.map((e, i) => row(e, i + 1, i >= 6 ? "extra" : "")).join("")}</ol>
-      ${list.length > 6 ? `<button class="pill see-more" id="see-more">See all ${list.length} ↓</button>` : ""}
+      <ol class="beli top" id="beli-top">${list.slice(0, 5).map((e, i) => row(e, i + 1)).join("")}</ol>
       ${S.eatsWorst?.length ? `
       <hr class="rule rule-lg">
       <h2 class="sec-title">${suit("♣")}And the ones I'd skip<span>bottom of my list</span></h2>
@@ -391,14 +390,14 @@
   const sessionStorageGet = (k) => { try { return sessionStorage.getItem(k); } catch { return null; } };
   const sessionStorageSet = (k, v) => { try { sessionStorage.setItem(k, v); } catch {} };
 
-  // "Hot" = the row under the pointer. Browsers only refresh :hover once scrolling stops, so we track the pointer ourselves and
+  // "Hot" = the Work row under the pointer. Browsers only refresh :hover once scrolling stops, so we track the pointer ourselves and
   // re-check on every scroll frame; the row under a resting mouse lights up immediately while the page moves.
   let hotEl = null, hotCb = null, ptrX = -1, ptrY = -1, pageAbort = null;
   const canHover = matchMedia("(hover: hover)").matches;
   const syncHot = () => {
     if (!canHover) return;
     const under = ptrX < 0 ? null : document.elementFromPoint(ptrX, ptrY);
-    const item = under ? under.closest(".role-row, .beli li") : null;
+    const item = under ? under.closest(".role-row") : null;
     if (item === hotEl) return;
     if (hotEl) { hotEl.classList.remove("hot"); hotEl.parentElement && hotEl.parentElement.classList.remove("has-hot"); }
     hotEl = item;
