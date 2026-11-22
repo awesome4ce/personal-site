@@ -184,6 +184,7 @@
       <p class="story">${esc(W.story)}</p>
       <div class="work-layout">
         <nav class="rail" aria-label="Career path, newest first">
+          <span class="rail-dot" aria-hidden="true"></span>
           <ol>${stops.map((c) => `<li><a href="#work" data-to="${esc(c.id)}"><span class="rail-when">${esc(c.when)}</span><span class="rail-name">${esc(c.short || c.company)}</span><span class="rail-tag">${esc(c.tag || "")}</span></a></li>`).join("")}</ol>
         </nav>
         <div class="roles">
@@ -397,11 +398,33 @@
       const roles = document.querySelector(".roles");
       const idOf = (r) => r.id.replace("job-", "");
       let current = null, hovered = null, lockId = null, lockUntil = 0;
+      // the bubble: one blob that slides between stops. The leading edge jumps ahead and overshoots, the trailing edge catches up
+      // a beat later, so it stretches on the way and snaps back like a drop of liquid.
+      const rail = document.querySelector(".rail"), dot = document.querySelector(".rail-dot");
+      const narrow = matchMedia("(max-width: 900px)");
+      let dotTop = null;
+      const place = (link, animate = true) => {
+        if (!dot || !link || narrow.matches) return;
+        const SIZE = 11, t = link.offsetTop + 17, b = rail.offsetHeight - (t + SIZE);
+        if (!animate || dotTop === null || reduceMotion) {
+          dot.style.transition = "none"; dot.style.top = t + "px"; dot.style.bottom = b + "px"; void dot.offsetWidth; dot.style.transition = "";
+        } else if (t !== dotTop) {
+          const down = t > dotTop, lead = ".42s cubic-bezier(.3,1.55,.5,1)", trail = ".72s .05s cubic-bezier(.45,1.7,.4,1)";
+          dot.style.transition = down ? `bottom ${lead}, top ${trail}` : `top ${lead}, bottom ${trail}`;
+          dot.style.top = t + "px"; dot.style.bottom = b + "px";
+          dot.animate([{ transform: "scaleX(1)" }, { transform: "scaleX(.6)", offset: .3 }, { transform: "scaleX(1.15)", offset: .75 }, { transform: "scaleX(1)" }], { duration: 720, easing: "ease-out" });
+        }
+        dotTop = t;
+      };
       const setActive = (id) => {
         if (id === current) return;
         current = id;
         links.forEach((l) => { const on = l.dataset.to === id; l.classList.toggle("on", on); if (on) l.setAttribute("aria-current", "true"); else l.removeAttribute("aria-current"); });
+        place(links.find((l) => l.dataset.to === id));
       };
+      const resettle = () => { dotTop = null; place(links.find((l) => l.dataset.to === current), false); };
+      addEventListener("resize", resettle);
+      document.fonts?.ready.then(resettle);
       // the row whose top most recently crossed a line 30% down the screen (last row once the page bottoms out)
       const byScroll = () => {
         const line = innerHeight * 0.3;
