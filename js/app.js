@@ -481,14 +481,16 @@
       // hover (or focus) a rail stop: that role stays bright, the others step back
       const focusRow = (id) => { roles.classList.toggle("has-focus", !!id); rows.forEach((r) => r.classList.toggle("focus", idOf(r) === id)); };
       links.forEach((a) => {
-        a.addEventListener("mouseenter", () => focusRow(a.dataset.to));
+        // only for a real pointer or the keyboard: on a phone, tapping a stop leaves it focused, which used to grey out every other role
+        a.addEventListener("mouseenter", () => { if (canHover) focusRow(a.dataset.to); });
         a.addEventListener("mouseleave", () => focusRow(null));
-        a.addEventListener("focus", () => focusRow(a.dataset.to));
+        a.addEventListener("focus", () => { if (a.matches(":focus-visible")) focusRow(a.dataset.to); });
         a.addEventListener("blur", () => focusRow(null));
         a.addEventListener("click", (e) => {
           e.preventDefault();
           const el = document.getElementById("job-" + a.dataset.to);
           if (!el) return;
+          focusRow(null);
           lockId = a.dataset.to; lockUntil = performance.now() + 1100;   // keep the clicked stop lit while the page glides there
           setActive(lockId);
           el.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
