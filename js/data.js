@@ -19,7 +19,8 @@ window.SITE = {
   /* ---------------- ABOUT ---------------- */
   intro: [
     "I study data science at Stanford.",
-    "Chess and poker got me hooked on finding edges, the small stuff everyone else at the table misses. These days I mostly look for them in data.",
+    "I call myself a problem-solving junkie. I love finding an edge, from chess and poker to the sports analytics I did in high school, and real estate has the biggest ones.",
+    "Most of it trades privately, with no exchange and no public prices, so the edge is the information.",
     "The rest of the time I'm on a bike, on a mountain, or ordering the strangest thing on the menu.",
   ],
   now: [
@@ -100,7 +101,7 @@ window.SITE = {
   ],
   // ---- Work page: the story + one card per stop. `learned` is my own one-line takeaway (optional).
   work: {
-    story: "It started at the poker table, figuring out what everyone else didn't know. That turned into sports analytics, then AI, then real estate credit, where every loan is a bet you have to underwrite. Next stop is Tishman Speyer.",
+    story: "I call myself a problem-solving junkie. It started with chess and poker, where the edge is what the other side doesn't know. That turned into sports analytics, then AI, then real estate, where most of the market trades privately and the edge is the information. Next stop is Tishman Speyer.",
     cards: [
       { id: "acore", date: "Summer 2026", short: "ACORE", tag: "Real estate credit", company: "ACORE Capital", logo: "acorecapital.com", logoPad: true, role: "Summer Analyst", when: "2026",
         stat: "57 deals", statLabel: "~$8B underwritten · 11 quoted",
