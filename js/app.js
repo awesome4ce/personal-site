@@ -259,11 +259,12 @@
       ${header("Eats", "Almost 200 places logged on Beli: the best of them, and a few I'd skip.", "I have to try everything at least once. AI can do a lot. It can't taste.",
         `<div class="pills head-pills"><a class="pill sm" href="${esc(S.beli)}" target="_blank" rel="noopener">Follow me on Beli ↗</a><button class="pill sm" id="rain">Make it rain</button></div>`)}
       <h2 class="sec-title">${suit("♥")}Top of my list</h2>
-      <ol class="beli top" id="beli-top">${list.slice(0, 5).map((e, i) => row(e, i + 1)).join("")}</ol>
+      <ol class="beli top" id="beli-top">${list.map((e, i) => row(e, i + 1, i >= 5 ? "extra" : "")).join("")}</ol>
+      ${list.length > 5 ? `<button class="pill see-more" id="see-more">See all ${list.length} ↓</button>` : ""}
       ${S.eatsWorst?.length ? `
       <hr class="rule rule-lg">
       <h2 class="sec-title">${suit("♣")}And the ones I'd skip<span>bottom of my list</span></h2>
-      <ol class="beli worst">${[...S.eatsWorst].sort((a, b) => a.rank - b.rank).map((e) => row(e, e.rank)).join("")}</ol>` : ""}`;
+      <ol class="beli worst">${[...S.eatsWorst].sort((a, b) => a.rank - b.rank).slice(-6).map((e) => row(e, e.rank)).join("")}</ol>` : ""}`;
     },
 
     reads: () => {
@@ -561,7 +562,7 @@
       const more = $("#see-more");
       if (more) more.addEventListener("click", () => {
         const ol = $("#beli-top"), open = ol.classList.toggle("open");
-        more.textContent = open ? "Show top 6 ↑" : `See all ${ol.children.length} ↓`;
+        more.textContent = open ? "Show top 5 ↑" : `See all ${ol.children.length} ↓`;
         if (!open) ol.scrollIntoView({ behavior: "smooth", block: "start" });
       });
     },
