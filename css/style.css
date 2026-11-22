@@ -935,3 +935,24 @@ html, body { overflow-x: clip; }
 
 /* dimming is instant once you start hovering (no easing lag while scrolling) */
 .roles.hot-seen .role-row { transition: opacity .1s ease-out, transform .6s cubic-bezier(.2,.7,.2,1); }
+
+/* Play: the three cycling photos share one size (portrait 3:4, cropped from the centre; the sunset shot keeps the rider) */
+.gallery.bikes .tile.nat { aspect-ratio: 3 / 4 !important; }
+.gallery.bikes .tile.nat img { object-fit: cover; }
+.gallery.bikes img[src*="bike-sunset"] { object-position: 50% 62%; }
+
+/* Play: in the ski gallery, the last photo in a stacked column is cropped to fill whatever height is left,
+   so every column ends at the same line and the next section starts right after it (desktop only) */
+@media (min-width: 821px) {
+  .gallery.fill { align-items: stretch; }
+  .gallery.fill .gcol figure:last-child:not(:only-child) { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; }
+  .gallery.fill .gcol figure:last-child:not(:only-child) .tile { flex: 1 1 0; min-height: 0; aspect-ratio: auto !important; position: relative; }
+  .gallery.fill .gcol figure:last-child:not(:only-child) .tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 78%; }
+}
+
+/* photo tiles: the outline is a box-shadow ring (not a border), so the hover ring and the photo corners share one radius and stay concentric */
+.tile { border: 0 !important; border-radius: 4px; box-shadow: 0 0 0 1px rgba(255,255,255,.12); }
+.tile img { border-radius: 0 !important; }
+.tile:has(img):hover { box-shadow: 0 0 0 2px var(--accent); }
+.pcard-ride .tile { box-shadow: 0 0 0 1px #e2dccf; }
+.pcard-ride .tile:has(img):hover { box-shadow: 0 0 0 2px var(--accent); }

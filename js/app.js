@@ -222,7 +222,7 @@
       <hr class="rule">
       <h2 class="sec-title">${suit("♦")}Skiing<span>${esc(S.ski.sub)}</span></h2>
       <p class="lead-line">${esc(S.ski.text)}</p>
-      ${gallery(S.ski.photos)}
+      ${gallery(S.ski.photos, "fill")}
       <hr class="rule">
       <h2 class="sec-title">${suit("♥")}Volleyball<span>${esc(S.volleyball.sub)}</span></h2>
       <p class="lead-line">${esc(S.volleyball.text)}</p>
