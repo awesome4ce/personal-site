@@ -18,7 +18,6 @@ window.SITE = {
 
   /* ---------------- ABOUT ---------------- */
   intro: [
-    "I study data science at Stanford.",
     "I call myself a problem-solving junkie. I love finding an edge, from chess and poker to the sports analytics I did in high school, and real estate has the biggest ones.",
     "Most of it trades privately, with no exchange and no public prices, so the edge is the information.",
     "The rest of the time I'm on a bike, on a mountain, or ordering the strangest thing on the menu.",

@@ -48,6 +48,22 @@
     });
     return `<div class="gallery ${cls}">${colsHtml.map((c) => `<div class="gcol">${c.join("")}</div>`).join("")}</div>`;
   };
+  // Justified rows: photos keep their full shape, each row is scaled to one shared height, so rows end flush (no ragged columns).
+  // Rows are chosen by splitting the sequence into k runs whose aspect-ratio totals are as even as possible.
+  const jgallery = (items, cls = "", target = 340, W = 1072) => {
+    const r = items.map((p) => ratio(p.img)), n = r.length;
+    const k = Math.max(1, Math.min(n, Math.round((r.reduce((a, b) => a + b, 0) * target) / W)));
+    const avg = r.reduce((a, b) => a + b, 0) / k, cost = Array.from({ length: n + 1 }, () => Array(k + 1).fill(Infinity)), cut = Array.from({ length: n + 1 }, () => Array(k + 1).fill(0));
+    cost[0][0] = 0;
+    for (let j = 1; j <= k; j++) for (let i = 1; i <= n; i++) for (let m = j - 1; m < i; m++) {
+      let sum = 0; for (let t = m; t < i; t++) sum += r[t];
+      const c = cost[m][j - 1] + (sum - avg) ** 2;
+      if (c < cost[i][j]) { cost[i][j] = c; cut[i][j] = m; }
+    }
+    const rowsOut = []; let i = n;
+    for (let j = k; j >= 1; j--) { const m = cut[i][j]; rowsOut.unshift(items.slice(m, i).map((p, t) => ({ p, rr: r[m + t] }))); i = m; }
+    return `<div class="jgallery ${cls}">${rowsOut.map((row) => `<div class="jrow">${row.map(({ p, rr }) => photo(p).replace("<figure>", `<figure style="flex:${rr} 1 0">`)).join("")}</div>`).join("")}</div>`;
+  };
   // company logo from its website's icon; falls back to an initials badge if it can't load
   const initials = (name) => name.replace(/\(.*?\)/g, "").split(/\s+/).filter((w) => /^[A-Z]/.test(w)).slice(0, 2).map((w) => w[0]).join("");
   // `domain` can be a website (logo fetched from its icon) or a local file like "photos/logos/x.png"
@@ -152,7 +168,7 @@
         <div class="card">
           <p class="eyebrow">${suit("♥")}Where I've been</p>
           <ul class="exp-list">
-            ${S.experience.slice(0, 4).map((e) => `
+            ${S.experience.filter((e) => !/^Incoming/.test(e.role)).slice(0, 4).map((e) => `
               <li>${logo(e.company, e.logo, "sm", e.logoPad)}<div class="exp-main"><h4>${esc(e.company.replace(/\s*\(.*\)/, ""))}</h4><div class="role">${esc(e.role)}</div></div></li>`).join("")}
           </ul>
           <a class="more" href="#work">See the work →</a>
@@ -226,7 +242,7 @@
       <hr class="rule">
       <h2 class="sec-title">${suit("♥")}Volleyball<span>${esc(S.volleyball.sub)}</span></h2>
       <p class="lead-line">${esc(S.volleyball.text)}</p>
-      ${gallery(S.volleyball.photos)}
+      ${jgallery(S.volleyball.photos)}
       ${S.hobbies.length ? `<hr class="rule"><div class="grid-2">${S.hobbies.map((h, i) => `
         <article class="card">
           <p class="eyebrow">${suit(h.icon || ["♥", "♣"][i % 2])}${esc(h.sub)}</p>
@@ -235,7 +251,7 @@
         </article>`).join("")}</div>` : ""}
       <hr class="rule">
       <h2 class="sec-title">${suit("♣")}Places</h2>
-      ${gallery(S.travel.map((t) => ({ img: t.img, caption: t.place, sub: t.region })))}`,
+      ${jgallery(S.travel.map((t) => ({ img: t.img, caption: t.place, sub: t.region })))}`,
 
     eats: () => {
       const list = [...S.eats].sort((a, b) => b.score - a.score);
@@ -641,7 +657,7 @@
   // each "block" fades up once; blocks that arrive together stagger top-to-bottom, left-to-right.
   const BLOCKS = [
     ".page-head", ".table", ".card", ".sec-title", ".lead-line", ".pills", ".rule",
-    ".timeline > li", ".role-row", ".lead-list li", ".gallery figure", ".beli li", ".quote", ".reads li", ".filters", ".deal-area",
+    ".timeline > li", ".role-row", ".lead-list li", ".gallery figure", ".jgallery figure", ".beli li", ".quote", ".reads li", ".filters", ".deal-area",
   ].join(",");
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const io = "IntersectionObserver" in window && !reduceMotion
@@ -706,6 +722,8 @@
     moveBar(!first);
     const dir = first ? 0 : Math.sign(ORDER.indexOf(tab) - ORDER.indexOf(current));   // +1 = moving right
     current = tab;
+    const tabInfo = TABS.find((t) => t.id === tab);
+    document.title = tabInfo ? `${tabInfo.label} · ${S.name}` : `${S.name} · Stanford, real estate`;
     const main = $("#main");
     if (first || !dir || reduceMotion || !main.animate) { render(tab); return; }
     // swipe: old page slides out one way, new page slides in from the other side
