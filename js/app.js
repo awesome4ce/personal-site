@@ -391,6 +391,24 @@
   const sessionStorageGet = (k) => { try { return sessionStorage.getItem(k); } catch { return null; } };
   const sessionStorageSet = (k, v) => { try { sessionStorage.setItem(k, v); } catch {} };
 
+  // "Hot" = the row under the pointer. Browsers only refresh :hover once scrolling stops, so we track the pointer ourselves and
+  // re-check on every scroll frame; the row under a resting mouse lights up immediately while the page moves.
+  let hotEl = null, hotCb = null, ptrX = -1, ptrY = -1, pageAbort = null;
+  const canHover = matchMedia("(hover: hover)").matches;
+  const syncHot = () => {
+    if (!canHover) return;
+    const under = ptrX < 0 ? null : document.elementFromPoint(ptrX, ptrY);
+    const item = under ? under.closest(".role-row, .beli li") : null;
+    if (item === hotEl) return;
+    if (hotEl) { hotEl.classList.remove("hot"); hotEl.parentElement && hotEl.parentElement.classList.remove("has-hot"); }
+    hotEl = item;
+    if (item) { item.classList.add("hot"); item.parentElement.classList.add("has-hot", "hot-seen"); }
+    if (hotCb) hotCb(item);
+  };
+  addEventListener("pointermove", (e) => { if (e.pointerType === "touch") return; ptrX = e.clientX; ptrY = e.clientY; syncHot(); }, { passive: true });
+  document.addEventListener("mouseleave", () => { ptrX = -1; syncHot(); });
+  addEventListener("scroll", () => requestAnimationFrame(syncHot), { passive: true });
+
   const after = {
     work: () => {
       const rows = [...document.querySelectorAll(".role-row")];
@@ -412,14 +430,24 @@
         }
         if (y === dotY) return;
         const from = anim ? new DOMMatrix(getComputedStyle(dot).transform).m42 : dotY;   // where it is right now, if a move is still running
-        const dist = Math.abs(y - from), sy = Math.min(1.3, 1 + dist / 900), sx = 1 / sy;
+        const dist = Math.abs(y - from);
         if (anim) anim.cancel();
         dot.style.transform = `translateY(${y}px)`;
-        anim = dot.animate([
-          { transform: `translateY(${from}px) scale(1, 1)` },
-          { transform: `translateY(${(from + y) / 2}px) scale(${sx}, ${sy})`, offset: .45 },
-          { transform: `translateY(${y}px) scale(1, 1)` },
-        ], { duration: Math.min(560, 320 + dist * 0.4), easing: "cubic-bezier(.32, 1.1, .5, 1)" });
+        // a real damped spring (one clear overshoot, a small second wobble), sampled into keyframes; the dot stretches with its speed
+        const ZETA = 0.6, T = Math.min(0.95, 0.6 + dist / 1500);                 // damping, and the time to settle (seconds)
+        const wn = 4 / (ZETA * T), wd = wn * Math.sqrt(1 - ZETA * ZETA), N = 56;
+        const k = Math.min(1, 16 / Math.max(1, dist * 0.095));                      // keep the overshoot to ~16px even on long jumps
+        const raw = (t) => 1 - Math.exp(-ZETA * wn * t) * (Math.cos(wd * t) + (ZETA * wn / wd) * Math.sin(wd * t));
+        const x = (t) => { const v = raw(t); return v > 1 ? 1 + (v - 1) * k : v; };
+        const frames = [];
+        for (let i = 0; i <= N; i++) {
+          const t = (i / N) * T, pos = from + (y - from) * x(t);
+          const speed = Math.abs((y - from) * (x(Math.min(T, t + 0.012)) - x(Math.max(0, t - 0.012)))) / 24 / 1000 * 1000; // px per ms
+          const sy = 1 + Math.min(0.6, speed * 0.55), sx = 1 / Math.sqrt(sy);
+          frames.push({ transform: `translateY(${pos}px) scale(${sx.toFixed(3)}, ${sy.toFixed(3)})`, offset: i / N });
+        }
+        frames[N].transform = `translateY(${y}px) scale(1, 1)`;
+        anim = dot.animate(frames, { duration: T * 1000, easing: "linear" });
         anim.onfinish = () => { anim = null; };
         dotY = y;
       };
@@ -430,7 +458,7 @@
         place(links.find((l) => l.dataset.to === id));
       };
       const resettle = () => { dotY = null; place(links.find((l) => l.dataset.to === current), false); };
-      addEventListener("resize", resettle);
+      addEventListener("resize", resettle, { signal: pageAbort.signal });
       document.fonts?.ready.then(resettle);
       // the row whose top most recently crossed a line 30% down the screen (last row once the page bottoms out)
       const byScroll = () => {
@@ -444,13 +472,12 @@
       const update = () => setActive(hovered || (performance.now() < lockUntil ? lockId : byScroll()));
       let ticking = false;
       const onScroll = () => { if (ticking) return; ticking = true; requestAnimationFrame(() => { ticking = false; update(); }); };
-      addEventListener("scroll", onScroll, { passive: true });
-      addEventListener("resize", onScroll);
-      // hover a role: the rail follows it
-      rows.forEach((r) => {
-        r.addEventListener("mouseenter", () => { hovered = idOf(r); update(); });
-        r.addEventListener("mouseleave", () => { hovered = null; update(); });
-      });
+      const sig = { signal: pageAbort.signal };
+      addEventListener("scroll", onScroll, { passive: true, signal: pageAbort.signal });
+      addEventListener("resize", onScroll, sig);
+      // hover a role (also while scrolling under a resting mouse): the rail follows it
+      hotCb = (item) => { hovered = item && item.classList.contains("role-row") ? idOf(item) : null; update(); };
+      syncHot();
       // hover (or focus) a rail stop: that role stays bright, the others step back
       const focusRow = (id) => { roles.classList.toggle("has-focus", !!id); rows.forEach((r) => r.classList.toggle("focus", idOf(r) === id)); };
       links.forEach((a) => {
@@ -660,6 +687,9 @@
   function render(tab) {
     const main = $("#main");
     window.scrollTo({ top: 0, behavior: "instant" });   // jump, don't smooth-scroll, between pages
+    if (pageAbort) pageAbort.abort();
+    pageAbort = new AbortController();
+    hotEl = null; hotCb = null;
     main.innerHTML = views[tab]();
     after[tab]?.();
     hideResume();

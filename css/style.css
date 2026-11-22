@@ -819,7 +819,7 @@ html, body { overflow-x: clip; }
 
 /* hover: the row you're on stays, the others step back */
 @media (hover: hover) {
-  .roles:has(.role-row:hover) .role-row:not(:hover) { opacity: .38; }
+  .roles.has-hot .role-row:not(.hot) { opacity: .38; }
   .role-row { transition: opacity .3s ease, transform .6s cubic-bezier(.2,.7,.2,1); }
 }
 
@@ -871,7 +871,7 @@ html, body { overflow-x: clip; }
 .beli.worst + * { margin-top: 0; }
 /* hover: the row you're on stays, the rest step back (Eats, like Work; Quotes stay still) */
 @media (hover: hover) {
-  .beli:has(li:hover) li:not(:hover) { opacity: .4; }
+  .beli.has-hot li:not(.hot) { opacity: .4; }
   .beli li { transition: opacity .3s ease, transform .6s cubic-bezier(.2,.7,.2,1); }
 }
 @media (max-width: 900px) {
@@ -933,3 +933,6 @@ html, body { overflow-x: clip; }
 .rail a.on::before { background: var(--bg); border-color: rgba(255,255,255,.34); transform: none; }
 @media (max-width: 900px) { .rail-dot { display: none; } }
 @media (prefers-reduced-motion: reduce) { .rail-dot { transition: none !important; } }
+
+/* dimming is instant once you start hovering (no easing lag while scrolling) */
+.roles.hot-seen .role-row, .beli.hot-seen li { transition: opacity .1s ease-out, transform .6s cubic-bezier(.2,.7,.2,1); }
