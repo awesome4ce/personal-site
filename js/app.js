@@ -688,9 +688,14 @@
     bar.style.width = W1 + "px"; bar.style.transform = `translateX(${L1}px)`;
     const right = R1 >= R0, T = 0.78;
     const lead = spring(0.52, 0.52), trail = spring(0.8, T), N = 48, frames = [];
+    // long trips get a ceiling: the line never stretches past MAX_STRETCH beyond its resting width, and the overshoot stays under ~14px
+    const travel = Math.abs(R1 - R0), MAX_STRETCH = 90, maxW = Math.max(W0, W1) + MAX_STRETCH;
+    const k = Math.min(1, 14 / Math.max(1, travel * 0.18));
+    const cap = (v) => (v > 1 ? 1 + (v - 1) * k : v);
     for (let i = 0; i <= N; i++) {
-      const t = (i / N) * T, fl = lead(Math.min(t, 0.52 * 1.6)), ft = trail(t);
-      const l = L0 + (L1 - L0) * (right ? ft : fl), r = R0 + (R1 - R0) * (right ? fl : ft);
+      const t = (i / N) * T, fl = cap(lead(Math.min(t, 0.52 * 1.6))), ft = trail(t);
+      let l = L0 + (L1 - L0) * (right ? ft : fl), r = R0 + (R1 - R0) * (right ? fl : ft);
+      if (r - l > maxW) { if (right) l = r - maxW; else r = l + maxW; }
       frames.push({ transform: `translateX(${l}px)`, width: `${Math.max(6, r - l)}px`, offset: i / N });
     }
     frames[N] = { transform: `translateX(${L1}px)`, width: `${W1}px`, offset: 1 };
