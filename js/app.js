@@ -171,9 +171,9 @@
       };
       const row = (c, cls = "") => `
         <article class="role-row ${cls}" id="job-${esc(c.id)}">
-          <div class="role-stat">${statHtml(c.stat)}<small>${esc(c.statLabel)}</small></div>
+          <div class="role-stat"><span class="role-date">${esc(c.date || c.when)}</span>${statHtml(c.stat)}<small>${esc(c.statLabel)}</small></div>
           <div class="role-body">
-            <div class="role-co">${logo(c.company, c.logo, "sm", c.logoPad)}<div><h3>${esc(c.company)}</h3><p class="role">${esc(c.role)} · ${esc(c.when)}</p></div></div>
+            <div class="role-co">${logo(c.company, c.logo, "sm", c.logoPad)}<div><h3>${esc(c.company)}</h3><p class="role">${esc(c.role)}</p></div></div>
             <p class="blurb">${esc(c.line)}</p>
             ${c.learned ? `<p class="learned">${esc(c.learned)}</p>` : ""}
           </div>

@@ -902,3 +902,7 @@ html, body { overflow-x: clip; }
 .c-black .c-body { fill: #2457c5 !important; }
 .c-black .c-edge { stroke: #f3efe6 !important; }
 .c-black .c-ring { stroke: #2457c5 !important; }
+
+/* Work: each row carries its own date, small and above the number, so "Summer 2027" can't read as a heading for the rows below it */
+.role-date { display: block; margin-bottom: 14px; font: 500 14px/1 var(--sans); letter-spacing: .02em; color: var(--muted); }
+.role-row.is-next .role-date { color: var(--accent); }
