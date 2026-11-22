@@ -956,3 +956,7 @@ html, body { overflow-x: clip; }
 .tile:has(img):hover { box-shadow: 0 0 0 2px var(--accent); }
 .pcard-ride .tile { box-shadow: 0 0 0 1px #e2dccf; }
 .pcard-ride .tile:has(img):hover { box-shadow: 0 0 0 2px var(--accent); }
+
+/* Play: tighter gap between sections (the photo columns now end on one line, so less air is needed) */
+.rule { margin: 28px 0 0 !important; }
+hr.rule + .sec-title, hr.rule + .grid-2 { margin-top: 20px; }
