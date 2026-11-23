@@ -1036,3 +1036,5 @@ hr.rule + .sec-title, hr.rule + .grid-2 { margin-top: 20px; }
 .below .eyebrow { position: relative; }
 .below .eyebrow > .s:first-child { position: absolute; right: calc(100% + 9px); margin: 0; }
 @media (max-width: 820px) { .below { padding: 0 25px; } }
+/* Home: "Right now" lines use the full column width before wrapping */
+.below .now-list li { max-width: none; }
