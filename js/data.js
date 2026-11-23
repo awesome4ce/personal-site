@@ -8,7 +8,7 @@
 window.SITE = {
   name: "Ethan Seung",
   updated: "November 2026", // shown in the footer; bump it when you change things
-  eyebrow: "Stanford · Data Science · Quant Finance",
+  eyebrow: "Stanford · Data Science · Problem-Solving Junkie",
   headshot: "photos/headshot.jpg",
   babyPhoto: "photos/baby.jpg", // shows on the S♥ card ("then")
   email: "eseung@stanford.edu",
