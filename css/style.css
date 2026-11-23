@@ -994,7 +994,7 @@ hr.rule + .sec-title, hr.rule + .grid-2 { margin-top: 20px; }
 @media (min-width: 821px) { .jrow img[src*="vb-dig"] { object-position: 50% 68%; } }
 
 /* Headers: one left edge. Title, subtitle and the content below all start at the same line; the suit hangs to the left
-   of it like a bullet. On screens too narrow to hang it, the suit sits beside the title and everything else still starts at the edge. */
+   of it like a bullet (not on Home, whose labels keep the suit inline). On screens too narrow to hang it, the suit sits beside the title and everything else still starts at the edge. */
 .page-head { display: grid; grid-template-columns: auto 1fr; column-gap: 18px; align-items: start; }
 .page-head > div { display: contents; }
 .page-head .page-suit { grid-column: 1; grid-row: 1; align-self: center; margin-top: 0; }
@@ -1008,8 +1008,6 @@ hr.rule + .sec-title, hr.rule + .grid-2 { margin-top: 20px; }
   .page-head .aside { margin-top: -30px; }
   .sec-title { position: relative; }
   .sec-title > .s:first-child { position: absolute; right: calc(100% + 12px); top: .28em; margin: 0; }
-  .below .eyebrow { position: relative; }
-  .below .eyebrow > .s:first-child { position: absolute; right: calc(100% + 8px); margin: 0; }
 }
 .page-head + .story { margin-top: 10px; }
 
