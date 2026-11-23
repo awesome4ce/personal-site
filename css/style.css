@@ -1038,3 +1038,10 @@ hr.rule + .sec-title, hr.rule + .grid-2 { margin-top: 20px; }
 @media (max-width: 820px) { .below { padding: 0 25px; } }
 /* Home: "Right now" lines use the full column width before wrapping */
 .below .now-list li { max-width: none; }
+
+/* Home: the two sections sit as one centred pair (each column sized to its content, text left-aligned inside) */
+@media (min-width: 821px) {
+  .below { display: flex; justify-content: center; align-items: flex-start; gap: 112px; padding: 0; }
+  .below > .card { flex: 0 1 auto; min-width: 0; }
+  .below > .card:first-child { flex-basis: 430px; }
+}
