@@ -1031,3 +1031,12 @@ hr.rule + .sec-title, hr.rule + .grid-2 { margin-top: 20px; }
 .mc-front { font: 700 13px/1 var(--sans) !important; color: #1f1d1a !important; gap: 1px; }
 .mc-front.red { color: #b5473a !important; }
 .mc-front i { font-size: 11px; }
+
+/* photo cards: each corner index is centred in the white side margin and lines up with the photo's top edge
+   (and, flipped, with its bottom edge), so letter, suit and picture read as one aligned grid */
+.pc .ix { top: 40px; left: 0; width: 30px; }
+.pc .ix.flip { top: auto; left: auto; bottom: 40px; right: 0; width: 30px; }
+
+/* logo cards: same face as the photo-card indices (the serif, semibold) */
+.mc-front { font: 600 14px/1 var(--serif) !important; }
+.mc-front i { font-style: normal; font-size: 11px; }
