@@ -1039,9 +1039,9 @@ hr.rule + .sec-title, hr.rule + .grid-2 { margin-top: 20px; }
 /* Home: "Right now" lines use the full column width before wrapping */
 .below .now-list li { max-width: none; }
 
-/* Home: the two sections sit as one centred pair (each column sized to its content, text left-aligned inside) */
+/* Home: the two sections follow the hero panel's own grid, so each column lines up with the hero above it:
+   "Right now" under the intro text, "Where I've been" under the photo cards (panel border + padding, 1fr | 400px, 56px gap) */
 @media (min-width: 821px) {
-  .below { display: flex; justify-content: center; align-items: flex-start; gap: 112px; padding: 0; }
-  .below > .card { flex: 0 1 auto; min-width: 0; }
-  .below > .card:first-child { flex-basis: 430px; }
+  .below { display: grid; grid-template-columns: 1fr 400px; column-gap: 56px; padding: 0 65px 0 73px; }
+  .below > .card:last-child { justify-self: center; width: 320px; }
 }
