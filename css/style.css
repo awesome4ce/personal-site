@@ -1040,3 +1040,10 @@ hr.rule + .sec-title, hr.rule + .grid-2 { margin-top: 20px; }
 /* logo cards: same face as the photo-card indices (the serif, semibold) */
 .mc-front { font: 600 14px/1 var(--serif) !important; }
 .mc-front i { font-style: normal; font-size: 11px; }
+
+/* Home: "Right now" / "Where I've been" sit on the same left line as the hero text inside the panel above
+   (panel border + its inner padding), and their suits hang to the left like the other pages' headers */
+.below { padding: 0 65px 0 73px; }
+.below .eyebrow { position: relative; }
+.below .eyebrow > .s:first-child { position: absolute; right: calc(100% + 9px); margin: 0; }
+@media (max-width: 820px) { .below { padding: 0 25px; } }
