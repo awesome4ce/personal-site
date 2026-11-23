@@ -1012,3 +1012,13 @@ hr.rule + .sec-title, hr.rule + .grid-2 { margin-top: 20px; }
   .below .eyebrow > .s:first-child { position: absolute; right: calc(100% + 8px); margin: 0; }
 }
 .page-head + .story { margin-top: 10px; }
+
+/* nav as glass: see-through tint, frosted and saturated backdrop, a lit top edge and a soft drop shadow */
+.nav {
+  background-color: rgba(20, 42, 33, .52) !important;
+  background-image: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.015) 55%, rgba(255,255,255,0)) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  backdrop-filter: blur(16px) saturate(160%);
+  border-bottom: 1px solid rgba(255,255,255,.12) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.10), 0 10px 28px -16px rgba(0,0,0,.55);
+}
